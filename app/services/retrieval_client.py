@@ -1,0 +1,52 @@
+from __future__ import annotations
+
+from datetime import datetime, timedelta, timezone
+import httpx
+from app.config import settings
+
+
+class RetrievalClient:
+    """
+    Generic retrieval client wrapper.
+    Default config points to CourtListener-style search, but path/query can be changed via env.
+    """
+
+    def __init__(self):
+        self.base_url = settings.retrieval_base_url.rstrip("/")
+        self.search_path = settings.retrieval_search_path
+        self.api_key = settings.retrieval_api_key
+
+    def search_recent_cases(self, query: str, lookback_days: int = 14, page_size: int = 25) -> list[dict]:
+        url = f"{self.base_url}{self.search_path}"
+        since = (datetime.now(timezone.utc) - timedelta(days=lookback_days)).date().isoformat()
+
+        headers = {}
+        if self.api_key:
+            # Keep flexible; different sources use different auth headers.
+            headers["Authorization"] = f"Token {self.api_key}"
+
+        params = {
+            "q": query,
+            "page_size": page_size,
+            # source-specific filters may differ; these are harmless if ignored
+            "type": "o",         # opinions (if supported)
+            "order_by": "dateFiled desc",
+            "date_filed_min": since,
+        }
+
+        with httpx.Client(timeout=30.0, headers=headers) as client:
+            resp = client.get(url, params=params)
+            resp.raise_for_status()
+            data = resp.json()
+
+        # Be defensive about shape
+        if isinstance(data, dict):
+            if "results" in data and isinstance(data["results"], list):
+                return data["results"]
+            if "objects" in data and isinstance(data["objects"], list):
+                return data["objects"]
+
+        if isinstance(data, list):
+            return data
+
+        return []
