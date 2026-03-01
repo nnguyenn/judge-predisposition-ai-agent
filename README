@@ -1,0 +1,62 @@
+## Quickstart (Local MVP Demo)
+
+### Requirements
+
+* Python 3.11+
+* Docker Desktop
+
+### Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+Make sure `.env` contains:
+
+```env
+DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:55432/habeas_tracker
+```
+
+And `docker-compose.yml` exposes:
+
+```yaml
+ports:
+  - "55432:5432"
+```
+
+### Run
+
+```bash
+docker compose up -d db
+uvicorn app.main:app --reload
+```
+
+Open Swagger docs:
+
+* http://127.0.0.1:8000/docs
+
+### Seed Demo Data (recommended)
+
+In a new terminal:
+
+```bash
+source .venv/bin/activate
+python -m scripts.seed_demo
+```
+
+### Demo Endpoints
+
+1. `GET /api/health`
+2. `GET /api/cases`
+3. `POST /api/cases/{case_id}/extract` (run for demo cases)
+4. `POST /api/scores/recompute`
+5. `GET /api/judges/Judge Alpha/scores`
+6. `POST /api/pipeline/run-once`
+
+### Notes
+
+* The current MVP demonstrates the extraction/scoring pipeline and review workflow.
+* Live ingestion may return metadata-only records that are skipped for extraction until full-text enrichment is added.
