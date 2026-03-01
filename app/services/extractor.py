@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Any
 
 
-# Seed lexicons (short MVP subset from your memo; expand over time)
+# Seed lexicons (short MVP subset from memo; expand over time)
 LEXICONS = {
     "textual_analysis": [
         "seeking admission", "applicants for admission", "ordinary meaning",

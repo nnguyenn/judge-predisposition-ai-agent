@@ -15,5 +15,14 @@ class Settings(BaseSettings):
     poll_lookback_days: int = 14
     poll_max_results: int = 25
 
+    # Agent loop / scheduler
+    enable_scheduler: bool = False
+    scheduler_interval_minutes: int = 30
+
+    # Extraction pipeline behavior
+    extraction_batch_limit: int = 50
+    auto_review_confidence_threshold: float = 0.45
+    require_opinion_text_for_auto_extract: bool = False  # if True, skip snippet-only cases
+
 
 settings = Settings()

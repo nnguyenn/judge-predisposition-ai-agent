@@ -22,7 +22,7 @@ class RetrievalClient:
 
         headers = {}
         if self.api_key:
-            # Keep flexible; different sources use different auth headers.
+            # Keep flexible, different sources use different auth headers
             headers["Authorization"] = f"Token {self.api_key}"
 
         params = {
