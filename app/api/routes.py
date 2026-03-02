@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import select, and_
+from app.config import settings
 
 from app.db import get_db
 from app.models import CaseRecord, CaseExtraction, JudgeIssueScore
@@ -13,6 +14,7 @@ from app.jobs.pipeline import (
 )
 from app.services.extractor import extract_case
 from app.services.scoring import recompute_judge_scores
+from app.services.text_enricher import enrich_case_text, batch_enrich_text
 
 router = APIRouter()
 
@@ -199,6 +201,47 @@ def get_judge_scores(judge_name: str, db: Session = Depends(get_db)):
         .all()
     )
     return rows
+
+@router.post("/cases/{case_id}/enrich-text")
+def enrich_single_case_text(
+    case_id: int,
+    overwrite: bool = Query(default=False),
+    db: Session = Depends(get_db),
+):
+    case = db.get(CaseRecord, case_id)
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+
+    result = enrich_case_text(
+        case,
+        timeout=settings.enrichment_timeout_seconds,
+        overwrite=overwrite,
+    )
+    db.commit()
+    db.refresh(case)
+
+    return {
+        "case_id": case.id,
+        "case_caption": case.case_caption,
+        "result": result,
+        "has_opinion_text": bool(case.opinion_text and case.opinion_text.strip()),
+        "opinion_text_length": len(case.opinion_text) if case.opinion_text else 0,
+        "text_excerpt_length": len(case.text_excerpt) if case.text_excerpt else 0,
+    }
+
+
+@router.post("/enrich/text/batch")
+def enrich_text_batch(
+    limit: int = Query(default=50, ge=1, le=1000),
+    overwrite: bool = Query(default=False),
+    db: Session = Depends(get_db),
+):
+    return batch_enrich_text(
+        db,
+        limit=limit,
+        overwrite=overwrite,
+        timeout=settings.enrichment_timeout_seconds,
+    )
 
 
 def _normalize_habeas_outcome(holdings: dict | None) -> str:

@@ -4,13 +4,14 @@ from datetime import datetime, date
 from typing import Any
 
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, or_
 
 from app.config import settings
 from app.models import CaseRecord, CaseExtraction
 from app.jobs.poll_cases import ingest_recent_cases
 from app.services.extractor import extract_case
 from app.services.scoring import recompute_judge_scores
+from app.services.text_enricher import batch_enrich_text
 
 
 def _apply_extraction_to_case(db: Session, case: CaseRecord) -> tuple[CaseExtraction | None, str]:
@@ -79,6 +80,12 @@ def batch_extract_unprocessed_cases(db: Session, limit: int | None = None) -> di
         select(CaseRecord)
         .outerjoin(CaseExtraction, CaseExtraction.case_id == CaseRecord.id)
         .where(CaseExtraction.id.is_(None))
+        .where(
+            or_(
+                CaseRecord.opinion_text.is_not(None),
+                CaseRecord.text_excerpt.is_not(None),
+            )
+        )
         .order_by(CaseRecord.decision_date.desc().nullslast(), CaseRecord.id.desc())
         .limit(limit)
     )
@@ -130,12 +137,23 @@ def run_pipeline_once(db: Session) -> dict[str, Any]:
     """
     End-to-end agent loop:
     1) Ingest recent cases
-    2) Extract unprocessed cases
-    3) Recompute judge scores
+    2) Enrich text for cases missing opinion text (optional)
+    3) Extract unprocessed cases
+    4) Recompute judge scores
     """
     started = datetime.utcnow()
 
     ingest_stats = ingest_recent_cases(db)
+
+    enrich_stats = None
+    if settings.enable_text_enrichment_in_pipeline:
+        enrich_stats = batch_enrich_text(
+            db,
+            limit=settings.enrichment_batch_limit,
+            overwrite=False,
+            timeout=settings.enrichment_timeout_seconds,
+        )
+
     extract_stats = batch_extract_unprocessed_cases(db, limit=settings.extraction_batch_limit)
     score_count = recompute_judge_scores(db, as_of=date.today())
 
@@ -145,6 +163,7 @@ def run_pipeline_once(db: Session) -> dict[str, Any]:
         "started_at": started.isoformat(),
         "finished_at": finished.isoformat(),
         "ingest": ingest_stats,
+        "enrich_text": enrich_stats,
         "extract": extract_stats,
         "scores": {"created_snapshots": score_count},
     }

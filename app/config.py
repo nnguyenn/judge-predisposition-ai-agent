@@ -23,6 +23,11 @@ class Settings(BaseSettings):
     extraction_batch_limit: int = 50
     auto_review_confidence_threshold: float = 0.45
     require_opinion_text_for_auto_extract: bool = False  # if True, skip snippet-only cases
+    
+    # Text enrichment
+    enrichment_batch_limit: int = 50
+    enrichment_timeout_seconds: int = 20
+    enable_text_enrichment_in_pipeline: bool = True
 
 
 settings = Settings()

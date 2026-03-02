@@ -32,6 +32,18 @@ def api_post(path: str, params: dict | None = None, timeout: float = 60.0) -> An
         resp.raise_for_status()
         return resp.json()
 
+def user_friendly_api_error(e: Exception) -> str:
+    msg = str(e)
+
+    # Friendly explanation for metadata-only cases (no text to extract)
+    if "400 Bad Request" in msg and "/extract" in msg:
+        return (
+            "This case cannot be analyzed yet because no opinion text/snippet is currently available. "
+            "It appears to be a metadata-only record at the moment."
+        )
+
+    return msg
+
 
 def outcome_badge(outcome: str | None) -> str:
     outcome = (outcome or "unknown").lower()
@@ -63,25 +75,112 @@ def safe_df(rows: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def render_status_legend():
-    with st.expander("ℹ️ What the outcome badges and review statuses mean", expanded=False):
+    with st.expander("ℹ️ What the outcomes and review statuses mean", expanded=False):
         st.markdown(
             """
-**Habeas Outcome (UI badge)**
-- 🟢 **Granted** — Extractor found language indicating the habeas petition / writ was granted.
-- 🔴 **Denied** — Extractor found language indicating the habeas petition / writ was denied.
-- 🟡 **Partial** — Extractor found “granted in part / denied in part” style language.
-- ⚪ **Unknown** — No extraction yet, insufficient text, or extractor could not confidently classify the outcome.
+**Habeas Outcome**
+- 🟢 **Granted** — The extractor found language indicating the habeas petition / writ was granted.
+- 🔴 **Denied** — The extractor found language indicating the habeas petition / writ was denied.
+- 🟡 **Partial** — The extractor found “granted in part / denied in part” language.
+- ⚪ **Unknown** — No analysis yet, insufficient case text, or the extractor could not classify the outcome.
 
 **Review Status**
-- 🤖 **auto** — Auto-extracted and accepted by pipeline rules.
-- ⚠️ **needs_review** — Low-confidence or ambiguous extraction; should be reviewed before relying on analytics.
-- ✅ **reviewed** — Manually reviewed/approved.
-- 🚫 **rejected** — Extraction rejected (excluded from analytics).
+- 🤖 **Auto** — Automatically analyzed and accepted by current rules.
+- ⚠️ **Needs Review** — Low-confidence or ambiguous result; should be checked before relying on analytics.
+- ✅ **Reviewed** — Manually reviewed/approved.
+- 🚫 **Rejected** — Analysis rejected and excluded from analytics.
 
-**Important**
-- Judge score analytics include only cases marked **auto** or **reviewed**.
+**Historical Judge Pattern Metrics**
+- Judge summary metrics are based only on cases marked **Auto** or **Reviewed**.
 """
         )
+
+def render_cases_needing_review():
+    st.markdown("### Cases Needing Review")
+    st.caption("These are analyzed cases flagged for manual review before they are used in judge pattern analytics.")
+
+    try:
+        rows = api_get("/api/review/queue", params={"limit": 200})
+    except Exception as e:
+        st.error(f"Could not load review queue: {user_friendly_api_error(e)}")
+        return
+
+    if not rows:
+        st.success("No cases are currently flagged for review.")
+        return
+
+    table_rows = []
+    for r in rows:
+        holdings = r.get("holdings") or {}
+        raw_relief = (holdings.get("habeas_relief") or "").lower()
+        if "granted_in_part" in raw_relief or "denied_in_part" in raw_relief or "in part" in raw_relief:
+            outcome = "partial"
+        elif raw_relief == "granted":
+            outcome = "granted"
+        elif raw_relief == "denied":
+            outcome = "denied"
+        else:
+            outcome = "unknown"
+
+        table_rows.append({
+            "case_id": r.get("case_id"),
+            "date": r.get("decision_date"),
+            "case_caption": r.get("case_caption"),
+            "judge": r.get("judge_name"),
+            "court": r.get("court"),
+            "habeas_outcome": outcome_badge(outcome),
+            "detention_classification": holdings.get("applicable_subprovision") or holdings.get("applicable_provision"),
+            "bond_status": holdings.get("bond_status"),
+            "extraction_confidence": r.get("confidence"),
+            "review_status": review_badge(r.get("review_status")),
+        })
+
+    df = pd.DataFrame(table_rows)
+    st.dataframe(df, use_container_width=True, hide_index=True)
+
+    st.markdown("#### Review actions")
+    selected_case_id = st.selectbox(
+        "Select a flagged case",
+        options=[r["case_id"] for r in rows],
+        format_func=lambda cid: next(
+            (f"{x['case_id']} • {x.get('case_caption') or 'Untitled'}" for x in rows if x["case_id"] == cid),
+            str(cid)
+        ),
+        key="review_queue_case_select",
+    )
+
+    c1, c2, c3, c4 = st.columns(4)
+    if c1.button("Mark Auto", key="rq_mark_auto"):
+        try:
+            api_post(f"/api/review/{selected_case_id}/mark", params={"status": "auto"})
+            st.success("Marked Auto")
+            st.rerun()
+        except Exception as e:
+            st.error(user_friendly_api_error(e))
+
+    if c2.button("Mark Reviewed", key="rq_mark_reviewed"):
+        try:
+            api_post(f"/api/review/{selected_case_id}/mark", params={"status": "reviewed"})
+            st.success("Marked Reviewed")
+            st.rerun()
+        except Exception as e:
+            st.error(user_friendly_api_error(e))
+
+    if c3.button("Reject", key="rq_mark_rejected"):
+        try:
+            api_post(f"/api/review/{selected_case_id}/mark", params={"status": "rejected"})
+            st.warning("Marked Rejected")
+            st.rerun()
+        except Exception as e:
+            st.error(user_friendly_api_error(e))
+
+    if c4.button("Reanalyze Selected", key="rq_reextract_one"):
+        try:
+            api_post(f"/api/cases/{selected_case_id}/extract")
+            st.success("Case reanalyzed")
+            st.rerun()
+        except Exception as e:
+            st.error(user_friendly_api_error(e))
 
 
 def render_case_summary_metrics(cases: list[dict]):
@@ -103,10 +202,10 @@ def render_case_detail(detail: dict):
 
     top1, top2, top3, top4 = st.columns(4)
     top1.metric("Habeas Outcome", outcome_badge(detail.get("habeas_outcome")))
-    top2.metric("Provision", detail.get("applicable_subprovision") or detail.get("applicable_provision") or "Unknown")
-    top3.metric("Bond Status", detail.get("bond_status") or "Unknown")
+    top2.metric("Detention Classification", detail.get("applicable_subprovision") or detail.get("applicable_provision") or "Unknown")
+    top3.metric("Bond Hearing", detail.get("bond_status") or "Unknown")
     conf = detail.get("confidence")
-    top4.metric("Confidence", f"{conf:.2f}" if isinstance(conf, (int, float)) else "N/A")
+    top4.metric("Extraction Confidence", f"{conf:.2f}" if isinstance(conf, (int, float)) else "N/A")
 
     meta_cols = st.columns(4)
     meta_cols[0].write(f"**Judge:** {detail.get('judge_name') or 'Unknown'}")
@@ -183,6 +282,24 @@ def render_judge_scores(judge_name: str):
         d2 = r["rate_bond_eligible"]
         d.metric("Bond Eligible Rate", f"{d2:.2f}" if pd.notna(d2) else "N/A")
 
+def render_law_friendly_intro():
+    st.markdown(
+        """
+This tool helps track **historical judicial ruling patterns** on the **§1225 / §1226 habeas detention issue**.
+
+It can:
+- identify whether **habeas relief was granted, denied, or partially granted**
+- classify the detention issue (**1225 vs 1226**)
+- show supporting evidence snippets from the case text
+- summarize **judge-level historical patterns** based on past analyzed cases
+
+"""
+    )
+    st.caption(
+        "Results are descriptive research analytics based on extracted case text (not legal advice). "
+        "Cases marked 'Needs Review' should be checked before relying on trend metrics."
+    )
+
 
 # ---------------------------
 # Sidebar controls
@@ -215,15 +332,25 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("### Actions")
 
 row1a, row1b = st.sidebar.columns(2)
-run_pipeline = row1a.button("Run Pipeline")
-recompute_scores = row1b.button("Recompute Scores")
+run_pipeline = row1a.button("Check for New Cases")
+recompute_scores = row1b.button("Refresh Judge Metrics")
 
 row2a, row2b = st.sidebar.columns(2)
-extract_batch = row2a.button("Extract Batch")
-retry_review_queue = row2b.button("Retry Review Queue")
+extract_batch = row2a.button("Analyze Available Cases")
+retry_review_queue = row2b.button("Reanalyze Flagged Cases")
+
+row3a, row3b = st.sidebar.columns(2)
+enrich_text_batch = row3a.button("Fetch Opinion Text")
+enrich_limit = st.sidebar.number_input(
+    "Opinion-text fetch limit",
+    min_value=1,
+    max_value=1000,
+    value=50,
+    step=10,
+)
 
 batch_limit = st.sidebar.number_input(
-    "Batch extract limit",
+    "Analyze case limit",
     min_value=1,
     max_value=1000,
     value=100,
@@ -231,7 +358,7 @@ batch_limit = st.sidebar.number_input(
 )
 
 review_retry_limit = st.sidebar.number_input(
-    "Review retry limit",
+    "Flagged-case reanalysis limit",
     min_value=1,
     max_value=500,
     value=50,
@@ -241,42 +368,48 @@ review_retry_limit = st.sidebar.number_input(
 if run_pipeline:
     try:
         result = api_post("/api/pipeline/run-once")
-        st.sidebar.success("Pipeline completed")
+        st.sidebar.success("Case check completed")
         st.sidebar.json(result)
     except Exception as e:
-        st.sidebar.error(f"Pipeline failed: {e}")
+        st.sidebar.error(f"Case check failed: {user_friendly_api_error(e)}")
+
+if enrich_text_batch:
+    try:
+        result = api_post("/api/enrich/text/batch", params={"limit": int(enrich_limit)})
+        st.sidebar.success("Opinion text fetch completed")
+        st.sidebar.json(result)
+    except Exception as e:
+        st.sidebar.error(user_friendly_api_error(e))
 
 if recompute_scores:
     try:
         result = api_post("/api/scores/recompute")
-        st.sidebar.success("Scores recomputed")
+        st.sidebar.success("Judge metrics refreshed")
         st.sidebar.json(result)
     except Exception as e:
-        st.sidebar.error(f"Recompute failed: {e}")
+        st.sidebar.error(f"Refresh failed: {user_friendly_api_error(e)}")
 
 if extract_batch:
     try:
         result = api_post("/api/extract/batch", params={"limit": int(batch_limit)})
-        st.sidebar.success("Batch extraction completed")
+        st.sidebar.success("Analysis completed")
         st.sidebar.json(result)
     except Exception as e:
-        st.sidebar.error(f"Batch extract failed: {e}")
+        st.sidebar.error(f"Analysis failed: {user_friendly_api_error(e)}")
 
 if retry_review_queue:
     try:
         result = api_post("/api/extract/review/retry", params={"limit": int(review_retry_limit)})
-        st.sidebar.success("Review retry completed")
+        st.sidebar.success("Flagged cases reanalyzed")
         st.sidebar.json(result)
     except Exception as e:
-        st.sidebar.error(f"Review retry failed: {e}")
+        st.sidebar.error(f"Reanalysis failed: {user_friendly_api_error(e)}")
 
 # ---------------------------
 # Main page
 # ---------------------------
-st.title("⚖️ Habeas 1225/1226 Judge Pattern Tracker")
-st.caption(
-    "MVP UI for browsing cases, seeing habeas outcomes, reviewing extraction evidence, and checking judge-level trend scores."
-)
+st.title("⚖️ Habeas 1225/1226 Judicial Pattern Tracker")
+render_law_friendly_intro()
 
 # Health check
 try:
@@ -300,14 +433,19 @@ if review_filter_label != "All":
 
 try:
     payload = api_get("/api/ui/cases", params=params)
+    
 except Exception as e:
-    st.error(f"Failed to load cases: {e}")
-    st.stop()
+    st.error(user_friendly_api_error(e))
 
 cases = payload.get("cases", [])
 render_status_legend()
 
-tab1, tab2, tab3 = st.tabs(["📚 Case Explorer", "🔍 Case Detail", "👩‍⚖️ Judge Summary"])
+tab1, tab2, tab3, tab4 = st.tabs([
+    "📚 Case List",
+    "🔍 Case Detail",
+    "⚠️ Cases Needing Review",
+    "👩‍⚖️ Historical Judge Patterns",
+])
 
 with tab1:
     st.markdown("### Cases")
@@ -323,9 +461,9 @@ with tab1:
                 "judge": c.get("judge_name"),
                 "court": c.get("court"),
                 "habeas_outcome": outcome_badge(c.get("habeas_outcome")),
-                "provision": c.get("applicable_subprovision") or c.get("applicable_provision"),
+                "detention_classification": c.get("applicable_subprovision") or c.get("applicable_provision"),
                 "bond_status": c.get("bond_status"),
-                "confidence": c.get("confidence"),
+                "extraction_confidence": c.get("confidence"),
                 "review_status": review_badge(c.get("review_status")),
                 "has_extraction": c.get("has_extraction"),
             })
@@ -360,7 +498,7 @@ with tab2:
 
             # quick review controls
             st.markdown("### Review Controls")
-            rc1, rc2, rc3, rc4 = st.columns(4)
+            rc1, rc2, rc3, rc4, rc5 = st.columns(5)
             if rc1.button("Mark auto", key=f"mark_auto_{selected_case_id}"):
                 api_post(f"/api/review/{selected_case_id}/mark", params={"status": "auto"})
                 st.success("Marked auto")
@@ -377,11 +515,21 @@ with tab2:
                 api_post(f"/api/cases/{selected_case_id}/extract")
                 st.success("Re-extracted case")
                 st.rerun()
+            if rc5.button("Fetch Opinion Text", key=f"enrich_{selected_case_id}"):
+              try:
+                  api_post(f"/api/cases/{selected_case_id}/enrich-text")
+                  st.success("Opinion text fetch attempted")
+                  st.rerun()
+              except Exception as e:
+                  st.error(user_friendly_api_error(e))
 
         except Exception as e:
-            st.error(f"Failed to load case detail: {e}")
+            st.error(user_friendly_api_error(e))
 
 with tab3:
+    render_cases_needing_review()
+
+with tab4:
     # derive default judge from selected case
     selected_case_id = st.session_state.get("selected_case_id")
     default_judge = ""
