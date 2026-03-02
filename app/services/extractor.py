@@ -55,11 +55,27 @@ def _find_hits(text: str, phrases: list[str]) -> list[str]:
             hits.append(p)
     return hits
 
+def _window(text: str, start: int, end: int, radius: int = 180) -> str:
+    s = max(0, start - radius)
+    e = min(len(text), end + radius)
+    return text[s:e]
+
+
+def _first_match(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL):
+    for p in patterns:
+        m = re.search(p, text, flags)
+        if m:
+            return m
+    return None
+
 
 def _extract_holdings(text: str) -> tuple[dict, dict]:
     t = _normalize(text)
     evidence = {}
 
+    # ---------------------------
+    # Applicable detention provision
+    # ---------------------------
     provision = None
     subprovision = None
     if "1226(a)" in t:
@@ -73,39 +89,138 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     elif "§ 1225" in text or " 1225 " in t:
         provision = "1225"
 
+    # ---------------------------
+    # Bond hearing status
+    # ---------------------------
     bond = None
-    if "bond hearing" in t:
-        if any(x in t for x in ["eligible for a bond hearing", "entitled to a bond hearing", "must receive a bond hearing"]):
-            bond = "eligible"
-        elif any(x in t for x in ["not eligible for a bond hearing", "no bond hearing", "mandatory detention"]):
-            bond = "mandatory_detention_or_no_bond"
+    bond_positive_patterns = [
+        r"(eligible|entitled)\s+for\s+a\s+bond\s+hearing",
+        r"must\s+receive\s+a\s+bond\s+hearing",
+        r"shall\s+receive\s+a\s+bond\s+hearing",
+        r"bond\s+hearing\s+is\s+required",
+    ]
+    bond_negative_patterns = [
+        r"(not\s+eligible|ineligible)\s+for\s+a\s+bond\s+hearing",
+        r"no\s+bond\s+hearing",
+        r"mandatory\s+detention",
+    ]
 
+    m_bond_pos = _first_match(text, bond_positive_patterns)
+    m_bond_neg = _first_match(text, bond_negative_patterns)
+
+    if m_bond_pos:
+        bond = "eligible"
+        evidence["bond_status_signal"] = _window(text, m_bond_pos.start(), m_bond_pos.end())
+    elif m_bond_neg:
+        bond = "mandatory_detention_or_no_bond"
+        evidence["bond_status_signal"] = _window(text, m_bond_neg.start(), m_bond_neg.end())
+
+    # ---------------------------
+    # Habeas disposition (grant / deny / partial / unknown)
+    # ---------------------------
     habeas_relief = None
-    if "granted in part and denied in part" in t:
-        habeas_relief = "granted_in_part_and_denied_in_part"
-    elif "granted in part" in t:
-        habeas_relief = "granted_in_part"
-    elif "denied in part" in t:
-        habeas_relief = "denied_in_part"
-    elif re.search(r"\bpetition\b.*\bgranted\b", t) or re.search(r"\bhabeas\b.*\bgranted\b", t):
-        habeas_relief = "granted"
-    elif re.search(r"\bpetition\b.*\bdenied\b", t) or re.search(r"\bhabeas\b.*\bdenied\b", t):
-        habeas_relief = "denied"
+    non_merits_disposition = None
 
-    # Extract rough evidence snippets
+    # Partial first (most specific)
+    partial_patterns = [
+        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
+        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
+        r"\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
+        r"\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
+        r"(habeas\s+petition|petition|writ)[^.]{0,140}\bgranted\s+in\s+part\b",
+        r"(habeas\s+petition|petition|writ)[^.]{0,140}\bdenied\s+in\s+part\b",
+    ]
+
+    # Explicit habeas / petition / writ grant/deny
+    grant_patterns = [
+        r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?granted\b",
+        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?granted\b",
+        r"\bwrit\b[^.]{0,120}\b(is\s+)?granted\b",
+        r"\bhabeas\s+relief\b[^.]{0,120}\b(is\s+)?granted\b",
+        r"\bthe\s+court\s+grants\s+the\s+(habeas\s+)?petition\b",
+        r"\bpetition\b[^.]{0,140}\bgranted\b",
+    ]
+    deny_patterns = [
+        r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?denied\b",
+        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?denied\b",
+        r"\bwrit\b[^.]{0,120}\b(is\s+)?denied\b",
+        r"\bhabeas\s+relief\b[^.]{0,120}\b(is\s+)?denied\b",
+        r"\bthe\s+court\s+denies\s+the\s+(habeas\s+)?petition\b",
+        r"\bpetition\b[^.]{0,140}\bdenied\b",
+    ]
+
+    # Non-merits dispositions (for now keep habeas_relief unknown)
+    moot_patterns = [
+        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\s+as\s+moot\b",
+        r"\bdismissed\s+as\s+moot\b",
+    ]
+    dismissed_patterns = [
+        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\b",
+    ]
+
+    # False-positive phrases to avoid treating as habeas grant/deny
+    false_positive_motion_patterns = [
+        r"\bmotion\s+to\s+dismiss\b[^.]{0,120}\bgranted\b",
+        r"\brespondent'?s\s+motion\b[^.]{0,120}\bgranted\b",
+        r"\bmotion\s+for\s+summary\s+judgment\b[^.]{0,120}\bgranted\b",
+    ]
+
+    m_partial = _first_match(text, partial_patterns)
+    m_grant = _first_match(text, grant_patterns)
+    m_deny = _first_match(text, deny_patterns)
+    m_moot = _first_match(text, moot_patterns)
+    m_dismissed = _first_match(text, dismissed_patterns)
+    m_false_motion = _first_match(text, false_positive_motion_patterns)
+
+    if m_partial:
+        # Preserve your existing schema values where possible
+        raw_span = m_partial.group(0).lower()
+        if "granted in part" in raw_span and "denied in part" in raw_span:
+            habeas_relief = "granted_in_part_and_denied_in_part"
+        elif "granted in part" in raw_span:
+            habeas_relief = "granted_in_part"
+        elif "denied in part" in raw_span:
+            habeas_relief = "denied_in_part"
+        evidence["habeas_relief_signal"] = _window(text, m_partial.start(), m_partial.end())
+    else:
+        # Only trust generic grant if it's not just a motion grant
+        if m_grant:
+            span = _window(text, m_grant.start(), m_grant.end())
+            if not (m_false_motion and m_false_motion.start() >= max(0, m_grant.start() - 80) and m_false_motion.start() <= m_grant.end() + 80):
+                habeas_relief = "granted"
+                evidence["habeas_relief_signal"] = span
+
+        if habeas_relief is None and m_deny:
+            habeas_relief = "denied"
+            evidence["habeas_relief_signal"] = _window(text, m_deny.start(), m_deny.end())
+
+    # Non-merits signals (used only when no merits disposition found)
+    if habeas_relief is None:
+        if m_moot:
+            non_merits_disposition = "dismissed_as_moot"
+            evidence["non_merits_signal"] = _window(text, m_moot.start(), m_moot.end())
+        elif m_dismissed:
+            non_merits_disposition = "dismissed"
+            evidence["non_merits_signal"] = _window(text, m_dismissed.start(), m_dismissed.end())
+
+    # Generic evidence snippets for key signals (helps UI)
     for key in ["1225", "1226", "bond hearing", "mandatory detention", "granted", "denied"]:
         idx = t.find(key)
-        if idx != -1:
-            start = max(0, idx - 120)
-            end = min(len(text), idx + 160)
-            evidence[key] = text[start:end]
+        if idx != -1 and key not in evidence:
+            evidence[key] = text[max(0, idx - 120): min(len(text), idx + 160)]
 
-    return {
+    holdings = {
         "applicable_provision": provision,
         "applicable_subprovision": subprovision,
-        "bond_status": bond,  # eligible / mandatory_detention_or_no_bond / null
-        "habeas_relief": habeas_relief,
-    }, evidence
+        "bond_status": bond,
+        "habeas_relief": habeas_relief,  # granted / denied / partial variants / null
+    }
+
+    # Optional extra field for UI/QA (won't break anything)
+    if non_merits_disposition:
+        holdings["non_merits_disposition"] = non_merits_disposition
+
+    return holdings, evidence
 
 
 def _extract_detention_location_flags(text: str) -> tuple[dict, dict]:

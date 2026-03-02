@@ -62,6 +62,27 @@ def safe_df(rows: list[dict]) -> pd.DataFrame:
         return pd.DataFrame()
     return pd.DataFrame(rows)
 
+def render_status_legend():
+    with st.expander("ℹ️ What the outcome badges and review statuses mean", expanded=False):
+        st.markdown(
+            """
+**Habeas Outcome (UI badge)**
+- 🟢 **Granted** — Extractor found language indicating the habeas petition / writ was granted.
+- 🔴 **Denied** — Extractor found language indicating the habeas petition / writ was denied.
+- 🟡 **Partial** — Extractor found “granted in part / denied in part” style language.
+- ⚪ **Unknown** — No extraction yet, insufficient text, or extractor could not confidently classify the outcome.
+
+**Review Status**
+- 🤖 **auto** — Auto-extracted and accepted by pipeline rules.
+- ⚠️ **needs_review** — Low-confidence or ambiguous extraction; should be reviewed before relying on analytics.
+- ✅ **reviewed** — Manually reviewed/approved.
+- 🚫 **rejected** — Extraction rejected (excluded from analytics).
+
+**Important**
+- Judge score analytics include only cases marked **auto** or **reviewed**.
+"""
+        )
+
 
 def render_case_summary_metrics(cases: list[dict]):
     granted = sum(1 for c in cases if c.get("habeas_outcome") == "granted")
@@ -193,9 +214,29 @@ limit = st.sidebar.slider("Max cases", min_value=10, max_value=500, value=100, s
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Actions")
 
-col_a, col_b = st.sidebar.columns(2)
-run_pipeline = col_a.button("Run Pipeline")
-recompute_scores = col_b.button("Recompute Scores")
+row1a, row1b = st.sidebar.columns(2)
+run_pipeline = row1a.button("Run Pipeline")
+recompute_scores = row1b.button("Recompute Scores")
+
+row2a, row2b = st.sidebar.columns(2)
+extract_batch = row2a.button("Extract Batch")
+retry_review_queue = row2b.button("Retry Review Queue")
+
+batch_limit = st.sidebar.number_input(
+    "Batch extract limit",
+    min_value=1,
+    max_value=1000,
+    value=100,
+    step=10,
+)
+
+review_retry_limit = st.sidebar.number_input(
+    "Review retry limit",
+    min_value=1,
+    max_value=500,
+    value=50,
+    step=5,
+)
 
 if run_pipeline:
     try:
@@ -212,6 +253,22 @@ if recompute_scores:
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(f"Recompute failed: {e}")
+
+if extract_batch:
+    try:
+        result = api_post("/api/extract/batch", params={"limit": int(batch_limit)})
+        st.sidebar.success("Batch extraction completed")
+        st.sidebar.json(result)
+    except Exception as e:
+        st.sidebar.error(f"Batch extract failed: {e}")
+
+if retry_review_queue:
+    try:
+        result = api_post("/api/extract/review/retry", params={"limit": int(review_retry_limit)})
+        st.sidebar.success("Review retry completed")
+        st.sidebar.json(result)
+    except Exception as e:
+        st.sidebar.error(f"Review retry failed: {e}")
 
 # ---------------------------
 # Main page
@@ -248,7 +305,7 @@ except Exception as e:
     st.stop()
 
 cases = payload.get("cases", [])
-render_case_summary_metrics(cases)
+render_status_legend()
 
 tab1, tab2, tab3 = st.tabs(["📚 Case Explorer", "🔍 Case Detail", "👩‍⚖️ Judge Summary"])
 
@@ -316,7 +373,7 @@ with tab2:
                 api_post(f"/api/review/{selected_case_id}/mark", params={"status": "reviewed"})
                 st.success("Marked reviewed")
                 st.rerun()
-            if rc4.button("Re-extract case", key=f"rex_{selected_case_id}"):
+            if rc4.button("Extract / Re-extract Case", key=f"rex_{selected_case_id}"):
                 api_post(f"/api/cases/{selected_case_id}/extract")
                 st.success("Re-extracted case")
                 st.rerun()
