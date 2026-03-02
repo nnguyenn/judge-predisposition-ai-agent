@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, and_
 
 from app.db import get_db
 from app.models import CaseRecord, CaseExtraction, JudgeIssueScore
@@ -199,3 +199,117 @@ def get_judge_scores(judge_name: str, db: Session = Depends(get_db)):
         .all()
     )
     return rows
+
+
+def _normalize_habeas_outcome(holdings: dict | None) -> str:
+    """
+    Normalized UI-friendly habeas outcome:
+    granted | denied | partial | unknown
+    """
+    if not holdings:
+        return "unknown"
+
+    raw = (holdings.get("habeas_relief") or "").strip().lower()
+
+    if raw in {"granted"}:
+        return "granted"
+    if raw in {"denied"}:
+        return "denied"
+
+    # Normalize any partial-ish strings
+    if "granted_in_part" in raw or "denied_in_part" in raw or "in part" in raw:
+        return "partial"
+
+    return "unknown"
+
+
+def _ui_case_row(case: CaseRecord, ext: CaseExtraction | None) -> dict:
+    holdings = ext.holdings if ext else None
+    habeas_outcome = _normalize_habeas_outcome(holdings)
+
+    return {
+        "case_id": case.id,
+        "case_caption": case.case_caption,
+        "court": case.court,
+        "district_court": case.district_court,
+        "judge_name": case.judge_name,
+        "judge_role": case.judge_role,
+        "decision_date": case.decision_date.isoformat() if case.decision_date else None,
+        "opinion_url": case.opinion_url,
+        "has_extraction": ext is not None,
+        "habeas_outcome": habeas_outcome,
+        "habeas_outcome_raw": None if not ext or not ext.holdings else ext.holdings.get("habeas_relief"),
+        "applicable_provision": None if not ext or not ext.holdings else ext.holdings.get("applicable_provision"),
+        "applicable_subprovision": None if not ext or not ext.holdings else ext.holdings.get("applicable_subprovision"),
+        "bond_status": None if not ext or not ext.holdings else ext.holdings.get("bond_status"),
+        "confidence": None if not ext else ext.confidence,
+        "review_status": None if not ext else ext.review_status,
+        "is_border_or_near_border_detention": None if not ext else ext.is_border_or_near_border_detention,
+        "is_interior_detention_focus": None if not ext else ext.is_interior_detention_focus,
+    }
+
+
+@router.get("/ui/cases")
+def ui_list_cases(
+    judge_name: str | None = None,
+    habeas_outcome: str | None = Query(default=None, pattern="^(granted|denied|partial|unknown)$"),
+    review_status: str | None = Query(default=None, pattern="^(auto|needs_review|reviewed|rejected)$"),
+    limit: int = Query(default=100, ge=1, le=1000),
+    db: Session = Depends(get_db),
+):
+    """
+    UI-friendly flattened case list.
+    Includes extraction summary fields when available.
+    """
+    rows = (
+        db.query(CaseRecord, CaseExtraction)
+        .outerjoin(CaseExtraction, CaseExtraction.case_id == CaseRecord.id)
+        .order_by(CaseRecord.decision_date.desc().nullslast(), CaseRecord.id.desc())
+        .limit(limit)
+        .all()
+    )
+
+    out = []
+    for case, ext in rows:
+        if judge_name and (not case.judge_name or judge_name.lower() not in case.judge_name.lower()):
+            continue
+        if review_status and ((ext.review_status if ext else None) != review_status):
+            continue
+
+        row = _ui_case_row(case, ext)
+
+        if habeas_outcome and row["habeas_outcome"] != habeas_outcome:
+            continue
+
+        out.append(row)
+
+    return {
+        "count": len(out),
+        "cases": out,
+    }
+
+
+@router.get("/ui/cases/{case_id}")
+def ui_case_detail(case_id: int, db: Session = Depends(get_db)):
+    """
+    UI-friendly case detail endpoint with normalized outcome and extraction evidence.
+    """
+    case = db.get(CaseRecord, case_id)
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+
+    ext = db.query(CaseExtraction).filter_by(case_id=case_id).one_or_none()
+    base = _ui_case_row(case, ext)
+
+    return {
+        **base,
+        "text_excerpt": case.text_excerpt,
+        "opinion_text_preview": case.opinion_text[:4000] if case.opinion_text else None,
+        "petitioner_facts": None if not ext else ext.petitioner_facts,
+        "petition_facts": None if not ext else ext.petition_facts,
+        "respondent_position": None if not ext else ext.respondent_position,
+        "reasoning_basis": None if not ext else ext.reasoning_basis,
+        "precedent_citations": None if not ext else ext.precedent_citations,
+        "holdings": None if not ext else ext.holdings,
+        "evidence_spans": None if not ext else ext.evidence_spans,
+    }
