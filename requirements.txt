@@ -8,3 +8,5 @@ python-dotenv
 httpx
 apscheduler
 python-dateutil
+streamlit
+pandas
