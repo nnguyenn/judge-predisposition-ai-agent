@@ -73,6 +73,8 @@ class CaseExtraction(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     case_id: Mapped[int] = mapped_column(ForeignKey("cases.id", ondelete="CASCADE"))
 
+    
+
     # Memo sections stored as JSON for MVP
     petitioner_facts: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     petition_facts: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
@@ -84,6 +86,8 @@ class CaseExtraction(Base):
 
     # Holdings (memo priority)
     holdings: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+
+    phrase_signals: Mapped[list[dict] | None] = mapped_column(JSONB, nullable=True)
 
     # Important flags
     is_border_or_near_border_detention: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
@@ -123,6 +127,48 @@ class JudgeIssueScore(Base):
     # confidence intervals / metadata
     ci_low: Mapped[float | None] = mapped_column(nullable=True)
     ci_high: Mapped[float | None] = mapped_column(nullable=True)
+    model_meta: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+
+    computed_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+class JudgePhraseScore(Base):
+    __tablename__ = "judge_phrase_scores"
+    __table_args__ = (
+        UniqueConstraint(
+            "judge_name",
+            "as_of_date",
+            "segment",
+            "phrase_key",
+            name="uq_judge_phrase_score_snapshot",
+        ),
+        Index("ix_judge_phrase_scores_judge_name", "judge_name"),
+        Index("ix_judge_phrase_scores_phrase_key", "phrase_key"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    judge_name: Mapped[str] = mapped_column(String(255))
+    as_of_date: Mapped[date] = mapped_column(Date)
+
+    # same segment conventions as JudgeIssueScore
+    segment: Mapped[str] = mapped_column(String(64), default="all")
+
+    phrase_key: Mapped[str] = mapped_column(String(128))
+    phrase_label: Mapped[str] = mapped_column(String(255))
+    phrase_category: Mapped[str] = mapped_column(String(128))
+
+    n_cases: Mapped[int] = mapped_column(Integer, default=0)
+    favorable_count: Mapped[int] = mapped_column(Integer, default=0)
+    unfavorable_count: Mapped[int] = mapped_column(Integer, default=0)
+    other_count: Mapped[int] = mapped_column(Integer, default=0)
+
+    favorable_rate: Mapped[float | None] = mapped_column(nullable=True)
+    unfavorable_rate: Mapped[float | None] = mapped_column(nullable=True)
+
+    # favorable_lean / unfavorable_lean / mixed
+    direction: Mapped[str] = mapped_column(String(64), default="mixed")
+
+    sample_case_ids: Mapped[list[int] | None] = mapped_column(JSONB, nullable=True)
+    sample_evidence: Mapped[list[dict] | None] = mapped_column(JSONB, nullable=True)
     model_meta: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
     computed_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

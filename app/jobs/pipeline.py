@@ -10,7 +10,7 @@ from app.config import settings
 from app.models import CaseRecord, CaseExtraction
 from app.jobs.poll_cases import ingest_recent_cases
 from app.services.extractor import extract_case
-from app.services.scoring import recompute_judge_scores
+from app.services.scoring import recompute_judge_scores, recompute_judge_phrase_scores
 from app.services.text_enricher import batch_enrich_text
 
 
@@ -44,6 +44,7 @@ def _apply_extraction_to_case(db: Session, case: CaseRecord) -> tuple[CaseExtrac
         ext.reasoning_basis = result.reasoning_basis
         ext.precedent_citations = result.precedent_citations
         ext.holdings = result.holdings
+        ext.phrase_signals = result.phrase_signals
         ext.evidence_spans = result.evidence_spans
         ext.is_border_or_near_border_detention = result.flags.get("is_border_or_near_border_detention")
         ext.is_interior_detention_focus = result.flags.get("is_interior_detention_focus")
@@ -156,6 +157,7 @@ def run_pipeline_once(db: Session) -> dict[str, Any]:
 
     extract_stats = batch_extract_unprocessed_cases(db, limit=settings.extraction_batch_limit)
     score_count = recompute_judge_scores(db, as_of=date.today())
+    phrase_score_count = recompute_judge_phrase_scores(db, as_of=date.today())
 
     finished = datetime.utcnow()
 
@@ -165,5 +167,8 @@ def run_pipeline_once(db: Session) -> dict[str, Any]:
         "ingest": ingest_stats,
         "enrich_text": enrich_stats,
         "extract": extract_stats,
-        "scores": {"created_snapshots": score_count},
+        "scores": {
+            "created_snapshots": score_count,
+            "created_phrase_snapshots": phrase_score_count,
+        },
     }

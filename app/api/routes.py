@@ -4,8 +4,9 @@ from sqlalchemy import select, and_
 from app.config import settings
 
 from app.db import get_db
-from app.models import CaseRecord, CaseExtraction, JudgeIssueScore
-from app.schemas import CaseOut, ExtractionOut, JudgeScoreOut
+from app.models import CaseRecord, CaseExtraction, JudgeIssueScore, JudgePhraseScore
+from app.schemas import CaseOut, ExtractionOut, JudgeScoreOut, JudgePhraseScoreOut
+from app.services.scoring import recompute_judge_scores, recompute_judge_phrase_scores
 from app.jobs.poll_cases import ingest_recent_cases
 from app.jobs.pipeline import (
     batch_extract_unprocessed_cases,
@@ -13,7 +14,6 @@ from app.jobs.pipeline import (
     run_pipeline_once,
 )
 from app.services.extractor import extract_case
-from app.services.scoring import recompute_judge_scores
 from app.services.text_enricher import enrich_case_text, batch_enrich_text
 
 router = APIRouter()
@@ -72,6 +72,7 @@ def review_queue(
             "court": case.court,
             "judge_name": case.judge_name,
             "decision_date": case.decision_date.isoformat() if case.decision_date else None,
+            "phrase_signals": ext.phrase_signals,
             "confidence": ext.confidence,
             "review_status": ext.review_status,
             "holdings": ext.holdings,
@@ -140,6 +141,7 @@ def get_case_detail(case_id: int, db: Session = Depends(get_db)):
             "confidence": ext.confidence,
             "review_status": ext.review_status,
             "holdings": ext.holdings,
+            "phrase_signals": ext.phrase_signals,
             "reasoning_basis": ext.reasoning_basis,
             "precedent_citations": ext.precedent_citations,
             "flags": {
@@ -174,6 +176,7 @@ def extract_case_endpoint(case_id: int, db: Session = Depends(get_db)):
     ext.reasoning_basis = result.reasoning_basis
     ext.precedent_citations = result.precedent_citations
     ext.holdings = result.holdings
+    ext.phrase_signals = result.phrase_signals
     ext.evidence_spans = result.evidence_spans
     ext.is_border_or_near_border_detention = result.flags.get("is_border_or_near_border_detention")
     ext.is_interior_detention_focus = result.flags.get("is_interior_detention_focus")
@@ -184,12 +187,45 @@ def extract_case_endpoint(case_id: int, db: Session = Depends(get_db)):
     db.refresh(ext)
     return ext
 
-
 @router.post("/scores/recompute")
 def recompute_scores(db: Session = Depends(get_db)):
     created = recompute_judge_scores(db)
-    return {"created_snapshots": created}
+    created_phrase = recompute_judge_phrase_scores(db)
+    return {
+        "created_snapshots": created,
+        "created_phrase_snapshots": created_phrase,
+    }
 
+@router.post("/scores/phrases/recompute")
+def recompute_phrase_scores(db: Session = Depends(get_db)):
+    created = recompute_judge_phrase_scores(db)
+    return {"created_phrase_snapshots": created}
+
+@router.get("/judges/{judge_name}/phrase-signals", response_model=list[JudgePhraseScoreOut])
+def get_judge_phrase_signals(
+    judge_name: str,
+    segment: str | None = Query(default=None, pattern="^(all|interior_detention|near_border)$"),
+    min_cases: int = Query(default=1, ge=1, le=100),
+    db: Session = Depends(get_db),
+):
+    query = db.query(JudgePhraseScore).filter(
+        JudgePhraseScore.judge_name.ilike(f"%{judge_name}%")
+    )
+
+    if segment:
+        query = query.filter(JudgePhraseScore.segment == segment)
+
+    rows = (
+        query.filter(JudgePhraseScore.n_cases >= min_cases)
+        .order_by(
+            JudgePhraseScore.as_of_date.desc(),
+            JudgePhraseScore.n_cases.desc(),
+            JudgePhraseScore.favorable_rate.desc().nullslast(),
+            JudgePhraseScore.phrase_label.asc(),
+        )
+        .all()
+    )
+    return rows
 
 @router.get("/judges/{judge_name}/scores", response_model=list[JudgeScoreOut])
 def get_judge_scores(judge_name: str, db: Session = Depends(get_db)):
@@ -354,5 +390,6 @@ def ui_case_detail(case_id: int, db: Session = Depends(get_db)):
         "reasoning_basis": None if not ext else ext.reasoning_basis,
         "precedent_citations": None if not ext else ext.precedent_citations,
         "holdings": None if not ext else ext.holdings,
+        "phrase_signals": None if not ext else ext.phrase_signals,
         "evidence_spans": None if not ext else ext.evidence_spans,
     }

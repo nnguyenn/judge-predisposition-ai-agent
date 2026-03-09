@@ -29,6 +29,107 @@ LEXICONS = {
     ],
 }
 
+PHRASE_SIGNAL_LIBRARY = [
+    {
+        "phrase_key": "ordinary_meaning_textualism",
+        "phrase_label": "ordinary meaning / textual analysis",
+        "phrase_category": "textualism",
+        "aliases": [
+            "ordinary meaning",
+            "dictionary",
+            "dictionary analysis",
+            "textual analysis",
+            "plain meaning",
+        ],
+    },
+    {
+        "phrase_key": "statutory_scheme_structure",
+        "phrase_label": "statutory scheme / structure",
+        "phrase_category": "structure_context",
+        "aliases": [
+            "statutory scheme",
+            "superfluous",
+            "redundant",
+            "canon against superfluous",
+        ],
+    },
+    {
+        "phrase_key": "historical_practice",
+        "phrase_label": "historical practice",
+        "phrase_category": "historical_practice",
+        "aliases": [
+            "historical practice",
+            "longstanding practice",
+            "consistent practice",
+            "past practice",
+        ],
+    },
+    {
+        "phrase_key": "due_process_bond_hearing",
+        "phrase_label": "due process / bond hearing",
+        "phrase_category": "bond_hearing_relief",
+        "aliases": [
+            "prolonged detention",
+            "due process",
+            "eligible for a bond hearing",
+            "entitled for a bond hearing",
+            "entitled to a bond hearing",
+            "must receive a bond hearing",
+            "shall receive a bond hearing",
+            "bond hearing is required",
+        ],
+    },
+    {
+        "phrase_key": "interior_presence",
+        "phrase_label": "already inside the United States",
+        "phrase_category": "interior_detention",
+        "aliases": [
+            "once inside the united states",
+            "within the country",
+            "already within the country",
+            "interior",
+            "already here",
+        ],
+    },
+    {
+        "phrase_key": "arriving_alien_border",
+        "phrase_label": "arriving alien / border entry",
+        "phrase_category": "border_detention",
+        "aliases": [
+            "arriving alien",
+            "applicants for admission",
+            "port of entry",
+            "at the border",
+            "near the border",
+            "southern border",
+            "arriving in the united states",
+        ],
+    },
+    {
+        "phrase_key": "mandatory_detention_no_bond",
+        "phrase_label": "mandatory detention / no bond",
+        "phrase_category": "mandatory_detention",
+        "aliases": [
+            "mandatory detention",
+            "no bond hearing",
+            "not eligible for a bond hearing",
+            "ineligible for a bond hearing",
+        ],
+    },
+    {
+        "phrase_key": "deterrence_statutory_purpose",
+        "phrase_label": "deterrence / statutory purpose",
+        "phrase_category": "statutory_purpose",
+        "aliases": [
+            "statutory purpose",
+            "purpose",
+            "deter",
+            "deterrent",
+            "congress's purpose",
+        ],
+    },
+]
+
 
 @dataclass
 class ExtractedCase:
@@ -38,6 +139,7 @@ class ExtractedCase:
     reasoning_basis: dict[str, Any]
     precedent_citations: dict[str, Any]
     holdings: dict[str, Any]
+    phrase_signals: list[dict[str, Any]]
     evidence_spans: dict[str, Any]
     flags: dict[str, Any]
     confidence: float
@@ -67,6 +169,43 @@ def _first_match(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL
         if m:
             return m
     return None
+
+def _find_alias_match(text: str, aliases: list[str]):
+    for alias in aliases:
+        m = re.search(re.escape(alias), text, re.IGNORECASE)
+        if m:
+            return alias, m
+    return None, None
+
+
+def _extract_phrase_signals(text: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    signals: list[dict[str, Any]] = []
+    evidence_rows: list[dict[str, Any]] = []
+
+    for entry in PHRASE_SIGNAL_LIBRARY:
+        matched_alias, match = _find_alias_match(text, entry["aliases"])
+        if not match:
+            continue
+
+        evidence = _window(text, match.start(), match.end())
+        signals.append(
+            {
+                "phrase_key": entry["phrase_key"],
+                "phrase_label": entry["phrase_label"],
+                "phrase_category": entry["phrase_category"],
+                "matched_alias": matched_alias,
+                "evidence": evidence,
+            }
+        )
+        evidence_rows.append(
+            {
+                "phrase_key": entry["phrase_key"],
+                "matched_alias": matched_alias,
+                "evidence": evidence,
+            }
+        )
+
+    return signals, evidence_rows
 
 
 def _extract_holdings(text: str) -> tuple[dict, dict]:
@@ -250,7 +389,12 @@ def extract_case(text: str) -> ExtractedCase:
 
     reasoning_basis = {}
     precedent_citations = {}
-    evidence_spans = {"reasoning_basis": {}, "holdings": {}, "location_flags": {}}
+    evidence_spans = {
+        "reasoning_basis": {},
+        "holdings": {},
+        "location_flags": {},
+        "phrase_signals": [],
+    }
 
     total_hits = 0
     for category, phrases in LEXICONS.items():
@@ -275,7 +419,10 @@ def extract_case(text: str) -> ExtractedCase:
     flags, loc_evidence = _extract_detention_location_flags(t)
     evidence_spans["location_flags"] = loc_evidence
 
-    # Minimal respondent/petitioner extraction stubs (expand later with LLM or better rules)
+    phrase_signals, phrase_evidence = _extract_phrase_signals(t)
+    evidence_spans["phrase_signals"] = phrase_evidence
+    total_hits += len(phrase_signals)
+
     respondent_position = {
         "claimed_detention_provision": "1225" if "detained pursuant to § 1225" in _normalize(t) else (
             "1226" if "detained pursuant to § 1226" in _normalize(t) else None
@@ -303,6 +450,7 @@ def extract_case(text: str) -> ExtractedCase:
         reasoning_basis=reasoning_basis,
         precedent_citations=precedent_citations,
         holdings=holdings,
+        phrase_signals=phrase_signals,
         evidence_spans=evidence_spans,
         flags=flags,
         confidence=confidence,
