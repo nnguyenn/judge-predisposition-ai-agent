@@ -84,6 +84,9 @@ class CaseExtraction(Base):
     reasoning_basis: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     precedent_citations: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
+    representation_status: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    representation_evidence: Mapped[str | None] = mapped_column(Text, nullable=True)
+
     # Holdings (memo priority)
     holdings: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 

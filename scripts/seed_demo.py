@@ -16,7 +16,7 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 8),
         "opinion_url": "https://example.local/demo-001",
         "opinion_text": """
-        Petitioner seeks habeas relief and a bond hearing after prolonged immigration detention.
+        Petitioner, through counsel, seeks habeas relief and a bond hearing after prolonged immigration detention.
         The Court concludes petitioner is detained pursuant to § 1226(a), not § 1225(b)(2)(A),
         and is eligible for a bond hearing. The petition is granted in part.
         The Court relies on ordinary meaning, dictionary usage, statutory scheme, Jennings v. Rodriguez,
@@ -35,7 +35,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 15),
         "opinion_url": "https://example.local/demo-002",
         "opinion_text": """
-        The habeas petition is granted. The Court finds petitioner detained pursuant to § 1226(a)
+        Petitioner filed this habeas petition pro se. The habeas petition is granted.
+        The Court finds petitioner detained pursuant to § 1226(a)
         and entitled to a bond hearing. The Court discusses ordinary meaning, statutory scheme,
         historical practice, longstanding practice, and Jennings v. Rodriguez.
         Petitioner entered without inspection years ago and was later detained in the interior,
@@ -53,7 +54,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 28),
         "opinion_url": "https://example.local/demo-003",
         "opinion_text": """
-        The petition for writ of habeas corpus is granted. The Court concludes detention is governed by § 1226(a).
+        Counsel for petitioner seeks habeas relief. The petition for writ of habeas corpus is granted.
+        The Court concludes detention is governed by § 1226(a).
         Petitioner is eligible for a bond hearing and habeas relief is granted.
         The Court relies on ordinary meaning, dictionary analysis, statutory scheme, historical practice,
         consistent practice, and Jennings. The petitioner has an asylum application pending and is already
@@ -71,8 +73,9 @@ DEMO_CASES = [
         "decision_date": date(2026, 2, 6),
         "opinion_url": "https://example.local/demo-004",
         "opinion_text": """
-        The habeas petition is granted in part and denied in part. The Court holds petitioner is detained
-        under § 1226(a) and must receive a bond hearing, although other requested relief is denied.
+        Petitioner appears pro se and seeks habeas relief. The habeas petition is granted in part and denied in part.
+        The Court holds petitioner is detained under § 1226(a) and must receive a bond hearing,
+        although other requested relief is denied.
         The Court's textual analysis relies on ordinary meaning, superfluous, statutory scheme,
         historical practice, and Jennings v. Rodriguez. Petitioner is once inside the United States,
         has lived in the interior, and seeks asylum.
@@ -89,7 +92,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 10),
         "opinion_url": "https://example.local/demo-005",
         "opinion_text": """
-        This habeas petition is denied. The Court holds detention is governed by § 1225(b)(2)(A)
+        Petitioner, through counsel, seeks habeas relief. This habeas petition is denied.
+        The Court holds detention is governed by § 1225(b)(2)(A)
         and petitioner is not eligible for a bond hearing.
         The Court notes mandatory detention for an arriving alien near the border and at the border,
         discusses statutory purpose, deter, applicants for admission, and Jennings v. Rodriguez.
@@ -107,7 +111,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 21),
         "opinion_url": "https://example.local/demo-006",
         "opinion_text": """
-        The habeas petition is denied. The Court concludes petitioner is detained pursuant to § 1225(b)(2)(A)
+        Petitioner filed this habeas petition pro se. The habeas petition is denied.
+        The Court concludes petitioner is detained pursuant to § 1225(b)(2)(A)
         and is not eligible for a bond hearing because mandatory detention applies.
         The Court emphasizes arriving alien status, applicants for admission, statutory purpose,
         deterrent concerns, and the statutory scheme. Petitioner was apprehended near the border
@@ -125,7 +130,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 2, 2),
         "opinion_url": "https://example.local/demo-007",
         "opinion_text": """
-        Petition for writ of habeas corpus is denied. The Court holds detention is governed by § 1225
+        Petitioner, through counsel, seeks habeas relief. Petition for writ of habeas corpus is denied.
+        The Court holds detention is governed by § 1225
         and petitioner is ineligible for a bond hearing.
         The Court relies on applicants for admission, arriving alien, statutory purpose, absurdity concerns,
         equal footing, and Congress's purpose to deter unlawful entry. The petitioner was stopped
@@ -143,7 +149,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 2, 14),
         "opinion_url": "https://example.local/demo-008",
         "opinion_text": """
-        The Court denies the habeas petition. Detention is governed by § 1225(b)(2)(A),
+        Petitioner appears pro se. The Court denies the habeas petition.
+        Detention is governed by § 1225(b)(2)(A),
         and no bond hearing is available because mandatory detention applies.
         The Court discusses arriving alien status, applicants for admission, statutory scheme,
         Congress's purpose, deter, and precedent including Jennings.
@@ -161,7 +168,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 12),
         "opinion_url": "https://example.local/demo-009",
         "opinion_text": """
-        The habeas petition is granted. The Court finds petitioner detained pursuant to § 1226(a)
+        Petitioner, through counsel, seeks habeas relief. The habeas petition is granted.
+        The Court finds petitioner detained pursuant to § 1226(a)
         and entitled for a bond hearing. Due to prolonged detention, habeas relief is granted.
         The Court relies on ordinary meaning, statutory scheme, historical practice,
         longstanding practice, and Jennings v. Rodriguez. Petitioner has an asylum claim
@@ -179,7 +187,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 1, 26),
         "opinion_url": "https://example.local/demo-010",
         "opinion_text": """
-        The habeas petition is denied. The Court concludes detention is governed by § 1225
+        Petitioner filed this habeas petition pro se. The habeas petition is denied.
+        The Court concludes detention is governed by § 1225
         and petitioner is not eligible for a bond hearing.
         The Court discusses arriving alien status, statutory purpose, deterrent concerns,
         applicants for admission, and Jennings. The petitioner was processed at a port of entry
@@ -197,8 +206,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 2, 9),
         "opinion_url": "https://example.local/demo-011",
         "opinion_text": """
-        The petition is granted in part and denied in part. The Court holds petitioner is detained
-        under § 1226(a) and shall receive a bond hearing.
+        Counsel for petitioner argues detention is governed by § 1226(a). The petition is granted in part and denied in part.
+        The Court holds petitioner is detained under § 1226(a) and shall receive a bond hearing.
         The Court relies on ordinary meaning, superfluous, statutory scheme, historical practice,
         and Jennings v. Rodriguez. Petitioner has lived in the interior for years and is once inside
         the United States while seeking asylum.
@@ -215,7 +224,8 @@ DEMO_CASES = [
         "decision_date": date(2026, 2, 18),
         "opinion_url": "https://example.local/demo-012",
         "opinion_text": """
-        The Court denies the habeas petition. The Court concludes petitioner remains detained
+        Petitioner appears pro se. The Court denies the habeas petition.
+        The Court concludes petitioner remains detained
         pursuant to § 1225(b)(2)(A) and no bond hearing is available.
         The Court discusses arriving alien status, applicants for admission, statutory purpose,
         Congress's purpose, and deterrent concerns. Petitioner was encountered at the border
@@ -229,7 +239,6 @@ def main():
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     try:
-        # Replace all existing demo rows so rerunning this script gives a clean demo dataset.
         existing_demo_cases = db.query(CaseRecord).filter(CaseRecord.source == "demo").all()
         deleted = len(existing_demo_cases)
         for case in existing_demo_cases:
@@ -240,7 +249,9 @@ def main():
             db.add(CaseRecord(**item))
 
         db.commit()
-        print(f"Replaced demo dataset. Deleted {deleted} old demo cases and inserted {len(DEMO_CASES)} new demo cases.")
+        print(
+            f"Replaced demo dataset. Deleted {deleted} old demo cases and inserted {len(DEMO_CASES)} new demo cases."
+        )
     finally:
         db.close()
 

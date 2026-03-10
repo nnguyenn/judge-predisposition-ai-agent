@@ -73,6 +73,8 @@ def review_queue(
             "judge_name": case.judge_name,
             "decision_date": case.decision_date.isoformat() if case.decision_date else None,
             "phrase_signals": ext.phrase_signals,
+            "representation_status": ext.representation_status,
+            "representation_evidence": ext.representation_evidence,
             "confidence": ext.confidence,
             "review_status": ext.review_status,
             "holdings": ext.holdings,
@@ -142,6 +144,8 @@ def get_case_detail(case_id: int, db: Session = Depends(get_db)):
             "review_status": ext.review_status,
             "holdings": ext.holdings,
             "phrase_signals": ext.phrase_signals,
+            "representation_status": ext.representation_status,
+            "representation_evidence": ext.representation_evidence,
             "reasoning_basis": ext.reasoning_basis,
             "precedent_citations": ext.precedent_citations,
             "flags": {
@@ -177,6 +181,8 @@ def extract_case_endpoint(case_id: int, db: Session = Depends(get_db)):
     ext.precedent_citations = result.precedent_citations
     ext.holdings = result.holdings
     ext.phrase_signals = result.phrase_signals
+    ext.representation_status = result.representation_status
+    ext.representation_evidence = result.representation_evidence
     ext.evidence_spans = result.evidence_spans
     ext.is_border_or_near_border_detention = result.flags.get("is_border_or_near_border_detention")
     ext.is_interior_detention_focus = result.flags.get("is_interior_detention_focus")
@@ -391,5 +397,7 @@ def ui_case_detail(case_id: int, db: Session = Depends(get_db)):
         "precedent_citations": None if not ext else ext.precedent_citations,
         "holdings": None if not ext else ext.holdings,
         "phrase_signals": None if not ext else ext.phrase_signals,
+        "representation_status": None if not ext else ext.representation_status,
+        "representation_evidence": None if not ext else ext.representation_evidence,
         "evidence_spans": None if not ext else ext.evidence_spans,
     }

@@ -130,6 +130,22 @@ PHRASE_SIGNAL_LIBRARY = [
     },
 ]
 
+PRO_SE_PATTERNS = [
+    r"\bpro se\b",
+    r"\bappearing pro se\b",
+    r"\bfiled pro se\b",
+    r"\bself-represented\b",
+    r"\bwithout counsel\b",
+]
+
+REPRESENTED_PATTERNS = [
+    r"\bthrough counsel\b",
+    r"\brepresented by counsel\b",
+    r"\bpetitioner, through counsel\b",
+    r"\bcounsel for petitioner\b",
+    r"\battorney for petitioner\b",
+]
+
 
 @dataclass
 class ExtractedCase:
@@ -140,6 +156,8 @@ class ExtractedCase:
     precedent_citations: dict[str, Any]
     holdings: dict[str, Any]
     phrase_signals: list[dict[str, Any]]
+    representation_status: str | None
+    representation_evidence: str | None
     evidence_spans: dict[str, Any]
     flags: dict[str, Any]
     confidence: float
@@ -207,6 +225,24 @@ def _extract_phrase_signals(text: str) -> tuple[list[dict[str, Any]], list[dict[
 
     return signals, evidence_rows
 
+def _first_regex_match(text: str, patterns: list[str]):
+    for pattern in patterns:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            return m
+    return None
+
+
+def _extract_representation_status(text: str) -> tuple[str | None, str | None]:
+    pro_se_match = _first_regex_match(text, PRO_SE_PATTERNS)
+    if pro_se_match:
+        return "pro_se", _window(text, pro_se_match.start(), pro_se_match.end())
+
+    represented_match = _first_regex_match(text, REPRESENTED_PATTERNS)
+    if represented_match:
+        return "represented", _window(text, represented_match.start(), represented_match.end())
+
+    return "unknown", None
 
 def _extract_holdings(text: str) -> tuple[dict, dict]:
     t = _normalize(text)
@@ -423,6 +459,12 @@ def extract_case(text: str) -> ExtractedCase:
     evidence_spans["phrase_signals"] = phrase_evidence
     total_hits += len(phrase_signals)
 
+    representation_status, representation_evidence = _extract_representation_status(t)
+    evidence_spans["representation"] = {
+        "status": representation_status,
+        "evidence": representation_evidence,
+    }
+
     respondent_position = {
         "claimed_detention_provision": "1225" if "detained pursuant to § 1225" in _normalize(t) else (
             "1226" if "detained pursuant to § 1226" in _normalize(t) else None
@@ -451,6 +493,8 @@ def extract_case(text: str) -> ExtractedCase:
         precedent_citations=precedent_citations,
         holdings=holdings,
         phrase_signals=phrase_signals,
+        representation_status=representation_status,
+        representation_evidence=representation_evidence,
         evidence_spans=evidence_spans,
         flags=flags,
         confidence=confidence,

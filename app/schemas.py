@@ -20,6 +20,8 @@ class ExtractionOut(BaseModel):
     reasoning_basis: dict[str, Any] | None
     holdings: dict[str, Any] | None
     phrase_signals: list[dict[str, Any]] | None
+    representation_status: str | None
+    representation_evidence: str | None
     is_border_or_near_border_detention: bool | None
     is_interior_detention_focus: bool | None
     confidence: float | None

@@ -45,6 +45,8 @@ def _apply_extraction_to_case(db: Session, case: CaseRecord) -> tuple[CaseExtrac
         ext.precedent_citations = result.precedent_citations
         ext.holdings = result.holdings
         ext.phrase_signals = result.phrase_signals
+        ext.representation_status = result.representation_status
+        ext.representation_evidence = result.representation_evidence
         ext.evidence_spans = result.evidence_spans
         ext.is_border_or_near_border_detention = result.flags.get("is_border_or_near_border_detention")
         ext.is_interior_detention_focus = result.flags.get("is_interior_detention_focus")
