@@ -32,10 +32,10 @@ def api_post(path: str, params: dict | None = None, timeout: float = 60.0) -> An
         resp.raise_for_status()
         return resp.json()
 
+
 def user_friendly_api_error(e: Exception) -> str:
     msg = str(e)
 
-    # Friendly explanation for metadata-only cases (no text to extract)
     if "400 Bad Request" in msg and "/extract" in msg:
         return (
             "This case cannot be analyzed yet because no opinion text/snippet is currently available. "
@@ -68,6 +68,7 @@ def review_badge(status: str | None) -> str:
         return "🚫 Excluded"
     return "—"
 
+
 def review_label(status: str | None) -> str:
     status = (status or "none").lower()
     if status == "reviewed":
@@ -99,10 +100,29 @@ def segment_label(segment: str | None) -> str:
     return "All detention contexts"
 
 
+def representation_label(value: str | None) -> str:
+    value = (value or "unknown").lower()
+    if value == "pro_se":
+        return "Pro se"
+    if value == "represented":
+        return "Represented by counsel"
+    return "Unknown"
+
+
+def representation_badge(value: str | None) -> str:
+    value = (value or "unknown").lower()
+    if value == "pro_se":
+        return "👤 Pro se"
+    if value == "represented":
+        return "⚖️ Represented by counsel"
+    return "❔ Representation unclear"
+
+
 def safe_df(rows: list[dict]) -> pd.DataFrame:
     if not rows:
         return pd.DataFrame()
     return pd.DataFrame(rows)
+
 
 def render_status_legend():
     with st.expander("ℹ️ What the outcomes and review statuses mean", expanded=False):
@@ -115,15 +135,21 @@ def render_status_legend():
 - ⚪ **Unknown** — No analysis yet, insufficient case text, or the extractor could not classify the outcome.
 
 **Review Status**
-- 🤖 **Auto** — Automatically analyzed and accepted by current rules.
+- 🤖 **Auto-accepted** — Automatically analyzed and accepted by current rules.
 - ⚠️ **Needs Review** — Low-confidence or ambiguous result; should be checked before relying on analytics.
 - ✅ **Reviewed** — Manually reviewed/approved.
-- 🚫 **Rejected** — Analysis rejected and excluded from analytics.
+- 🚫 **Excluded** — Analysis rejected and excluded from analytics.
+
+**Representation Status**
+- 👤 **Pro se** — The case text suggests the petitioner filed or appeared without counsel.
+- ⚖️ **Represented by counsel** — The case text suggests the petitioner appeared through counsel.
+- ❔ **Representation unclear** — The current text does not clearly indicate representation status.
 
 **Historical Judge Pattern Metrics**
-- Judge summary metrics are based only on cases marked **Auto** or **Reviewed**.
+- Judge summary metrics are based only on cases marked **Auto-accepted** or **Reviewed**.
 """
         )
+
 
 def render_cases_needing_review():
     st.markdown("### Cases Needing Review")
@@ -152,18 +178,21 @@ def render_cases_needing_review():
         else:
             outcome = "unknown"
 
-        table_rows.append({
-            "case_id": r.get("case_id"),
-            "date": r.get("decision_date"),
-            "case_caption": r.get("case_caption"),
-            "judge": r.get("judge_name"),
-            "court": r.get("court"),
-            "habeas_outcome": outcome_badge(outcome),
-            "detention_classification": holdings.get("applicable_subprovision") or holdings.get("applicable_provision"),
-            "bond_status": holdings.get("bond_status"),
-            "extraction_confidence": r.get("confidence"),
-            "review_status": review_badge(r.get("review_status")),
-        })
+        table_rows.append(
+            {
+                "case_id": r.get("case_id"),
+                "date": r.get("decision_date"),
+                "case_caption": r.get("case_caption"),
+                "judge": r.get("judge_name"),
+                "court": r.get("court"),
+                "representation": representation_label(r.get("representation_status")),
+                "habeas_outcome": outcome_badge(outcome),
+                "detention_classification": holdings.get("applicable_subprovision") or holdings.get("applicable_provision"),
+                "bond_status": holdings.get("bond_status"),
+                "extraction_confidence": r.get("confidence"),
+                "review_status": review_badge(r.get("review_status")),
+            }
+        )
 
     df = pd.DataFrame(table_rows)
     st.dataframe(df, use_container_width=True, hide_index=True)
@@ -174,37 +203,44 @@ def render_cases_needing_review():
         options=[r["case_id"] for r in rows],
         format_func=lambda cid: next(
             (f"{x['case_id']} • {x.get('case_caption') or 'Untitled'}" for x in rows if x["case_id"] == cid),
-            str(cid)
+            str(cid),
         ),
         key="review_queue_case_select",
     )
 
+    selected_row = next((r for r in rows if r["case_id"] == selected_case_id), None)
+    if selected_row:
+        st.write(f"**Representation:** {representation_badge(selected_row.get('representation_status'))}")
+        if selected_row.get("representation_evidence"):
+            st.caption("Supporting passage")
+            st.code(selected_row["representation_evidence"])
+
     c1, c2, c3, c4 = st.columns(4)
-    if c1.button("Mark Auto", key="rq_mark_auto"):
+    if c1.button("Accept automated result", key="rq_mark_auto"):
         try:
             api_post(f"/api/review/{selected_case_id}/mark", params={"status": "auto"})
-            st.success("Marked Auto")
+            st.success("Marked as auto-accepted")
             st.rerun()
         except Exception as e:
             st.error(user_friendly_api_error(e))
 
-    if c2.button("Mark Reviewed", key="rq_mark_reviewed"):
+    if c2.button("Mark as reviewed", key="rq_mark_reviewed"):
         try:
             api_post(f"/api/review/{selected_case_id}/mark", params={"status": "reviewed"})
-            st.success("Marked Reviewed")
+            st.success("Marked as reviewed")
             st.rerun()
         except Exception as e:
             st.error(user_friendly_api_error(e))
 
-    if c3.button("Reject", key="rq_mark_rejected"):
+    if c3.button("Exclude from analytics", key="rq_mark_rejected"):
         try:
             api_post(f"/api/review/{selected_case_id}/mark", params={"status": "rejected"})
-            st.warning("Marked Rejected")
+            st.warning("Marked as excluded")
             st.rerun()
         except Exception as e:
             st.error(user_friendly_api_error(e))
 
-    if c4.button("Reanalyze Selected", key="rq_reextract_one"):
+    if c4.button("Run analysis again", key="rq_reextract_one"):
         try:
             api_post(f"/api/cases/{selected_case_id}/extract")
             st.success("Case reanalyzed")
@@ -230,12 +266,16 @@ def render_case_summary_metrics(cases: list[dict]):
 def render_case_detail(detail: dict):
     st.subheader(detail.get("case_caption") or f"Case {detail.get('case_id')}")
 
-    top1, top2, top3, top4 = st.columns(4)
+    top1, top2, top3, top4, top5 = st.columns(5)
     top1.metric("Habeas Outcome", outcome_badge(detail.get("habeas_outcome")))
-    top2.metric("Detention Classification", detail.get("applicable_subprovision") or detail.get("applicable_provision") or "Unknown")
+    top2.metric(
+        "Detention Classification",
+        detail.get("applicable_subprovision") or detail.get("applicable_provision") or "Unknown",
+    )
     top3.metric("Bond Hearing", detail.get("bond_status") or "Unknown")
     conf = detail.get("confidence")
     top4.metric("Extraction Confidence", f"{conf:.2f}" if isinstance(conf, (int, float)) else "N/A")
+    top5.metric("Representation", representation_label(detail.get("representation_status")))
 
     meta_cols = st.columns(4)
     meta_cols[0].write(f"**Judge:** {detail.get('judge_name') or 'Unknown'}")
@@ -245,6 +285,12 @@ def render_case_detail(detail: dict):
 
     if detail.get("opinion_url"):
         st.markdown(f"[Open opinion URL]({detail['opinion_url']})")
+
+    st.markdown("### Representation")
+    st.write(representation_badge(detail.get("representation_status")))
+    if detail.get("representation_evidence"):
+        st.caption("Supporting passage")
+        st.code(detail.get("representation_evidence") or "")
 
     st.divider()
 
@@ -257,11 +303,18 @@ def render_case_detail(detail: dict):
         st.markdown("### Reasoning Basis")
         st.json(detail.get("reasoning_basis") or {})
 
+        phrase_signals = detail.get("phrase_signals") or []
+        if phrase_signals:
+            st.markdown("### Phrase Signals")
+            st.json(phrase_signals)
+
         st.markdown("### Flags")
-        st.json({
-            "is_border_or_near_border_detention": detail.get("is_border_or_near_border_detention"),
-            "is_interior_detention_focus": detail.get("is_interior_detention_focus"),
-        })
+        st.json(
+            {
+                "is_border_or_near_border_detention": detail.get("is_border_or_near_border_detention"),
+                "is_interior_detention_focus": detail.get("is_interior_detention_focus"),
+            }
+        )
 
     with right:
         st.markdown("### Evidence Spans")
@@ -283,7 +336,6 @@ def render_case_detail(detail: dict):
 
 
 def render_judge_scores(judge_name: str):
-    st.markdown(f"### Historical Judge Patterns — {judge_name}")
     try:
         rows = api_get(f"/api/judges/{judge_name}/scores")
     except Exception as e:
@@ -293,6 +345,9 @@ def render_judge_scores(judge_name: str):
     if not rows:
         st.info("No judge pattern data is available yet for this judge.")
         return
+
+    resolved_judge_name = rows[0].get("judge_name") or judge_name
+    st.markdown(f"### Historical Judge Patterns — {resolved_judge_name}")
 
     df = pd.DataFrame(rows)
 
@@ -324,19 +379,45 @@ def render_judge_scores(judge_name: str):
         a.metric("Cases in historical sample", int(r["n_cases"]))
         b.metric(
             "Favorable habeas rate",
-            f"{r['rate_habeas_granted']:.2f}" if pd.notna(r["rate_habeas_granted"]) else "N/A"
+            f"{r['rate_habeas_granted']:.2f}" if pd.notna(r["rate_habeas_granted"]) else "N/A",
         )
         c.metric(
             "Rate classified under §1226",
-            f"{r['rate_1226']:.2f}" if pd.notna(r["rate_1226"]) else "N/A"
+            f"{r['rate_1226']:.2f}" if pd.notna(r["rate_1226"]) else "N/A",
         )
         d.metric(
             "Bond-hearing availability rate",
-            f"{r['rate_bond_eligible']:.2f}" if pd.notna(r["rate_bond_eligible"]) else "N/A"
+            f"{r['rate_bond_eligible']:.2f}" if pd.notna(r["rate_bond_eligible"]) else "N/A",
         )
 
+
+def render_representation_summary_for_judge(judge_name: str):
+    try:
+        payload = api_get("/api/ui/cases", params={"judge_name": judge_name, "limit": 500})
+        rows = payload.get("cases", []) if isinstance(payload, dict) else payload
+    except Exception as e:
+        st.error(f"Could not load representation summary: {user_friendly_api_error(e)}")
+        return
+
+    counts = {"pro_se": 0, "represented": 0, "unknown": 0}
+    for row in rows:
+        rep = (row.get("representation_status") or "unknown").lower()
+        if rep not in counts:
+            rep = "unknown"
+        counts[rep] += 1
+
+    resolved_judge_name = judge_name
+    if rows:
+        resolved_judge_name = rows[0].get("judge_name") or judge_name
+
+    st.markdown(f"### Representation in {resolved_judge_name}'s case set")
+    a, b, c = st.columns(3)
+    a.metric("Pro se", counts["pro_se"])
+    b.metric("Represented by counsel", counts["represented"])
+    c.metric("Unknown", counts["unknown"])
+
+
 def render_judge_phrase_signals(judge_name: str):
-    st.markdown(f"### Phrase-Conditioned Tendencies — {judge_name}")
     st.caption(
         "These patterns are descriptive associations drawn from reviewed case text. "
         "They do not infer motive and should be read as historical tendencies within this dataset."
@@ -367,10 +448,7 @@ def render_judge_phrase_signals(judge_name: str):
     try:
         rows = api_get(
             f"/api/judges/{judge_name}/phrase-signals",
-            params={
-                "segment": segment_value,
-                "min_cases": min_cases,
-            },
+            params={"segment": segment_value, "min_cases": min_cases},
         )
     except Exception as e:
         st.error(f"Could not load phrase-conditioned tendencies: {user_friendly_api_error(e)}")
@@ -379,6 +457,9 @@ def render_judge_phrase_signals(judge_name: str):
     if not rows:
         st.info("No phrase-conditioned tendency data is available yet for this judge under the selected filters.")
         return
+
+    resolved_judge_name = rows[0].get("judge_name") or judge_name
+    st.markdown(f"### Phrase-Conditioned Tendencies — {resolved_judge_name}")
 
     favorable_rows = [r for r in rows if r.get("direction") == "favorable_lean"]
     unfavorable_rows = [r for r in rows if r.get("direction") == "unfavorable_lean"]
@@ -396,15 +477,16 @@ def render_judge_phrase_signals(judge_name: str):
     for r in rows:
         favorable_rate = r.get("favorable_rate")
         unfavorable_rate = r.get("unfavorable_rate")
-
-        table_rows.append({
-            "phrase": r.get("phrase_label"),
-            "category": r.get("phrase_category"),
-            "pattern": phrase_direction_badge(r.get("direction")),
-            "supporting_cases": r.get("n_cases"),
-            "favorable_rate": round(favorable_rate, 2) if isinstance(favorable_rate, (int, float)) else None,
-            "unfavorable_rate": round(unfavorable_rate, 2) if isinstance(unfavorable_rate, (int, float)) else None,
-        })
+        table_rows.append(
+            {
+                "phrase": r.get("phrase_label"),
+                "category": r.get("phrase_category"),
+                "pattern": phrase_direction_badge(r.get("direction")),
+                "supporting_cases": r.get("n_cases"),
+                "favorable_rate": round(favorable_rate, 2) if isinstance(favorable_rate, (int, float)) else None,
+                "unfavorable_rate": round(unfavorable_rate, 2) if isinstance(unfavorable_rate, (int, float)) else None,
+            }
+        )
 
     st.dataframe(pd.DataFrame(table_rows), use_container_width=True, hide_index=True)
 
@@ -450,6 +532,7 @@ def render_judge_phrase_signals(judge_name: str):
                     else:
                         st.caption("Observed outcome in this example: other / unclear")
 
+
 def render_law_friendly_intro():
     st.markdown(
         """
@@ -460,7 +543,6 @@ It can:
 - classify the detention issue (**1225 vs 1226**)
 - show supporting evidence snippets from the case text
 - summarize **judge-level historical patterns** based on past analyzed cases
-
 """
     )
     st.caption(
@@ -494,7 +576,20 @@ review_filter_label = st.sidebar.selectbox(
     options=["All", "auto", "needs_review", "reviewed", "rejected"],
     index=0,
 )
+representation_filter_label = st.sidebar.selectbox(
+    "Representation status",
+    options=["All", "Pro se", "Represented", "Unknown"],
+    index=0,
+)
 limit = st.sidebar.slider("Maximum cases shown", min_value=10, max_value=500, value=100, step=10)
+
+representation_filter_map = {
+    "All": None,
+    "Pro se": "pro_se",
+    "Represented": "represented",
+    "Unknown": "unknown",
+}
+representation_filter = representation_filter_map[representation_filter_label]
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Workflow actions")
@@ -544,7 +639,7 @@ if run_pipeline:
 if enrich_text_batch:
     try:
         result = api_post("/api/enrich/text/batch", params={"limit": int(enrich_limit)})
-        st.sidebar.success("Opinion text retrieval completed")
+        st.sidebar.success("Opinion-text retrieval completed")
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(user_friendly_api_error(e))
@@ -552,7 +647,7 @@ if enrich_text_batch:
 if recompute_scores:
     try:
         result = api_post("/api/scores/recompute")
-        st.sidebar.success("Judge pattern summaries refreshed")
+        st.sidebar.success("Judicial pattern summaries refreshed")
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(f"Refresh failed: {user_friendly_api_error(e)}")
@@ -579,7 +674,6 @@ if retry_review_queue:
 st.title("⚖️ Habeas 1225/1226 Judicial Pattern Tracker")
 render_law_friendly_intro()
 
-# Health check
 try:
     health = api_get("/api/health")
     if health.get("ok"):
@@ -588,7 +682,6 @@ except Exception as e:
     st.error(f"Cannot connect to backend: {e}")
     st.stop()
 
-# Load UI-friendly case list
 params = {"limit": limit}
 if judge_filter.strip():
     params["judge_name"] = judge_filter.strip()
@@ -601,40 +694,56 @@ if review_filter_label != "All":
 
 try:
     payload = api_get("/api/ui/cases", params=params)
-    
 except Exception as e:
     st.error(user_friendly_api_error(e))
+    st.stop()
 
 cases = payload.get("cases", [])
+
+if representation_filter:
+    filtered_cases = []
+    for c in cases:
+        rep_status = (c.get("representation_status") or "unknown").lower()
+        if rep_status == representation_filter:
+            filtered_cases.append(c)
+    cases = filtered_cases
+
 render_status_legend()
 
-tab1, tab2, tab3, tab4 = st.tabs([
-    "📚 Case Catalog",
-    "🔍 Case Detail",
-    "⚠️ Review Queue",
-    "👩‍⚖️ Judicial Patterns",
-])
+tab1, tab2, tab3, tab4 = st.tabs(
+    [
+        "📚 Case Catalog",
+        "🔍 Case Detail",
+        "⚠️ Review Queue",
+        "👩‍⚖️ Judicial Patterns",
+    ]
+)
 
 with tab1:
     st.markdown("### Cases")
     if not cases:
         st.info("No cases match the current filters.")
     else:
+        render_case_summary_metrics(cases)
+
         table_rows = []
         for c in cases:
-            table_rows.append({
-                "case_id": c["case_id"],
-                "date": c.get("decision_date"),
-                "case_caption": c.get("case_caption"),
-                "judge": c.get("judge_name"),
-                "court": c.get("court"),
-                "habeas_outcome": outcome_badge(c.get("habeas_outcome")),
-                "detention_classification": c.get("applicable_subprovision") or c.get("applicable_provision"),
-                "bond_status": c.get("bond_status"),
-                "extraction_confidence": c.get("confidence"),
-                "review_status": review_badge(c.get("review_status")),
-                "has_extraction": c.get("has_extraction"),
-            })
+            table_rows.append(
+                {
+                    "case_id": c["case_id"],
+                    "date": c.get("decision_date"),
+                    "case_caption": c.get("case_caption"),
+                    "judge": c.get("judge_name"),
+                    "court": c.get("court"),
+                    "representation": representation_label(c.get("representation_status")),
+                    "habeas_outcome": outcome_badge(c.get("habeas_outcome")),
+                    "detention_classification": c.get("applicable_subprovision") or c.get("applicable_provision"),
+                    "bond_status": c.get("bond_status"),
+                    "extraction_confidence": c.get("confidence"),
+                    "review_status": review_badge(c.get("review_status")),
+                    "has_extraction": c.get("has_extraction"),
+                }
+            )
 
         df = pd.DataFrame(table_rows)
         st.dataframe(df, use_container_width=True, hide_index=True)
@@ -643,8 +752,8 @@ with tab1:
             "Select a case to inspect",
             options=cases,
             format_func=lambda c: f"{c['case_id']} • {c.get('case_caption') or 'Untitled'}"
-                                  f" • {c.get('judge_name') or 'Unknown judge'}"
-                                  f" • {outcome_badge(c.get('habeas_outcome'))}",
+            f" • {c.get('judge_name') or 'Unknown judge'}"
+            f" • {outcome_badge(c.get('habeas_outcome'))}",
             key="selected_case_obj",
         )
 
@@ -658,13 +767,12 @@ with tab2:
         st.session_state["selected_case_id"] = selected_case_id
 
     if not selected_case_id:
-        st.info("Select a case in the Case Explorer tab.")
+        st.info("Select a case in the Case Catalog tab.")
     else:
         try:
             detail = api_get(f"/api/ui/cases/{selected_case_id}")
             render_case_detail(detail)
 
-            # quick review controls
             st.markdown("### Review and Case Actions")
             rc1, rc2, rc3, rc4, rc5 = st.columns(5)
 
@@ -703,7 +811,6 @@ with tab3:
     render_cases_needing_review()
 
 with tab4:
-    # derive default judge from selected case
     selected_case_id = st.session_state.get("selected_case_id")
     default_judge = ""
     if selected_case_id:
@@ -724,5 +831,7 @@ with tab4:
 
     if judge_to_show:
         render_judge_scores(judge_to_show)
+        st.divider()
+        render_representation_summary_for_judge(judge_to_show)
         st.divider()
         render_judge_phrase_signals(judge_to_show)

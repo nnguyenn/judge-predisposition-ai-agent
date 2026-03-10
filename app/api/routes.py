@@ -327,6 +327,8 @@ def _ui_case_row(case: CaseRecord, ext: CaseExtraction | None) -> dict:
         "applicable_provision": None if not ext or not ext.holdings else ext.holdings.get("applicable_provision"),
         "applicable_subprovision": None if not ext or not ext.holdings else ext.holdings.get("applicable_subprovision"),
         "bond_status": None if not ext or not ext.holdings else ext.holdings.get("bond_status"),
+        "representation_status": None if not ext else ext.representation_status,
+        "representation_evidence": None if not ext else ext.representation_evidence,
         "confidence": None if not ext else ext.confidence,
         "review_status": None if not ext else ext.review_status,
         "is_border_or_near_border_detention": None if not ext else ext.is_border_or_near_border_detention,
