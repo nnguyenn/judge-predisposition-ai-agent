@@ -59,14 +59,44 @@ def outcome_badge(outcome: str | None) -> str:
 def review_badge(status: str | None) -> str:
     status = (status or "none").lower()
     if status == "reviewed":
-        return "✅ reviewed"
+        return "✅ Reviewed"
     if status == "auto":
-        return "🤖 auto"
+        return "🤖 Auto-accepted"
     if status == "needs_review":
-        return "⚠️ needs_review"
+        return "⚠️ Needs review"
     if status == "rejected":
-        return "🚫 rejected"
+        return "🚫 Excluded"
     return "—"
+
+def review_label(status: str | None) -> str:
+    status = (status or "none").lower()
+    if status == "reviewed":
+        return "Reviewed"
+    if status == "auto":
+        return "Auto-accepted"
+    if status == "needs_review":
+        return "Needs review"
+    if status == "rejected":
+        return "Excluded"
+    return "—"
+
+
+def phrase_direction_badge(direction: str | None) -> str:
+    direction = (direction or "").lower()
+    if direction == "favorable_lean":
+        return "🟢 More often favorable"
+    if direction == "unfavorable_lean":
+        return "🔴 More often unfavorable"
+    return "🟡 Mixed / not yet clear"
+
+
+def segment_label(segment: str | None) -> str:
+    segment = (segment or "all").lower()
+    if segment == "interior_detention":
+        return "Interior detention cases"
+    if segment == "near_border":
+        return "Border / near-border cases"
+    return "All detention contexts"
 
 
 def safe_df(rows: list[dict]) -> pd.DataFrame:
@@ -253,34 +283,172 @@ def render_case_detail(detail: dict):
 
 
 def render_judge_scores(judge_name: str):
-    st.markdown(f"### Judge Pattern Scores — {judge_name}")
+    st.markdown(f"### Historical Judge Patterns — {judge_name}")
     try:
         rows = api_get(f"/api/judges/{judge_name}/scores")
     except Exception as e:
-        st.error(f"Could not load judge scores: {e}")
+        st.error(f"Could not load judge scores: {user_friendly_api_error(e)}")
         return
 
     if not rows:
-        st.info("No scores found for this judge yet (or cases may be excluded by review status).")
+        st.info("No judge pattern data is available yet for this judge.")
         return
 
     df = pd.DataFrame(rows)
-    st.dataframe(df, use_container_width=True)
 
-    # Show latest "all" segment as quick summary
+    display_df = df.copy()
+    if "segment" in display_df.columns:
+        display_df["segment"] = display_df["segment"].map(segment_label)
+
+    rename_map = {
+        "as_of_date": "snapshot_date",
+        "segment": "detention_context",
+        "n_cases": "cases",
+        "rate_1226": "rate_classified_as_1226",
+        "rate_bond_eligible": "rate_bond_hearing_available",
+        "rate_habeas_granted": "rate_favorable_habeas_result",
+        "ci_low": "confidence_interval_low",
+        "ci_high": "confidence_interval_high",
+    }
+    display_df = display_df.rename(columns=rename_map)
+
+    st.dataframe(display_df, use_container_width=True, hide_index=True)
+
     latest_date = df["as_of_date"].max()
     latest = df[df["as_of_date"] == latest_date]
     all_row = latest[latest["segment"] == "all"]
+
     if not all_row.empty:
         r = all_row.iloc[0]
         a, b, c, d = st.columns(4)
-        a.metric("Cases (all)", int(r["n_cases"]))
-        a2 = r["rate_habeas_granted"]
-        b.metric("Habeas Granted Rate", f"{a2:.2f}" if pd.notna(a2) else "N/A")
-        c2 = r["rate_1226"]
-        c.metric("1226 Rate", f"{c2:.2f}" if pd.notna(c2) else "N/A")
-        d2 = r["rate_bond_eligible"]
-        d.metric("Bond Eligible Rate", f"{d2:.2f}" if pd.notna(d2) else "N/A")
+        a.metric("Cases in historical sample", int(r["n_cases"]))
+        b.metric(
+            "Favorable habeas rate",
+            f"{r['rate_habeas_granted']:.2f}" if pd.notna(r["rate_habeas_granted"]) else "N/A"
+        )
+        c.metric(
+            "Rate classified under §1226",
+            f"{r['rate_1226']:.2f}" if pd.notna(r["rate_1226"]) else "N/A"
+        )
+        d.metric(
+            "Bond-hearing availability rate",
+            f"{r['rate_bond_eligible']:.2f}" if pd.notna(r["rate_bond_eligible"]) else "N/A"
+        )
+
+def render_judge_phrase_signals(judge_name: str):
+    st.markdown(f"### Phrase-Conditioned Tendencies — {judge_name}")
+    st.caption(
+        "These patterns are descriptive associations drawn from reviewed case text. "
+        "They do not infer motive and should be read as historical tendencies within this dataset."
+    )
+
+    segment_choice = st.selectbox(
+        "Detention context",
+        options=[
+            ("all", "All detention contexts"),
+            ("interior_detention", "Interior detention cases"),
+            ("near_border", "Border / near-border cases"),
+        ],
+        format_func=lambda x: x[1],
+        key="phrase_segment_choice",
+    )
+
+    min_cases = st.slider(
+        "Minimum supporting cases",
+        min_value=1,
+        max_value=10,
+        value=2,
+        step=1,
+        key="phrase_min_cases",
+    )
+
+    segment_value = segment_choice[0]
+
+    try:
+        rows = api_get(
+            f"/api/judges/{judge_name}/phrase-signals",
+            params={
+                "segment": segment_value,
+                "min_cases": min_cases,
+            },
+        )
+    except Exception as e:
+        st.error(f"Could not load phrase-conditioned tendencies: {user_friendly_api_error(e)}")
+        return
+
+    if not rows:
+        st.info("No phrase-conditioned tendency data is available yet for this judge under the selected filters.")
+        return
+
+    favorable_rows = [r for r in rows if r.get("direction") == "favorable_lean"]
+    unfavorable_rows = [r for r in rows if r.get("direction") == "unfavorable_lean"]
+    mixed_rows = [r for r in rows if r.get("direction") == "mixed"]
+
+    summary_cols = st.columns(4)
+    summary_cols[0].metric("Phrase patterns", len(rows))
+    summary_cols[1].metric("More often favorable", len(favorable_rows))
+    summary_cols[2].metric("More often unfavorable", len(unfavorable_rows))
+    summary_cols[3].metric("Mixed / unclear", len(mixed_rows))
+
+    st.markdown(f"**Showing:** {segment_label(segment_value)}")
+
+    table_rows = []
+    for r in rows:
+        favorable_rate = r.get("favorable_rate")
+        unfavorable_rate = r.get("unfavorable_rate")
+
+        table_rows.append({
+            "phrase": r.get("phrase_label"),
+            "category": r.get("phrase_category"),
+            "pattern": phrase_direction_badge(r.get("direction")),
+            "supporting_cases": r.get("n_cases"),
+            "favorable_rate": round(favorable_rate, 2) if isinstance(favorable_rate, (int, float)) else None,
+            "unfavorable_rate": round(unfavorable_rate, 2) if isinstance(unfavorable_rate, (int, float)) else None,
+        })
+
+    st.dataframe(pd.DataFrame(table_rows), use_container_width=True, hide_index=True)
+
+    st.markdown("#### Example supporting passages")
+    for idx, row in enumerate(rows[:12], start=1):
+        with st.expander(
+            f"{idx}. {row.get('phrase_label')} — {phrase_direction_badge(row.get('direction'))} "
+            f"({row.get('n_cases')} cases)",
+            expanded=False,
+        ):
+            st.write(f"**Category:** {row.get('phrase_category')}")
+            st.write(f"**Detention context:** {segment_label(row.get('segment'))}")
+            st.write(f"**Supporting cases:** {row.get('n_cases')}")
+
+            favorable_rate = row.get("favorable_rate")
+            unfavorable_rate = row.get("unfavorable_rate")
+
+            rate_cols = st.columns(2)
+            rate_cols[0].metric(
+                "Favorable rate",
+                f"{favorable_rate:.2f}" if isinstance(favorable_rate, (int, float)) else "N/A",
+            )
+            rate_cols[1].metric(
+                "Unfavorable rate",
+                f"{unfavorable_rate:.2f}" if isinstance(unfavorable_rate, (int, float)) else "N/A",
+            )
+
+            evidence_rows = row.get("sample_evidence") or []
+            if not evidence_rows:
+                st.info("No example passages available.")
+            else:
+                for ev in evidence_rows:
+                    st.markdown(
+                        f"**{ev.get('case_caption') or f'Case {ev.get('case_id')}'}**"
+                        f" — matched phrase: `{ev.get('matched_alias')}`"
+                    )
+                    st.code(ev.get("evidence") or "")
+                    bucket = ev.get("outcome_bucket")
+                    if bucket == "favorable":
+                        st.caption("Observed outcome in this example: favorable to the habeas petitioner")
+                    elif bucket == "unfavorable":
+                        st.caption("Observed outcome in this example: unfavorable to the habeas petitioner")
+                    else:
+                        st.caption("Observed outcome in this example: other / unclear")
 
 def render_law_friendly_intro():
     st.markdown(
@@ -304,16 +472,16 @@ It can:
 # ---------------------------
 # Sidebar controls
 # ---------------------------
-st.sidebar.title("⚙️ Controls")
+st.sidebar.title("⚙️ Research Controls")
 
 st.session_state["api_base_url"] = st.sidebar.text_input(
-    "Backend API Base URL",
+    "Backend service URL",
     value=st.session_state.get("api_base_url", DEFAULT_API_BASE),
     help="FastAPI server base URL",
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### Filters")
+st.sidebar.markdown("### Case filters")
 
 judge_filter = st.sidebar.text_input("Judge name contains", value="")
 outcome_filter_label = st.sidebar.selectbox(
@@ -326,23 +494,23 @@ review_filter_label = st.sidebar.selectbox(
     options=["All", "auto", "needs_review", "reviewed", "rejected"],
     index=0,
 )
-limit = st.sidebar.slider("Max cases", min_value=10, max_value=500, value=100, step=10)
+limit = st.sidebar.slider("Maximum cases shown", min_value=10, max_value=500, value=100, step=10)
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### Actions")
+st.sidebar.markdown("### Workflow actions")
 
 row1a, row1b = st.sidebar.columns(2)
-run_pipeline = row1a.button("Check for New Cases")
-recompute_scores = row1b.button("Refresh Judge Metrics")
+run_pipeline = row1a.button("Check for newly available cases")
+recompute_scores = row1b.button("Refresh judicial pattern summaries")
 
 row2a, row2b = st.sidebar.columns(2)
-extract_batch = row2a.button("Analyze Available Cases")
-retry_review_queue = row2b.button("Reanalyze Flagged Cases")
+extract_batch = row2a.button("Analyze available case text")
+retry_review_queue = row2b.button("Reanalyze flagged cases")
 
 row3a, row3b = st.sidebar.columns(2)
-enrich_text_batch = row3a.button("Fetch Opinion Text")
+enrich_text_batch = row3a.button("Retrieve opinion text")
 enrich_limit = st.sidebar.number_input(
-    "Opinion-text fetch limit",
+    "Opinion-text retrieval limit",
     min_value=1,
     max_value=1000,
     value=50,
@@ -350,7 +518,7 @@ enrich_limit = st.sidebar.number_input(
 )
 
 batch_limit = st.sidebar.number_input(
-    "Analyze case limit",
+    "Case-analysis limit",
     min_value=1,
     max_value=1000,
     value=100,
@@ -376,7 +544,7 @@ if run_pipeline:
 if enrich_text_batch:
     try:
         result = api_post("/api/enrich/text/batch", params={"limit": int(enrich_limit)})
-        st.sidebar.success("Opinion text fetch completed")
+        st.sidebar.success("Opinion text retrieval completed")
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(user_friendly_api_error(e))
@@ -384,7 +552,7 @@ if enrich_text_batch:
 if recompute_scores:
     try:
         result = api_post("/api/scores/recompute")
-        st.sidebar.success("Judge metrics refreshed")
+        st.sidebar.success("Judge pattern summaries refreshed")
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(f"Refresh failed: {user_friendly_api_error(e)}")
@@ -392,7 +560,7 @@ if recompute_scores:
 if extract_batch:
     try:
         result = api_post("/api/extract/batch", params={"limit": int(batch_limit)})
-        st.sidebar.success("Analysis completed")
+        st.sidebar.success("Case analysis completed")
         st.sidebar.json(result)
     except Exception as e:
         st.sidebar.error(f"Analysis failed: {user_friendly_api_error(e)}")
@@ -441,10 +609,10 @@ cases = payload.get("cases", [])
 render_status_legend()
 
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📚 Case List",
+    "📚 Case Catalog",
     "🔍 Case Detail",
-    "⚠️ Cases Needing Review",
-    "👩‍⚖️ Historical Judge Patterns",
+    "⚠️ Review Queue",
+    "👩‍⚖️ Judicial Patterns",
 ])
 
 with tab1:
@@ -497,31 +665,36 @@ with tab2:
             render_case_detail(detail)
 
             # quick review controls
-            st.markdown("### Review Controls")
+            st.markdown("### Review and Case Actions")
             rc1, rc2, rc3, rc4, rc5 = st.columns(5)
-            if rc1.button("Mark auto", key=f"mark_auto_{selected_case_id}"):
+
+            if rc1.button("Accept automated result", key=f"mark_auto_{selected_case_id}"):
                 api_post(f"/api/review/{selected_case_id}/mark", params={"status": "auto"})
-                st.success("Marked auto")
+                st.success("Marked as auto-accepted")
                 st.rerun()
-            if rc2.button("Mark needs_review", key=f"mark_nr_{selected_case_id}"):
+
+            if rc2.button("Send to review queue", key=f"mark_nr_{selected_case_id}"):
                 api_post(f"/api/review/{selected_case_id}/mark", params={"status": "needs_review"})
-                st.warning("Marked needs_review")
+                st.warning("Marked as needs review")
                 st.rerun()
-            if rc3.button("Mark reviewed", key=f"mark_rev_{selected_case_id}"):
+
+            if rc3.button("Mark as reviewed", key=f"mark_rev_{selected_case_id}"):
                 api_post(f"/api/review/{selected_case_id}/mark", params={"status": "reviewed"})
-                st.success("Marked reviewed")
+                st.success("Marked as reviewed")
                 st.rerun()
-            if rc4.button("Extract / Re-extract Case", key=f"rex_{selected_case_id}"):
+
+            if rc4.button("Run analysis again", key=f"rex_{selected_case_id}"):
                 api_post(f"/api/cases/{selected_case_id}/extract")
-                st.success("Re-extracted case")
+                st.success("Case reanalyzed")
                 st.rerun()
-            if rc5.button("Fetch Opinion Text", key=f"enrich_{selected_case_id}"):
-              try:
-                  api_post(f"/api/cases/{selected_case_id}/enrich-text")
-                  st.success("Opinion text fetch attempted")
-                  st.rerun()
-              except Exception as e:
-                  st.error(user_friendly_api_error(e))
+
+            if rc5.button("Retrieve opinion text", key=f"enrich_{selected_case_id}"):
+                try:
+                    api_post(f"/api/cases/{selected_case_id}/enrich-text")
+                    st.success("Opinion-text retrieval attempted")
+                    st.rerun()
+                except Exception as e:
+                    st.error(user_friendly_api_error(e))
 
         except Exception as e:
             st.error(user_friendly_api_error(e))
@@ -551,3 +724,5 @@ with tab4:
 
     if judge_to_show:
         render_judge_scores(judge_to_show)
+        st.divider()
+        render_judge_phrase_signals(judge_to_show)
