@@ -62,11 +62,11 @@ def _courtlistener_opinion_api_url(opinion_id: int) -> str:
 def _extract_text_from_courtlistener_opinion_api_json(data: dict) -> tuple[str | None, str]:
     """
     CourtListener opinions API often exposes multiple text/html variants.
-    Try the most useful fields first.
+    Prefer html_with_citations first, then fall back to plain_text.
     """
     candidate_fields = [
-        "plain_text",
         "html_with_citations",
+        "plain_text",
         "html",
         "html_lawbox",
         "html_columbia",
@@ -283,10 +283,13 @@ def _courtlistener_cluster_api_url(cluster_id: int) -> str:
 
 
 def _extract_text_from_courtlistener_cluster_json(data: dict) -> tuple[str | None, str]:
-    # Some cluster payloads may include html/plain text variants
+    """
+    Some cluster payloads may include text/html variants directly.
+    Prefer html_with_citations first, then plain_text.
+    """
     candidate_fields = [
-        "plain_text",
         "html_with_citations",
+        "plain_text",
         "html",
         "html_lawbox",
         "html_columbia",
@@ -358,30 +361,43 @@ def _courtlistener_opinion_api_url_from_ref(ref: str) -> str:
 def enrich_case_text(case: CaseRecord, timeout: float = 20.0, overwrite: bool = False) -> dict:
     """
     Attempt to populate case.opinion_text from:
-    1) existing retrieval payload strings
-    2) fetching one of the case URLs
+    1) strong existing retrieval payload strings
+    2) CourtListener cluster API
+    3) CourtListener opinion API objects from cluster refs
+    4) generic URL fetching as a last resort
+
     Returns a status dict (does not commit DB session).
     """
     if case.opinion_text and case.opinion_text.strip() and not overwrite:
         return {"status": "already_has_text", "source": "db"}
 
-    # 1) Try payload strings first (cheap + often present)
-    for source_label, candidate in _candidate_strings_from_payload(case.retrieval_payload):
-        cleaned = _clean_text(candidate)
-        if _looks_like_opinion_text(cleaned):
-            case.opinion_text = cleaned
-            # If text_excerpt is empty, save a short preview
-            if not case.text_excerpt:
-                case.text_excerpt = cleaned[:500]
-            return {"status": "enriched", "source": source_label, "length": len(cleaned)}
-        
-    # 1.5) CourtListener cluster API fallback (more reliable than scraping /opinion/<id>/ HTML)
+    headers = {}
+    api_key = getattr(settings, "effective_retrieval_api_key", None)
+    if api_key:
+        headers["Authorization"] = f"Token {api_key}"
+
+    # 1) Try only stronger payload text first.
+    # Intentionally do NOT use snippet/text here as primary enrichment sources.
+    payload = case.retrieval_payload or {}
+    strong_payload_keys = [
+        "html_with_citations",
+        "plain_text",
+        "html",
+        "opinion_text",
+    ]
+    for k in strong_payload_keys:
+        v = payload.get(k)
+        if isinstance(v, str) and v.strip():
+            cleaned = _clean_text(v)
+            if _looks_like_opinion_text(cleaned):
+                case.opinion_text = cleaned
+                if not case.text_excerpt:
+                    case.text_excerpt = cleaned[:500]
+                return {"status": "enriched", "source": f"payload:{k}", "length": len(cleaned)}
+
+    # 2) CourtListener cluster API first
     cluster_id = _parse_courtlistener_cluster_id(case)
     if cluster_id is not None:
-        headers = {}
-        if settings.retrieval_api_key:
-            headers["Authorization"] = f"Token {settings.retrieval_api_key}"
-
         try:
             with httpx.Client(timeout=timeout, follow_redirects=True, headers=headers) as client:
                 cluster_url = _courtlistener_cluster_api_url(cluster_id)
@@ -390,7 +406,7 @@ def enrich_case_text(case: CaseRecord, timeout: float = 20.0, overwrite: bool = 
                 if cluster_resp.status_code < 400:
                     cluster_data = _safe_json_loads(cluster_resp.text)
                     if isinstance(cluster_data, dict):
-                        # Try direct text on cluster first
+                        # direct text on cluster
                         text, source_kind = _extract_text_from_courtlistener_cluster_json(cluster_data)
                         if text:
                             case.opinion_text = text
@@ -398,7 +414,7 @@ def enrich_case_text(case: CaseRecord, timeout: float = 20.0, overwrite: bool = 
                                 case.text_excerpt = text[:500]
                             return {"status": "enriched", "source": source_kind, "length": len(text)}
 
-                        # Then try sub-opinion refs/URLs
+                        # then sub-opinion refs
                         refs = _extract_sub_opinion_refs_from_cluster(cluster_data)
                         for ref in refs:
                             opinion_api_url = _courtlistener_opinion_api_url_from_ref(ref)
@@ -409,6 +425,7 @@ def enrich_case_text(case: CaseRecord, timeout: float = 20.0, overwrite: bool = 
                                 op_data = _safe_json_loads(op_resp.text)
                                 if not isinstance(op_data, dict):
                                     continue
+
                                 text, source_kind = _extract_text_from_courtlistener_opinion_api_json(op_data)
                                 if text:
                                     case.opinion_text = text
@@ -418,17 +435,21 @@ def enrich_case_text(case: CaseRecord, timeout: float = 20.0, overwrite: bool = 
                             except Exception:
                                 continue
         except Exception:
-            # fall through to other enrichment methods
             pass
 
-    # 2) Try URLs
+    # 3) As a cheaper fallback, try payload-derived full text again more broadly
+    for source_label, candidate in _candidate_strings_from_payload(case.retrieval_payload):
+        cleaned = _clean_text(candidate)
+        if _looks_like_opinion_text(cleaned):
+            case.opinion_text = cleaned
+            if not case.text_excerpt:
+                case.text_excerpt = cleaned[:500]
+            return {"status": "enriched", "source": source_label, "length": len(cleaned)}
+
+    # 4) Generic URL fallback LAST
     urls = _candidate_urls_from_case(case)
     if not urls:
         return {"status": "no_url", "source": None}
-
-    headers = {}
-    if settings.retrieval_api_key:
-        headers["Authorization"] = f"Token {settings.retrieval_api_key}"
 
     with httpx.Client(timeout=timeout, follow_redirects=True, headers=headers) as client:
         last_reason = None
