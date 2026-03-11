@@ -1,5 +1,6 @@
 import os
 from typing import Any
+import hmac
 
 import httpx
 import pandas as pd
@@ -11,6 +12,33 @@ st.set_page_config(
     page_icon="⚖️",
     layout="wide",
 )
+
+def require_password():
+    expected_password = os.getenv("APP_SITE_PASSWORD")
+
+    if not expected_password:
+        return
+
+    if st.session_state.get("authenticated", False):
+        return
+
+    st.title("Protected Demo")
+
+    with st.form("password_form"):
+        password = st.text_input("Enter password", type="password")
+        submitted = st.form_submit_button("Enter")
+
+    if submitted:
+        if hmac.compare_digest(password, expected_password):
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Incorrect password.")
+
+    st.stop()
+
+
+require_password()
 
 DEFAULT_API_BASE = os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
 
