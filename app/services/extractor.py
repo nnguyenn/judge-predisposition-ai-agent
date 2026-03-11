@@ -180,6 +180,83 @@ def _window(text: str, start: int, end: int, radius: int = 180) -> str:
     e = min(len(text), end + radius)
     return text[s:e]
 
+def _all_matches(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL):
+    matches = []
+    for p in patterns:
+        matches.extend(list(re.finditer(p, text, flags)))
+    return matches
+
+
+def _count_matches(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL) -> int:
+    return len(_all_matches(text, patterns, flags))
+
+
+def _priority_text(text: str) -> str:
+    if not isinstance(text, str):
+        return ""
+
+    chunks: list[str] = []
+    chunks.append(text[:5000])
+
+    anchor_patterns = [
+        r"\bIT IS ORDERED\b",
+        r"\bIT IS FURTHER ORDERED\b",
+        r"\bThe Court concludes\b",
+        r"\bThe Court holds\b",
+        r"\bThe Court finds\b",
+        r"\bSummary\b",
+        r"\bConclusion\b",
+        r"\bAccordingly\b",
+        r"\bThe petition is\b",
+        r"\bThe habeas petition is\b",
+        r"\bpetition for writ of habeas corpus\b",
+        r"\bbond hearing class\b",
+    ]
+
+    for pattern in anchor_patterns:
+        try:
+            for m in re.finditer(pattern, text, re.IGNORECASE):
+                chunks.append(_window(text, m.start(), m.end(), radius=900))
+        except re.error:
+            continue
+
+    return "\n\n".join(chunks)
+
+
+def _weighted_pattern_score(priority_text: str, full_text: str, patterns: list[str]) -> int:
+    """
+    Give extra weight to matches in dispositive/summary sections.
+    """
+    return (2 * _count_matches(priority_text, patterns)) + _count_matches(full_text, patterns)
+
+def _operative_language_score(text: str, patterns: list[str]) -> int:
+    if not isinstance(text, str) or not text:
+        return 0
+
+    total = 0
+    for p in patterns:
+        wrapped_patterns = [
+            rf"(the court (holds|concludes|finds)[^.]*{p})",
+            rf"(it is ordered[^.]*{p})",
+            rf"(petition[^.]*{p})",
+            rf"(injunction[^.]*{p})",
+        ]
+        try:
+            total += _count_matches(text, wrapped_patterns)
+        except re.error:
+            continue
+    return total
+
+def _has_negative_prefix(text: str, start: int) -> bool:
+    prefix = text[max(0, start - 24):start].lower()
+    return (
+        "non-" in prefix
+        or "non " in prefix
+        or "not an " in prefix
+        or "not a " in prefix
+        or "no " in prefix
+    )
+
 
 def _first_match(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL):
     for p in patterns:
@@ -190,10 +267,20 @@ def _first_match(text: str, patterns: list[str], flags=re.IGNORECASE | re.DOTALL
 
 def _find_alias_match(text: str, aliases: list[str]):
     for alias in aliases:
-        m = re.search(re.escape(alias), text, re.IGNORECASE)
-        if m:
+        for m in re.finditer(re.escape(alias), text, re.IGNORECASE):
+            alias_l = alias.lower()
+
+            if alias_l == "arriving alien" and _has_negative_prefix(text, m.start()):
+                continue
+
+            if alias_l == "at the border":
+                snippet = text[max(0, m.start() - 120): min(len(text), m.end() + 120)].lower()
+                if "not at the border" in snippet or "within the territorial boundaries" in snippet:
+                    continue
+
             return alias, m
     return None, None
+
 
 
 def _extract_phrase_signals(text: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -238,14 +325,32 @@ def _extract_representation_status(text: str) -> tuple[str | None, str | None]:
     if pro_se_match:
         return "pro_se", _window(text, pro_se_match.start(), pro_se_match.end())
 
-    represented_match = _first_regex_match(text, REPRESENTED_PATTERNS)
+    represented_patterns = REPRESENTED_PATTERNS + [
+        r"\bcounsel for petitioners?\b",
+        r"\bcounsel for plaintiff\b",
+        r"\bpetitioner[s]?, through counsel\b",
+        r"\bthrough his counsel\b",
+        r"\bthrough her counsel\b",
+        r"\bthrough their counsel\b",
+        r"\battorneys? for petitioners?\b",
+        r"\bappeared through counsel\b",
+        r"\bby and through counsel\b",
+    ]
+    represented_match = _first_regex_match(text, represented_patterns)
     if represented_match:
         return "represented", _window(text, represented_match.start(), represented_match.end())
+
+    # Attorney caption / signature block heuristic
+    signature_block = text[:3000] + "\n" + text[-2500:]
+    if re.search(r"\bAttorney[s]?\s+for\s+Petitioner[s]?\b", signature_block, re.IGNORECASE):
+        m = re.search(r"\bAttorney[s]?\s+for\s+Petitioner[s]?\b", signature_block, re.IGNORECASE)
+        return "represented", _window(signature_block, m.start(), m.end())
 
     return "unknown", None
 
 def _extract_holdings(text: str) -> tuple[dict, dict]:
     t = _normalize(text)
+    ptext = _priority_text(text)
     evidence = {}
 
     # ---------------------------
@@ -253,16 +358,118 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     # ---------------------------
     provision = None
     subprovision = None
-    if "1226(a)" in t:
-        provision = "1226"
-        subprovision = "1226(a)"
-    elif "1225(b)(2)(a)" in t:
+
+    explicit_1225_b1bii = [
+        r"detained pursuant to §?\s*1225\(b\)\(1\)\(b\)\(ii\)",
+        r"under §?\s*1225\(b\)\(1\)\(b\)\(ii\)",
+        r"§?\s*235\(b\)\(1\)\(b\)\(ii\)",
+    ]
+    explicit_1225_b2a = [
+        r"detained pursuant to §?\s*1225\(b\)\(2\)\(a\)",
+        r"under §?\s*1225\(b\)\(2\)\(a\)",
+        r"§?\s*1225\(b\)\(2\)\(a\)",
+    ]
+    explicit_1226a = [
+        r"detained pursuant to §?\s*1226\(a\)",
+        r"under §?\s*1226\(a\)",
+        r"governed by §?\s*1226\(a\)",
+        r"subject to detention under §?\s*1226\(a\)",
+    ]
+    explicit_1226c = [
+        r"detained pursuant to §?\s*1226\(c\)",
+        r"under §?\s*1226\(c\)",
+        r"governed by §?\s*1226\(c\)",
+        r"subject to detention under §?\s*1226\(c\)",
+    ]
+
+    if _count_matches(ptext, explicit_1225_b1bii):
+        provision = "1225"
+        subprovision = "1225(b)(1)(B)(ii)"
+    elif _count_matches(ptext, explicit_1225_b2a):
         provision = "1225"
         subprovision = "1225(b)(2)(A)"
-    elif "§ 1226" in text or " 1226 " in t:
+    elif _count_matches(ptext, explicit_1226a):
         provision = "1226"
-    elif "§ 1225" in text or " 1225 " in t:
-        provision = "1225"
+        subprovision = "1226(a)"
+    elif _count_matches(ptext, explicit_1226c):
+        provision = "1226"
+        subprovision = "1226(c)"
+    else:
+        patterns_1225 = [
+            r"§\s*1225",
+            r"\b1225\b",
+            r"§\s*235",
+            r"\b235\(b\)\(1\)\(b\)\(ii\)",
+            r"\b235\(b\)\(2\)\(a\)",
+            r"\bcredible fear\b",
+            r"\bapplicants? for admission\b",
+            r"\bseeking admission\b",
+            r"\bparole\b",
+            r"\barriving alien\b",
+            r"\bentering without inspection\b",
+        ]
+        patterns_1226 = [
+            r"§\s*1226",
+            r"\b1226\b",
+            r"\b1226\(a\)\b",
+            r"\b1226\(c\)\b",
+            r"\bcustody redetermination\b",
+            r"\brevok[e|ing].{0,30}bond\b",
+            r"\bbond under §?\s*1226\b",
+            r"\bdetained pursuant to §?\s*1226\b",
+        ]
+
+        score_1225 = _weighted_pattern_score(ptext, text, patterns_1225)
+        score_1226 = _weighted_pattern_score(ptext, text, patterns_1226)
+
+        score_1225 += 3 * _operative_language_score(
+            text,
+            [
+                r"1225",
+                r"235\(b\)",
+                r"1225\(b\)\(1\)\(b\)\(ii\)",
+                r"1225\(b\)\(2\)\(a\)",
+                r"credible fear",
+            ],
+        )
+
+        score_1226 += 3 * _operative_language_score(
+            text,
+            [
+                r"1226",
+                r"1226\(a\)",
+                r"1226\(c\)",
+                r"bond hearing",
+                r"custody redetermination",
+            ],
+        )
+
+        # Strong tie-breakers
+        if re.search(r"\bnon-arriving alien\b|\bwithin the territorial boundaries\b|\bonce inside the united states\b", text, re.IGNORECASE):
+            score_1226 += 1
+        if re.search(r"\bcredible fear\b|\bapplicants? for admission\b|\b235\(b\)\b", text, re.IGNORECASE):
+            score_1225 += 1
+
+        if score_1225 > score_1226:
+            provision = "1225"
+        elif score_1226 > score_1225:
+            provision = "1226"
+        elif "§ 1225" in text or " 1225 " in t:
+            provision = "1225"
+        elif "§ 1226" in text or " 1226 " in t:
+            provision = "1226"
+
+        # Only infer subprovision if it appears more than once or in priority text
+        if provision == "1225":
+            if _count_matches(ptext, [r"§?\s*1225\(b\)\(1\)\(b\)\(ii\)", r"§?\s*235\(b\)\(1\)\(b\)\(ii\)"]) or _count_matches(text, [r"§?\s*1225\(b\)\(1\)\(b\)\(ii\)", r"§?\s*235\(b\)\(1\)\(b\)\(ii\)"]) >= 2:
+                subprovision = "1225(b)(1)(B)(ii)"
+            elif _count_matches(ptext, [r"§?\s*1225\(b\)\(2\)\(a\)"]) or _count_matches(text, [r"§?\s*1225\(b\)\(2\)\(a\)"]) >= 2:
+                subprovision = "1225(b)(2)(A)"
+        elif provision == "1226":
+            if _count_matches(ptext, [r"§?\s*1226\(a\)"]) >= 1 or _count_matches(text, [r"§?\s*1226\(a\)"]) >= 2:
+                subprovision = "1226(a)"
+            elif _count_matches(ptext, [r"§?\s*1226\(c\)"]) >= 1 or _count_matches(text, [r"§?\s*1226\(c\)"]) >= 2:
+                subprovision = "1226(c)"
 
     # ---------------------------
     # Bond hearing status
@@ -270,61 +477,65 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     bond = None
     bond_positive_patterns = [
         r"(eligible|entitled)\s+for\s+a\s+bond\s+hearing",
+        r"entitled\s+to\s+a\s+bond\s+hearing",
         r"must\s+receive\s+a\s+bond\s+hearing",
         r"shall\s+receive\s+a\s+bond\s+hearing",
         r"bond\s+hearing\s+is\s+required",
+        r"conduct\s+bond\s+hearings",
+        r"constitutionally\s+entitled\s+to\s+a\s+bond\s+hearing",
+        r"release.*bond\s+hearing",
     ]
     bond_negative_patterns = [
         r"(not\s+eligible|ineligible)\s+for\s+a\s+bond\s+hearing",
         r"no\s+bond\s+hearing",
-        r"mandatory\s+detention",
+        r"subject\s+to\s+mandatory\s+detention",
+        r"must\s+be\s+detained",
+        r"mandatory\s+detention\s+without\s+bond",
     ]
 
-    m_bond_pos = _first_match(text, bond_positive_patterns)
-    m_bond_neg = _first_match(text, bond_negative_patterns)
+    pos_score = _weighted_pattern_score(ptext, text, bond_positive_patterns)
+    neg_score = _weighted_pattern_score(ptext, text, bond_negative_patterns)
 
-    if m_bond_pos:
+    m_bond_pos = _first_match(ptext, bond_positive_patterns) or _first_match(text, bond_positive_patterns)
+    m_bond_neg = _first_match(ptext, bond_negative_patterns) or _first_match(text, bond_negative_patterns)
+
+    if pos_score > neg_score and m_bond_pos:
         bond = "eligible"
         evidence["bond_status_signal"] = _window(text, m_bond_pos.start(), m_bond_pos.end())
-    elif m_bond_neg:
+    elif neg_score > pos_score and m_bond_neg:
         bond = "mandatory_detention_or_no_bond"
         evidence["bond_status_signal"] = _window(text, m_bond_neg.start(), m_bond_neg.end())
 
     # ---------------------------
-    # Habeas disposition (grant / deny / partial / unknown)
+    # Habeas disposition
     # ---------------------------
     habeas_relief = None
     non_merits_disposition = None
 
-    # Partial first (most specific)
     partial_patterns = [
         r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
         r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
         r"\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
         r"\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
-        r"(habeas\s+petition|petition|writ)[^.]{0,140}\bgranted\s+in\s+part\b",
-        r"(habeas\s+petition|petition|writ)[^.]{0,140}\bdenied\s+in\s+part\b",
     ]
 
-    # Explicit habeas / petition / writ grant/deny
     grant_patterns = [
         r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?granted\b",
         r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?granted\b",
-        r"\bwrit\b[^.]{0,120}\b(is\s+)?granted\b",
-        r"\bhabeas\s+relief\b[^.]{0,120}\b(is\s+)?granted\b",
+        r"\bhabeas\s+relief\b[^.]{0,140}\b(is\s+)?granted\b",
         r"\bthe\s+court\s+grants\s+the\s+(habeas\s+)?petition\b",
         r"\bpetition\b[^.]{0,140}\bgranted\b",
+        r"\bthe\s+injunction\b[^.]{0,140}\b(is\s+)?modified\b",
+        r"\bthe\s+court\s+affirms\s+its\s+previously-entered\s+injunctive\s+relief\b",
+        r"\bconstitutionally\s+entitled\s+to\s+a\s+bond\s+hearing\b",
     ]
     deny_patterns = [
         r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?denied\b",
         r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?denied\b",
-        r"\bwrit\b[^.]{0,120}\b(is\s+)?denied\b",
         r"\bhabeas\s+relief\b[^.]{0,120}\b(is\s+)?denied\b",
         r"\bthe\s+court\s+denies\s+the\s+(habeas\s+)?petition\b",
         r"\bpetition\b[^.]{0,140}\bdenied\b",
     ]
-
-    # Non-merits dispositions (for now keep habeas_relief unknown)
     moot_patterns = [
         r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\s+as\s+moot\b",
         r"\bdismissed\s+as\s+moot\b",
@@ -332,36 +543,28 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     dismissed_patterns = [
         r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\b",
     ]
-
-    # False-positive phrases to avoid treating as habeas grant/deny
     false_positive_motion_patterns = [
         r"\bmotion\s+to\s+dismiss\b[^.]{0,120}\bgranted\b",
         r"\brespondent'?s\s+motion\b[^.]{0,120}\bgranted\b",
         r"\bmotion\s+for\s+summary\s+judgment\b[^.]{0,120}\bgranted\b",
     ]
 
-    m_partial = _first_match(text, partial_patterns)
-    m_grant = _first_match(text, grant_patterns)
-    m_deny = _first_match(text, deny_patterns)
-    m_moot = _first_match(text, moot_patterns)
-    m_dismissed = _first_match(text, dismissed_patterns)
-    m_false_motion = _first_match(text, false_positive_motion_patterns)
+    m_partial = _first_match(ptext, partial_patterns) or _first_match(text, partial_patterns)
+    m_grant = _first_match(ptext, grant_patterns) or _first_match(text, grant_patterns)
+    m_deny = _first_match(ptext, deny_patterns) or _first_match(text, deny_patterns)
+    m_moot = _first_match(ptext, moot_patterns) or _first_match(text, moot_patterns)
+    m_dismissed = _first_match(ptext, dismissed_patterns) or _first_match(text, dismissed_patterns)
+    m_false_motion = _first_match(ptext, false_positive_motion_patterns) or _first_match(text, false_positive_motion_patterns)
 
     if m_partial:
-        # Preserve your existing schema values where possible
         raw_span = m_partial.group(0).lower()
         if "granted in part" in raw_span and "denied in part" in raw_span:
             habeas_relief = "granted_in_part_and_denied_in_part"
-        elif "granted in part" in raw_span:
-            habeas_relief = "granted_in_part"
-        elif "denied in part" in raw_span:
-            habeas_relief = "denied_in_part"
         evidence["habeas_relief_signal"] = _window(text, m_partial.start(), m_partial.end())
     else:
-        # Only trust generic grant if it's not just a motion grant
         if m_grant:
             span = _window(text, m_grant.start(), m_grant.end())
-            if not (m_false_motion and m_false_motion.start() >= max(0, m_grant.start() - 80) and m_false_motion.start() <= m_grant.end() + 80):
+            if not (m_false_motion and abs(m_false_motion.start() - m_grant.start()) < 120):
                 habeas_relief = "granted"
                 evidence["habeas_relief_signal"] = span
 
@@ -369,7 +572,6 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
             habeas_relief = "denied"
             evidence["habeas_relief_signal"] = _window(text, m_deny.start(), m_deny.end())
 
-    # Non-merits signals (used only when no merits disposition found)
     if habeas_relief is None:
         if m_moot:
             non_merits_disposition = "dismissed_as_moot"
@@ -378,7 +580,6 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
             non_merits_disposition = "dismissed"
             evidence["non_merits_signal"] = _window(text, m_dismissed.start(), m_dismissed.end())
 
-    # Generic evidence snippets for key signals (helps UI)
     for key in ["1225", "1226", "bond hearing", "mandatory detention", "granted", "denied"]:
         idx = t.find(key)
         if idx != -1 and key not in evidence:
@@ -388,10 +589,9 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
         "applicable_provision": provision,
         "applicable_subprovision": subprovision,
         "bond_status": bond,
-        "habeas_relief": habeas_relief,  # granted / denied / partial variants / null
+        "habeas_relief": habeas_relief,
     }
 
-    # Optional extra field for UI/QA (won't break anything)
     if non_merits_disposition:
         holdings["non_merits_disposition"] = non_merits_disposition
 
@@ -401,14 +601,31 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
 def _extract_detention_location_flags(text: str) -> tuple[dict, dict]:
     t = _normalize(text)
     border_markers = [
-        "at the border", "near the border", "southern border", "arriving alien",
-        "port of entry", "arriving in the united states"
+        "at the border",
+        "near the border",
+        "southern border",
+        "arriving alien",
+        "port of entry",
+        "arriving in the united states",
+        "applicants for admission",
     ]
     interior_markers = [
-        "within the country", "once inside the united states", "interior", "already here"
+        "within the country",
+        "once inside the united states",
+        "interior",
+        "already here",
+        "non-arriving alien",
+        "non-arriving aliens",
+        "within the territorial boundaries",
     ]
 
-    border_hits = [m for m in border_markers if m in t]
+    border_hits = []
+    for marker in border_markers:
+        if marker in t:
+            if marker == "arriving alien" and ("non-arriving alien" in t or "non-arriving aliens" in t):
+                continue
+            border_hits.append(marker)
+
     interior_hits = [m for m in interior_markers if m in t]
 
     is_border = len(border_hits) > 0 and len(interior_hits) == 0
@@ -421,6 +638,8 @@ def _extract_detention_location_flags(text: str) -> tuple[dict, dict]:
 
 
 def extract_case(text: str) -> ExtractedCase:
+    if not isinstance(text, str):
+        raise TypeError(f"extract_case expected str, got {type(text).__name__}")
     t = text or ""
 
     reasoning_basis = {}
@@ -483,7 +702,37 @@ def extract_case(text: str) -> ExtractedCase:
         "bond_hearing_mentions": bool(re.search(r"bond hearing", t, re.IGNORECASE)),
     }
 
-    confidence = min(0.95, 0.2 + (total_hits * 0.03))
+    confidence = 0.18 + (total_hits * 0.015)
+
+    if holdings.get("applicable_provision"):
+        confidence += 0.07
+    if holdings.get("applicable_subprovision"):
+        confidence += 0.04
+    if holdings.get("bond_status"):
+        confidence += 0.06
+    if holdings.get("habeas_relief"):
+        confidence += 0.06
+    if representation_status and representation_status != "unknown":
+        confidence += 0.03
+    if flags.get("is_border_or_near_border_detention") is not None or flags.get("is_interior_detention_focus") is not None:
+        confidence += 0.03
+
+    # Penalize incomplete / defaulty-looking outputs
+    if holdings.get("habeas_relief") is None:
+        confidence -= 0.06
+    if holdings.get("bond_status") is None:
+        confidence -= 0.05
+    if representation_status == "unknown":
+        confidence -= 0.03
+
+    if (
+        holdings.get("applicable_provision") == "1226"
+        and holdings.get("applicable_subprovision") == "1226(a)"
+        and holdings.get("habeas_relief") is None
+    ):
+        confidence -= 0.08
+
+    confidence = max(0.20, min(0.95, confidence))
 
     return ExtractedCase(
         petitioner_facts=petitioner_facts,

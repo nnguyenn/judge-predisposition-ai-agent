@@ -1,0 +1,984 @@
+id,case_caption,court,judge_name,decision_date,confidence,review_status,holdings,reasoning_basis,evidence_spans,representation_status,is_border_or_near_border_detention,is_interior_detention_focus,opinion_preview
+6,AROLDO RODRIGUEZ DIAZ V. MERRICK GARLAND,Court of Appeals for the Ninth Circuit,,2022-11-21,0.48000000000000004,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": null, ""applicable_provision"": ""1226"", ""applicable_subprovision"": ""1226(a)""}","{""textual_analysis"": {""hits"": [""seeking admission"", ""applicants for admission""], ""score"": 2, ""present"": true}, ""statutory_history"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""1226(c)"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""d to additional bond hearings and the procedures that\nshould govern them. We previously applied the canon of\nconstitutional avoidance to interpret other immigration\nprovisions—8 U.S.C. §§ 1225(b), 1226(c), and\n1231(a)(6)—as providing a statutory right to a bond hearing\nonce deten"", ""1226"": "" court that granted Aroldo\nAlberto Rodriguez Diaz’s habeas petition challenging his\ncontinued immigration detention under 8 U.S.C. § 1226 (a),\nand remanding, the panel held that due process does not\nrequire the agency to provide a second bond hearing at which\nthe government bears"", ""denied"": ""ows the\ngovernment to detain aliens pending a decision on whether\nthe alien is to be removed. An Immigration Judge held a\nhearing and denied bond. Approximately 14 months later,\nRodriguez Diaz requested a second bond hearing, but the IJ\ndenied the motion, and Rodriguez Diaz appea"", ""granted"": ""rrence by Judge Bumatay;\nDissent by Judge Wardlaw\n\nSUMMARY *\n\nImmigration/Detention\n\nReversing a judgment of the district court that granted Aroldo\nAlberto Rodriguez Diaz’s habeas petition challenging his\ncontinued immigration detention under 8 U.S.C. § 1226 (a),\nand remanding, t"", ""bond hearing"": "" detention under 8 U.S.C. § 1226 (a),\nand remanding, the panel held that due process does not\nrequire the agency to provide a second bond hearing at which\nthe government bears the burden of proof by clear and\nconvincing evidence.\n\nAfter his release from incarceration, Rodriguez D"", ""bond_status_signal"": ""cedures Rodriguez Diaz would have us impose. The\ndetention of aliens during removal proceedings has long\nbeen upheld as a permissible exercise of the political\nbranches’ authority over immigration. Section 1226(a)\noffers substantial procedural protections to detained persons,\nand Rodriguez Diaz has not shown that these procedures\nviolate due process, either facially or as applied. We"", ""mandatory detention"": ""eking “a meaningful opportunity to contest\nthe necessity of continued detention.” Id. at 945.\n\nWe acknowledged that the Supreme Court in Demore v.\nKim, 538 U.S. 510 (2003), had previously upheld the\nconstitutionality of mandatory detention under § 1226(c).\nSee Casas, 535 F.3d at ""}, ""location_flags"": {""border_hits"": [""applicants for admission""], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": "". GARLAND 7\n\nthat he is entitled to additional procedure under the Due\nProcess Clause, we first explain why this question remains\nan open one.\n\nA\n\nWe start with an overview of the statutory scheme\ngoverning immigration detention. This background is\nimportant in understanding both our precedents and the\ndifferences posed by detention under § 1226(a) as compared\nto other prov"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""rocess challenge. The panel also\nobserved that the First and Second Circuits have held that the\nDue Process Clause entitles § 1226(a) detainees to an\nadditional bond hearing after prolonged detention, while the\nThird and Fourth Circuits are on the other side of the\nquestion. Further, the panel explained that the Supreme\nCourt has endorsed the proposition that Congress may make"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""prolonged detention""}, {""evidence"": ""ien applies for asylum and\nhas a credible fear of persecution, “the alien shall be detained\nfor further consideration of the application.” 8 U.S.C.\n§ 1225 (b)(1)(B)(ii). All other applicants for admission are\ncovered by § 1225(b)(2), which “serves as a catchall\nprovision,” Jennings, 138 S. Ct. at 837 , and which mandates\ndetention “if the examining immigration officer determines\nth"", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""applicants for admission""}, {""evidence"": ""st\nthe necessity of continued detention.” Id. at 945.\n\nWe acknowledged that the Supreme Court in Demore v.\nKim, 538 U.S. 510 (2003), had previously upheld the\nconstitutionality of mandatory detention under § 1226(c).\nSee Casas, 535 F.3d at 949–50. But we reasoned that\nDemore had assumed that any detention period would be\nbrief. Id. By contrast, unusually prolonged periods like"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": "" been involved in drug\ntrafficking or terrorist activities. Id. § 1226(c)(1). ICE may\nonly release a person detained pursuant to this provision if\nnecessary for witness protection purposes. Id. § 1226(c)(2);\nsee also Jennings, 138 S. Ct. at 838 .\n\nSections 1226(a) and 1226(c) also differ as to the\nprocedural protections afforded once an alien is already\ndetained. U"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""represented"", ""evidence"": ""e an IJ on the issue of whether his detention\nwas justified because he presented a flight risk or a danger\nto the community. As permitted by agency regulations,\nRodriguez Diaz was represented by counsel.\n\nAt the hearing, the IJ questioned Rodriguez Diaz about\nhis alleged gang affiliation. Rodriguez Diaz testified under\noath that he never belonged to a gang and that his tattoo,\nwh""}, ""reasoning_basis"": {""textual_analysis"": [""seeking admission"", ""applicants for admission""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""1226(c)"", ""jennings""]}}",represented,t,f,"FILED
+FOR PUBLICATION NOV 21 2022
+MOLLY C. DWYER, CLERK
+UNITED STATES COURT OF APPEALS U.S. COURT OF APPEALS
+FOR THE NINTH CIRCUIT
+
+AROLDO ALBERTO RODRIGUEZ No. 20-16245
+DIAZ,
+
+Petitioner-Appellee, D.C. No.
+4:20-cv-01806-
+YGR
+
+v. OPINION
+
+MERRICK B. GARLAND, Attorney
+General; CHAD F. WOLF, DAVID
+JENNINGS; WENDELL
+ANDERSON
+
+Respondents-Appellants.
+
+Appeal from the United States District Court
+for the Northern District of California
+Yvonne Gonzalez Rogers, District Judge, Presiding
+
+Argued and Submitted December 7, 2021
+Submission Vacated February 9, 2022
+Resubmitted November 21, 2022
+San Francisco, California
+
+Before: Kim McLane Wardlaw, Daniel A. Bress, and
+Patrick J. Bumatay, Circuit Judges.
+ Opinion by Judge Bress;
+Concurrence by Judge Bumatay;
+Dissent by Judge Wardlaw
+
+SUMMARY *
+
+Immigration/Detention
+
+Reversing a judgment of the district court that granted Aroldo
+Alberto Rodriguez Diaz’s habeas petition challenging his
+continued immigration detention under 8 U.S.C. § 1226 (a),
+and remanding, the panel held that due process does not
+require the agency to provide a second bond hearing at which
+the government bears the burden of proof by clear and
+convincing evidence.
+
+After his release from incarceration, Rodriguez Diaz was
+detained pursuant to 8 U.S.C. § 1226 (a), which allows the
+government to detain aliens pending a decision on whether
+the alien is to be removed. An Immigration Judge held a
+hearing and denied bond. Approximately 14 months later,
+Rodriguez Diaz requested a second bond hearing, but the IJ
+denied the motion, and Rodriguez Diaz appealed to the
+BIA. Before the BIA could rule, Rodriguez Diaz filed a
+habeas petition.
+
+The district court granted Rodriguez Diaz’s habeas petition in
+relevant part, ruling that he was constitutionally entitled to
+another bond hearing, and ordering that the hearing deviate
+from ordinary agency procedures, in that the government
+should bear the burden of proving by clear and convincing
+
+*
+This summary constitutes no part of the opinion of the court. It has
+been prepared by court staff for the convenience of the reader.
+evidence that he was a flight risk or a danger to the
+community. After such a hearing, the IJ granted bond and
+Rodriguez Diaz was released.
+
+Before this court, Rodriguez Diaz claimed that due process
+requires the procedures that the district court imposed. The
+panel explained that this court previously applied the canon
+of constitutional avoidance to interpret other immigration
+provisions as providing a statutory right to a bond hearing
+once detention becomes prolonged. Having implied such a
+right, this court then concluded that, as a matter of due
+process, the government must bear the burden of proof in
+such hearings. However, in Jennings v. Rodriguez, 138 S. Ct.
+830 (2018), the Supreme Court concluded that the
+requirements this court had imposed lacked any arguable
+statutory foundation and did not reach the constitutional
+issue.
+
+The panel determined that prior precedent did not resolve
+Rodriguez Diaz’s due process challenge. The panel also
+observed that the First and Second Circuits have held that the
+Due Process Clause entitles § 1226(a) detainees to an
+additional bond hearing after prolonged detention, while the
+Third and Fourth Circuits are on the other side of the
+question. Further, the panel explained that the Supreme
+Court has endorsed the proposition that Congress may make
+rules as to aliens that would be unacceptable if applied to
+citizens. Because of this unique treatment of aliens, the
+government contended that the court should not apply the
+traditional three-factor balancing test set forth in Mathews v.
+Eldridge, 424 U.S. 319 (1976). Because the panel concluded
+that the Rodriguez Diaz’s claims failed even under the
+Mathews test, which is presumably more favorable to him
+than the test the government sought, the panel assumed
+without deciding that Mathews applied here.
+As to the first Mathews factor—the private interest affected
+by the official action—the panel concluded that this factor
+weighed in Rodriguez Diaz’s favor. The panel assumed that
+Rodriguez Diaz’s fourteen-month detention after his first
+bond hearing was “prolonged,” explaining that this court has
+held that an individual’s private interest in freedom from
+prolonged detention is unquestionably substantial, and
+observing that the government did not seriously dispute that
+Rodriguez Diaz had a legitimate and reasonably strong
+private liberty interest under Mathews.
+
+Taking the third Mathews factor next—the government’s
+interest—the panel concluded that the government clearly has
+a strong interest in preventing aliens from remaining in the
+country in violation of law. Because the enforcement of
+immigration law serves both a domestic law enforcement and
+foreign relations function, the Supreme Court has specifically
+instructed that courts must weigh heavily in the balance that
+control over matters of immigration is a sovereign
+prerogative, largely within the control of the executive and
+the legislature.
+
+As to the second Mathews factor—the risk of erroneous
+deprivation of such interest through the procedures used, and
+the probable value, if any, of additional or substitute
+procedural safeguards—the panel concluded that the existing
+procedures sufficiently protected Rodriguez Diaz’s liberty
+interest and mitigated the risk of erroneous deprivation. The
+panel explained that the agency’s detention decision was
+subject to numerous levels of review and that these
+procedures ensured that the risk of erroneous deprivation
+would be relatively small.
+
+Accordingly, the panel held that § 1226(a)’s procedures
+satisfy due process, both facially and as applied to Rodriguez
+Diaz, and remanded for dismissal of the habeas petition.
+Concurring, Judge Bumatay wrote that to the extent that the
+court’s precedent required the panel to decide this case
+through the lens of Mathews, he fully joined the majority
+opinion. However, Judge Bumatay concluded that the case
+would be better de"
+7,Marvin Miranda v. Merrick Garland,Court of Appeals for the Fourth Circuit,,2022-05-19,0.6500000000000001,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": ""granted"", ""applicable_provision"": ""1226"", ""applicable_subprovision"": ""1226(a)""}","{""textual_analysis"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_history"": {""hits"": [""iirira"", ""h.r. rep.""], ""score"": 2, ""present"": true}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""1226(c)"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""d the regulations adopted to implement its authority afford aliens three\n\nopportunities to seek release from detention. The first opportunity is with an immigration\n\nofficer. Id. § 1225(a). An immigration officer is authorized to release the alien if the officer\n\nis satisfied tha"", ""1226"": "" Amici The Washington D.C. Chapter of the American Immigration Lawyers\nAssociation and Ayuda.\n\n2\n\fQUATTLEBAUM, Circuit Judge:\n\n8 U.S.C. § 1226 (a) permits the Attorney General to detain aliens 1 pending their\n\nremoval hearings. And the Attorney General has adopted procedures for "", ""denied"": ""ngs. Miranda requested a bond hearing where he was\n\nrepresented by counsel and presented letters in support of release from his family members,\n\nfriends, coworkers and partner. But the immigration judge denied his bond request,\n\nconcluding Miranda had not met his burden of showin"", ""granted"": ""the same procedural protections.\n\nMiranda, Adegoke and Espinoza then moved for a preliminary injunction as well as\n\nfor class certification. Before the district court ruled on these motions, Adegoke was\n\nreleased from detention after being granted asylum and Miranda was released "", ""bond hearing"": ""(f)(1), the district court lacked jurisdiction to issue\n\nclass-wide injunctive relief that enjoined or restrained the process used to conduct\n\n§ 1226(a) bond hearings. As for the individual relief issued by the district court, the\n\ndetention procedures adopted for § 1226(a) bond "", ""bond_status_signal"": ""earings. And the Attorney General has adopted procedures for making that\n\ndiscretionary decision. Under those procedures, an alien is given notice and three\n\nopportunities to seek release by showing they are neither a flight risk nor a danger to the\n\ncommunity.\n\nA district court determined that a class of aliens had a likelihood of establishing that\n\nthose procedures violated the Due Process Clause of the Fifth Amendment of the United\n\nStates Constitution. That court then issued a preliminary injunction ordering, on a class-\n\nwide basis, that to continue detaining an alien under § 1226(a), the government must prove\n\nby clear and convincing evidence that an alien is either a flight risk or a danger to the\n\ncommunity. The district court also required immigration judges, again on a class-wide\n\nbasis, to consider an alien’s ability to pay any bond imposed and consider alternatives to\n\ndetention.\n\nHowever, under 8 U.S.C. § 1252 (f)(1), the district court lacked jurisdiction to issue\n\nclass-wide injunctive relief that enjoined or restrained the process used to conduct\n\n§ 1226(a) bond hearings. As for the individual relief issued by the district court, the\n\ndetention procedures adopted for § 1226(a) bond hearings provide sufficient process to\n\n1\nWe realize that the use of the term “alien” has been the subject of some debate.\nSee e.g., Martinez Rivera v. U.S. Att’y Gen., No. 20-13201, 2021 WL 2836460 , at *7 (11th\nCir. July 8, 2021). We use the term because Congress used it in the text of the applicable\nstatutes, and the same term is used in the applicable regulations. Our use of the term “alien”\nis not intended to express any opinion, pejorative or otherwise, about the plaintiffs in this\naction or others challenging their detention under our immigration laws.\n3\n\fsatisfy constitutional requirements. For that reason, the aliens are unable to establish a\n\nlikelihood of success on their due process claims. Nor have they shown that they are likely\n\nto suffer irreparable harm in the absence of preliminary relief, that the balance of equities\n\ntips in their favor or that an injunction is in the public interest. Therefore, we vacate the\n\ndistrict court’s preliminary injunction order.\n\nI.\n\nA.\n\nThe Immigration and Nationality Act permits detention of aliens pending the\n\noutcome of removal proceedings. 8 U.S.C. § 1226 ; see also Jennings v. Rodriguez, 138 S.\n\nCt. 830, 837 (2018). Separate provisions of § 1226 provide the government with authority\n\nto detain aliens. “Section 1226(a) sets out the default rule: The Attorney General may issue\n\na warrant for the arrest and detention of an alien ‘pending a decision on whether the alien\n\nis to be removed from the United States.’” Jennings, 138 S. Ct. at 837 (citation omitted).\n\nThis section also gives the Attorney General discretion to release an alien from custody on\n\neither a monetary bond or conditional parole. Id. “Section 1226(c), however, carves out a\n\nstatutory category of aliens who may not be released under 1226(a).” Id. (emphasis in\n\noriginal). “Under § 1226(c), the ‘Attorney General shall take into custody any alien’ who\n\nfalls into one of several enumerated categories involving criminal offenses and terrorist\n\nactivities.” Id. (citation omitted). Here, the challenge on appeal involves detention\n\nprocedures under § 1226(a).\n\n4\n\f Even though the Attorney General may detain an alien during removal proceedings,\n\nthe Act and the regulations adopted to implement its authority afford aliens three\n\nopportunities to seek release from detention. The first opportunity is with an immigration\n\nofficer. Id. § 1225(a). An immigration officer is authorized to release the alien if the officer\n\nis satisfied that the alien is not a danger to the community or a flight risk. 8 C.F.R.\n\n§ 236.1 (c)(8). If the immigration officer decides to release an alien, the officer may set a\n\nbond or place conditions on the alien’s release. Id. If an immigration officer denies bond,\n\nsets bond at an amount the alien believes is too high or sets alternative conditions to bond\n\nthe alien contends are unreasonable, an alien may appeal the officer’s bond determination\n\nto an immigration judge, giving the alien a second opportunity at release. See 8 C.F.R.\n\n§§ 236.1 (d)(1), 1003.19(a), 1236.1(d)(1). A third opportunity comes if an alien is not\n\nsatisfied with the immigration judge’s decision. In that situation, an alien may appeal to\n\nthe Board of Immigration Appeals for another review. 8 C.F.R. §§ 236.1 (d)(3), 1003.19(f),\n\n1236.1(d)(3). At each step in this process, the government requires the alien to prove that\n\nhe or she is not a danger to the community or a flight risk. 8 C.F.R. § 236.1 (c)(8); 8 C.F.R.\n\n§ 1236.1 (c)(8); In re Guerra, 24 I&N Dec. 37, 38 (BIA 2006).\n\nB.\n\nMarvin Dubon Miranda, Aijbade Thompson Adegoke and Jose de la Cruz Espinoza\n\nchallenge the detention procedures under § 1226(a) outlined above. Miranda, a citizen of\n\nEl Salvador, entered the United States illegally in 2009 and has been here since then. He\n\nwas convicted of second-degree assault in 2012 and of driving under the influence in 2017.\n\nAfter a second driving under the influence conviction, the government detained Miranda\n\n5\n\fand commenced removal proceedings. Miranda requested a bond hearing where he was\n\nrepresented by counsel and presented letters in support of release from his family members,\n\nfriends, coworkers and partner. But the immigration judge denied his bond request,\n\nconcluding Miranda had not met his burden of showing that he was not a danger to his\n\ncommunity. In denying bond, the judge relied on Miranda’s prior convictions for driving\n\nunder the influence and for second-degree assault.\n\nAdegoke, a citizen of Nigeria, came to the United States in 2017 on a B2 Visa. After\n\noverstaying his visa, Adegoke was charged with theft at a grocery store. The state officials\n\nlater dropped the charge but detained Adegoke until immigration officials could take\n\ncustody of him. After the immigration officials refused Adegoke bond, he requested that\n\nan immigration judge review his bond denial. The immigration judge set bond at $15,000,\n\nbut Adegoke claimed he could not afford to pay that amount.\n\nEspinoza, a citizen of Mexico, came to the United States in 2008. Following an\n\nargument with his brother twelve years later, Espinoza was charged with two counts of\n\nsecond-degree assault and one count of malicious destruction of property valued at less\n\nthan $1,000. After his arrest, the government transferred Espinoza from the county jail to\n\nan immigration detention center. At his bond hearing, where he, like Miranda, was\n\ncounseled, an immigration judge set bond at $20,000 because of Espinoza’s pending\n\ncriminal charges.\n\nC.\n\nNeither Miranda, Adegoke nor Espinoza appealed the detention decisions of their\n\nrespective immigration judges to the Board of Immigration Appeals. Instead, they\n\n6\n\fpetitioned the United States District Court for the District of Maryland for writs of habeas\n\ncorpus claiming the government’s procedures for conducting § 1226(a) bond hearings\n\nviolated the Due Process Clause of the Fifth Amendment to the Constitution. They\n\nrequested the following relief:\n\ndeclaratory and injunctive relief that prohibits further detention without a\nconstitutionally adequate bond hearing—that is, a hearing in which the\ngovernment bears the burden to prove by clear and convincing evidence that\ndetention is necessary because the noncitizen is a danger to others or a flight\nrisk, and that there is no condition or combination of conditions that will\nreasonably assure the noncitizen’s future appearance and the safety of the\ncommunity.\n\nJ.A. 17. They also requested an order that, “in setting conditions of release, the immigration\n\ncourt must consider the noncitizen’s ability to pay in setting the amount of any bond and\n\nmust consider the noncitizen’s suitability for release on alternative conditions of\n\nsupervision.” J.A. 17. In addition to seeking relief as individuals, they sought class action\n\nrelief by asking the district court to certify a class “defined as people who, now or at any\n\nfuture time, are detained pursuant to 8 U.S.C. § 1226 (a), and either had or will have a bond\n\nhearing in the Baltimore Immigration Court in Baltimore, Maryland.” J.A. 37. Finally, in\n\naddition to their constitutional claims, Miranda, Espinoza and Adegoke brought statutory\n\nclaims alleging that § 1226(a) required the same procedural protections.\n\nMiranda, Adegoke and Espinoza then moved for a preliminary injunction as well as\n\nfor class certification. Before the district court ruled on these motions, Adegoke was\n\nreleased from detention after being granted asylum and Miranda was released after an\n\n7\n\fimmigration judge granted his motion for relief from withholding. 2 Their release presented\n\na potential issue of mootness. Miranda, Adegoke and Espinoza argued that, even though\n\nAdegoke’s and Miranda’s claims are moot, they can still serve as class representatives,\n\nbecause their standing relates back to the filing of the suit due to the inherently transitory\n\nnature of their claims.\n\nD.\n\nBefore determining whether Miranda, Adegoke and Espinoza were entitled to a\n\npreliminary injunction, the district court analyzed whether it had jurisdiction to hear their\n\nclaims. First, the district court rejected the government’s argument that it had no\n\njurisdiction because Miranda, Espinoza and Adegoke, by suing in federal court rather than\n\nappealing the immigration judge’s decision to the Board of Immigration Appeals, failed to\n\nexhaust their administrative remedies. The court determined that although federal\n\nregulations permitted Miranda, Adegoke and Espinoza to appeal the immigration judges’\n\nbond and custody determinations to the Board, administrative exhaustion was not required\n\nby statute. Then, the court examined the factors set forth in McCarthy v. Madigan, 503\n\nU.S. 140 (1992), in considering whether to exercise its discretion to excuse Miranda,\n\nEspinoza and Adegoke’s failure to exhaust their administrative remedies. Ultimately, the\n\ndistrict court found that appealing to the Board would be futile in light of the Board’s\n\n2\nAdegoke’s detention lasted approximately six months and Miranda’s\napproximately five months.\n8\n\fdecisions concerning detention under § 1226(a). 3 Therefore, it excused Miranda, Adegoke\n\nand Espinoza from exhausting their claims before the Board.\n\nNext, the district court analyzed whether 8 U.S.C. § 1226 (e) or § 1252(a)(2)(B)\n\nprecluded its review. Section 1226(e) provides:\n\nThe Attorney General’s discretionary judgment regarding the application of\nthis section shall not be subject to review. No court may set aside any action\nor decision by the Attorney General under this section regarding the\ndetention or release of any alien or the grant, revocation, or denial of bond or\nparole.\n\nSection 1252(a)(2)(B) provides:\n\nNotwithstanding any other provision of law (statutory or nonstatutory),\nincluding section 2241 of Title 28, or any other habeas corpus provision, and\nsections 1361 and 1651 of such title, and except as provided in subparagraph\n(D), and regardless of whether the judgment, decision, or action is made in\nremoval proceedings, no court shall have jurisdiction to review—\n\n(i) any judgment regarding the granting of relief under section\n1182(h), 1182(i), 1229b, 1229c, or 1255 of this title, or\n\n(ii) any other decision or action of the Attorney General or the\nSecretary of Homeland Security the authority for which is specified\nunder this subchapter to be in the discretion of the Attorney General\nor the Secretary of Homeland Security, other than the granting of\nrelief under section 1158(a) of this title.\n\n3\nThe district court cited In re Guerra, 24 I&N Dec. at 40 , and In re Adeniji, 22 I&N\nDec. 1102 (BIA 1999), as Board decisions holding that the alien bears the burden to show\nto the satisfaction of an immigration judge that they merit release on bond. The district\ncourt cited other unpublished Board decisions providing that an immigration judge “need\nnot consider a noncitizen’s ability to pay a set bond amount.” See J.A. 959 (citing In re\nCastillo-Cajura, 2009 WL 3063742 , at *1 (BIA Sept. 10, 2009), and In re Sandoval-\nGomez, 2008 WL 5477710 , at *1 (BIA Dec. 15, 2008)).\n9\n\fThe district court found that neither statute precluded it from reviewing the claims at issue\n\nbecause the claims were not challenges to the Attorney General’s discretionary judgment\n\nbut instead constitutional and statutory challenges to detention procedures under § 1226(a).\n\nAfter determining that it had jurisdiction to hear Miranda, Adegoke and Espinoza’s\n\nclaims, the district court considered their requested injunctive relief. It evaluated the\n\nlikelihood of success of their constitutional claim by applying the procedural due process\n\ntest found in Mathews v. Eldridge, 424 U.S. 319 (1976). In applying that test to the\n\ngovernment’s requirement that aliens bear the burden to prove they are not a risk of flight\n\nor danger under § 1226(a), the district court found that Miranda, Adegoke and Espinoza’s\n\nliberty interests outweighed the government’s interest in enforcing immigration laws. As\n\nto the standard of proof concerning detention, the court observed that the most common\n\nstandard is clear and convincing evidence, and, in concluding that standard applied in bond\n\nhearings, the court emphasized that a lower standard of proof would inappropriately place\n\nan individual’s liberty interest on the same footing as the government’s interest in\n\nfacilitating deportations. In considering an alien’s ability to pay and alternative conditions\n\nof release, the district court emphasized that “[d]ue process requires that detention ‘bear[s]\n\n[a] reasonable relation to the purpose for which the individual [was] committed.’” J.A. 968\n\n(citations omitted). It then reasoned that “[f]ederal regulations and [the Board’s] decisional\n\nlaw suggest that the purpose of § 1226(a) detention is to protect the public and to ensure\n\nthe noncitizen’s appearance at future proceedings.” J.A. 968. The district court held that\n\nconsideration of an alien’s financial resources and alternatives to detention was necessary\n\nto ensure that detention was reasonably related to the purposes of § 1226(a). The court then\n\n10\n\fdetermined that the failure to consider those factors rendered detention decisions\n\nunconstitutional because “the purpose of . . . detention—the lodestar of the due process\n\nanalysis—becomes less clear.” J.A. 970. In sum, the district court found that Miranda,\n\nAdegoke and Espinoza’s claims had a likelihood of success on the merits.\n\nContinuing its preliminary injunction analysis, the district court found the\n\nrequirement of irreparable harm was satisfied, because a “deprivation of a constitutional\n\nright, ‘for even minimal periods of time, unquestionably constitutes irreparable injury.’”\n\nJ.A. 972 (citations omitted). Then, in considering the third and fourth requirements for\n\nobtaining a preliminary injunction, the district court noted “the balancing of the harm and\n\nthe public interest merge when the government is the opposing party.” J.A. 974. It found\n\nthat the requested relief would have little impact on the government’s ability to enforce\n\nimmigration laws, that it is always in the public interest to prevent violations of\n\nconstitutional rights and that the costs imposed on the government are outweighed by\n\n“preventable human suffering.” J.A. 974.\n\nFinally, the district court turned to the scope of relief. “Based on the court’s finding\n\nthat significant constitutional rights are at stake, and the risk of irreparable harm,” the court\n\nissued “a class-wide preliminary injunction” granting the requested relief. J.A. 976–77.\n\nFurther, since Espinoza remained detained, it ordered that he “receive a new bond hearing\n\nwithin 21 days.” 4 J.A. 977. Since the district court granted Miranda, Espinoza and\n\n4\nEspinoza received a new bond hearing pursuant to the district court’s order. At\nthat bond hearing, the immigration judge found that the government had met its burden to\nshow that Espinoza was a flight risk but that such risk could be mitigated by ordering\nEspinoza to wear a GPS ankle monitor as a condition of release.\n11\n\fAdegoke’s motion for a preliminary injunction on their constitutional claim, it did not\n\naddress their statutory claim.\n\nThe government timely appealed the preliminary injunction order. The district court\n\nthen denied the motion for class certification without prejudice for possible renewal after\n\nthe conclusion of this appeal. We have jurisdiction to review under 28 U.S.C. § 1292 (a)(1).\n\nII.\n\nBefore we can reach the merits of this appeal, we must first determine whether the\n\ndistrict court had jurisdiction to hear Miranda, Adegoke and Espinoza’s claims and to issue\n\nclass-wide injunctive relief. See Arizonans for Official English v. Arizona, 520 U.S. 43, 73\n\n(1997) (“Every federal appellate court has a special obligation to satisfy itself not only of\n\nits own jurisdiction, but also that of the lower courts in a cause under review.” (cleaned\n\nup)). As this inquiry is multi-faceted, we discuss jurisdiction at length. The government\n\nadvances three arguments concerning jurisdiction: (1) Because Miranda, Adegoke and\n\nEspinoza failed to appeal their bond decisions to the Board, the district court lacked the\n\nauthority to review the immigration judge’s detention decision; (2) 8 U.S.C. § 1226 (e)\n\nstrips the courts of jurisdiction to review discretionary detention decisions like those at\n\nissue here; and (3) even if the courts have jurisdiction to consider the claims generally, 8\n\nU.S.C. § 1252 (f)(1) bars the courts from issuing class-wide injunctive relief concerning\n\ndetention and bond issues under § 1226. We now address these arguments.\n\n12\n\f A.\n\nWe first address the government’s argument that Miranda, Adegoke and Espinoza\n\nwere required to exhaust their administrative remedies by appealing the immigration\n\njudges’ denial of bond to the Board. The government’s entire argument is contained in a\n\nsingle footnote. Moreover, the governmen"", ""mandatory detention"": ""the United States in the future; (4) the alien’s employment history; (5) the\nalien’s record of appearance in court; (6) the alien’s criminal record,\nincluding the extensiveness of criminal activity, the recency of such activity,\nand the seriousness of the offenses; (7) the alien’"", ""habeas_relief_signal"": ""os v. Warden Pike Cty. Corr. Facility, 965 F.3d 203 ,\n\n214 (3d Cir. 2020) (holding that noncitizens detained for prolonged periods under the\n\nmandatory provisions of § 1226(c) are constitutionally entitled to a bond hearing at which\n\nthe government “bears the burden of persuasion by clear and convincing evidence. That\n\nevidence must be individualized and support a finding that continued detention is ""}, ""location_flags"": {""border_hits"": [], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": ""rhaps relevant, a statute’s heading is still far\n\nless instructive than its actual text. Yates v. United States, 574 U.S. 528 , 559 (“‘[T]he\n\nheading of a section cannot limit the plain meaning of the text.’”) (Kagan, J., dissenting)\n\n(quoting Brotherhood of R.R. Trainmen v. Baltimore & Ohio R. Co., 331 U.S. 519 , 528–\n\n29 (1947)); see also Antonin Scalia & Bryan A. Garn"", ""phrase_key"": ""ordinary_meaning_textualism"", ""matched_alias"": ""plain meaning""}, {""evidence"": ""res—nothing but silence. There are strong reasons to believe this silence places\n\nprocedural decisions in the Attorney General’s discretion.\n\nSilence on an issue so central to the statutory scheme suggests it is delegated to the\n\nimplementing agency’s discretion. See Chevron, U.S.A., Inc. v. Nat. Res. Def. Council,\n\nInc., 467 U.S. 837, 843 (1984). And the Executive is given"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""dez v. Sessions, 872 F.3d 976, 990 (9th Cir. 2017) (alterations in original) (quoting\n\nZadvydas, 533 U.S. at 690 ).\n\nHowever, the Government has not articulated an interest in the\nprolonged detention of noncitizens who are neither dangerous\nnor a risk of flight. On the contrary, shifting the burden of proof\nto the Government to justify continued detention promotes the\nGovernme"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""prolonged detention""}, {""evidence"": ""nces, this isn’t merely\n\na belt-and-suspenders approach. The Attorney General will sometimes act or make\n\n47\n\fdecisions that are not subject to his discretionary judgment, such as mandatory detention\n\nactions under § 1226(c). And as is the case here, the Attorney General can apply his\n\ndiscretionary judgment to issues that are not “action[s] or decision[s] . . . regarding the\n"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""n alien’s ability to pay and alternative conditions\n\nof release, the district court emphasized that “[d]ue process requires that detention ‘bear[s]\n\n[a] reasonable relation to the purpose for which the individual [was] committed.’” J.A. 968\n\n(citations omitted). It then reasoned that “[f]ederal regulations and [the Board’s] decisional\n\nlaw suggest that the purpose "", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""pro_se"", ""evidence"": ""Torture was granted. Ajibade Thompson Adegoke, of Nigeria, was taken into ICE custody\n\non November 18, 2019, after state theft charges against him were dropped. Thompson\n\nappeared pro se at a videoconferenced bond hearing but did not know what was expected\n\nof him. “The IJ did not ask him what his financial situation was, nor did she ask Mr.\n\n53\n\fThompson to tell ""}, ""reasoning_basis"": {""statutory_history"": [""iirira"", ""h.r. rep.""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""1226(c)"", ""jennings""]}}",pro_se,,,"PUBLISHED
+
+UNITED STATES COURT OF APPEALS
+FOR THE FOURTH CIRCUIT
+
+No. 20-1828
+
+MARVIN DUBON MIRANDA; AJIBADE THOMPSON ADEGOKE; JOSE DE
+LA CRUZ ESPINOZA,
+
+Plaintiffs – Appellees,
+
+v.
+
+MERRICK B. GARLAND, Attorney General; ALEJANDRO N. MAYORKAS,
+Secretary; MATTHEW T. ALBENCE, Deputy Director and Senior Official
+Performing the Duties of the Director; DAVID L. NEAL, Director; JANEAN
+OHIN, Acting Director; WILLIAM DELAUTER, Corrections Bureau Chief; JACK
+KAVANAGH, Director; DONNA BOUNDS, Warden,
+
+Defendants – Appellants.
+
+---------------------------------------------
+
+CONSTITUTIONAL ACCOUNTABILITY CENTER; LEGAL AID JUSTICE
+CENTER; THE ROUNDTABLE OF FORMER IMMIGRATION JUDGES;
+AMERICAN IMMIGRATION LAWYERS ASSOCIATION-DC; AYUDA, INC.;
+THIRTY SOCIAL SCIENCE SCHOLARS AND RESEARCHERS
+
+Amici Supporting Appellees.
+
+Appeal from the United States District Court for the District of Maryland, at
+Baltimore. Catherine C. Blake, Senior District Judge. (1:20-cv-01110-CCB)
+
+Argued: October 27, 2021 Decided: May 12, 2022
+Amended: May 19, 2022
+Before RICHARDSON and QUATTLEBAUM, Circuit Judges, and Michael F.
+URBANSKI, Chief United States District Judge for the Western District of Virginia, sitting
+by designation.
+
+Vacated and remanded by published opinion. Judge Quattlebaum wrote the opinion, in
+which Judge Richardson concurred in part and dissented in part, and Judge Urbanski
+concurred in part and dissented in part.
+
+ARGUED: Courtney Elizabeth Moran, UNITED STATES DEPARTMENT OF
+JUSTICE, Washington, D.C., for Appellants. Carmen Gloria Iguina Gonzalez,
+AMERICAN CIVIL LIBERTIES UNION, Washington, D.C., for Appellees. ON BRIEF:
+Jeffrey Bossert Clark, Acting Assistant Attorney General, William C. Peachey, Director,
+Samuel P. Go, Assistant Director, Susan M. Imerman, Office of Immigration Litigation,
+UNITED STATES DEPARTMENT OF JUSTICE, Washington, D.C., for Appellants.
+Nicholas T. Steiner, Sonia Kumar, AMERICAN CIVIL LIBERTIES UNION
+FOUNDATION OF MARYLAND, Baltimore, Maryland; Michael K.T. Tan, ACLU
+FOUNDATION IMMIGRANTS’ RIGHTS PROJECT, New York, New York; Jenny Kim,
+Melody Vidmar, Adina Appelbaum, Claudia Cubas, CAPITAL AREA IMMIGRANTS’
+RIGHTS COALITION, Washington, D.C.; Deborah K. Marcuse, Clare J. Horan, Austin
+L. Webbert, Whittney L. Barth, Lucy Zhou, Baltimore, Maryland, Saba Bireda, SANFORD
+HEISLER SHARP, LLP, Washington, D.C., for Appellees. Elizabeth B. Wydra, Brianne
+J. Gorod, Brian R. Frazelle, Dayna J. Zolle, CONSTITUTIONAL ACCOUNTABILITY
+CENTER, Washington, D.C., for Amicus Constitutional Accountability Center. Andrew
+J. Ewalt, Amna Arshad, Justin C. Simeone, Andrew T. Bulovsky, Washington, D.C.,
+Hannah Khalifeh, FRESHFIELDS BRUCKHAUS DERINGER US LLP, New York, New
+York; Simon Sandoval-Moshenberg, Rebecca Wolozin, Kristin Donovan, LEGAL AID
+JUSTICE CENTER, Falls Church, Virginia, for Amicus Legal Aid Justice Center.
+Madeline J. Cohen, Theodore A. Howard, WILEY REIN LLP, Washington, D.C., for
+Amicus The Roundtable of Former Immigration Judges. Rene Kathawala, ORRICK,
+HERRINGTON & SUTCLIFFE LLP, New York, New York, for Amici Thirty Social
+Science Scholars and Researchers. Sam Bragg, ALSTON & BIRD LLP, Dallas, Texas,
+for Amici The Washington D.C. Chapter of the American Immigration Lawyers
+Association and Ayuda.
+
+2
+QUATTLEBAUM, Circuit Judge:
+
+8 U.S.C. § 1226 (a) permits the Attorney General to detain aliens 1 pending their
+
+removal hearings. And the Attorney General has adopted procedures for making that
+
+discretionary decision. Under those procedures, an alien is given notice and three
+
+opportunities to seek release by showing they are neither a flight risk nor a danger to the
+
+community.
+
+A district court determined that a class of aliens had a likelihood of establishing that
+
+those procedures violated the Due Process Clause of the Fifth Amendment of the United
+
+States Constitution. That court then issued a preliminary injunction ordering, on a class-
+
+wide basis, that to continue detaining an alien under § 1226(a), the government must prove
+
+by clear and convincing evidence that an alien is either a flight risk or a danger to the
+
+community. The district court also required immigration judges, again on a class-wide
+
+basis, to consider an alien’s ability to pay any bond imposed and consider alternatives to
+
+detention.
+
+However, under 8 U.S.C. § 1252 (f)(1), the district court lacked jurisdiction to issue
+
+class-wide injunctive relief that enjoined or restrained the process used to conduct
+
+§ 1226(a) bond hearings. As for the individual relief issued by the district court, the
+
+detention procedures adopted for § 1226(a) bond hearings provide sufficient process to
+
+1
+We realize that the use of the term “alien” has been the subject of some debate.
+See e.g., Martinez Rivera v. U.S. Att’y Gen., No. 20-13201, 2021 WL 2836460 , at *7 (11th
+Cir. July 8, 2021). We use the term because Congress used it in the text of the applicable
+statutes, and the same term is used in the applicable regulations. Our use of the term “alien”
+is not intended to express any opinion, pejorative or otherwise, about the plaintiffs in this
+action or others challenging their detention under our immigration laws.
+3
+satisfy constitutional requirements. For that reason, the aliens are unable to establish a
+
+likelihood of success on their due process claims. Nor have they shown that they are likely
+
+to suffer irreparable harm in the absence of preliminary relief, that the balance of equities
+
+tips in their favor or that an injunction is in the public interest. Therefore, we vacate the
+
+district court’s preliminary injunction order.
+
+I.
+
+A.
+
+The Immigration and Nationality Act permits detention of aliens pending the
+
+outcome of removal proceedings. 8 U.S.C. § 1226 ; see also Jennings v. Rodriguez, 138 S.
+
+Ct. 830, 837 (2018). Separate provisions of § 1226 provide the government with authority
+
+to detain aliens. “Section 1226(a) sets out the default rule: The Attorney General may issue
+
+a warrant for the arrest and detention of an alien "
+8,Marvin Miranda v. Merrick Garland,Court of Appeals for the Fourth Circuit,,2022-05-12,0.6500000000000001,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": ""granted"", ""applicable_provision"": ""1226"", ""applicable_subprovision"": ""1226(a)""}","{""textual_analysis"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_history"": {""hits"": [""iirira"", ""h.r. rep.""], ""score"": 2, ""present"": true}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""1226(c)"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""d the regulations adopted to implement its authority afford aliens three\n\nopportunities to seek release from detention. The first opportunity is with an immigration\n\nofficer. Id. § 1225(a). An immigration officer is authorized to release the alien if the officer\n\nis satisfied tha"", ""1226"": "" Amici The Washington D.C. Chapter of the American Immigration Lawyers\nAssociation and Ayuda.\n\n2\n\fQUATTLEBAUM, Circuit Judge:\n\n8 U.S.C. § 1226 (a) permits the Attorney General to detain aliens 1 pending their\n\nremoval hearings. And the Attorney General has adopted procedures for "", ""denied"": ""ngs. Miranda requested a bond hearing where he was\n\nrepresented by counsel and presented letters in support of release from his family members,\n\nfriends, coworkers and partner. But the immigration judge denied his bond request,\n\nconcluding Miranda had not met his burden of showin"", ""granted"": ""the same procedural protections.\n\nMiranda, Adegoke and Espinoza then moved for a preliminary injunction as well as\n\nfor class certification. Before the district court ruled on these motions, Adegoke was\n\nreleased from detention after being granted asylum and Miranda was released "", ""bond hearing"": ""(f)(1), the district court lacked jurisdiction to issue\n\nclass-wide injunctive relief that enjoined or restrained the process used to conduct\n\n§ 1226(a) bond hearings. As for the individual relief issued by the district court, the\n\ndetention procedures adopted for § 1226(a) bond "", ""bond_status_signal"": ""earings. And the Attorney General has adopted procedures for making that\n\ndiscretionary decision. Under those procedures, an alien is given notice and three\n\nopportunities to seek release by showing they are neither a flight risk nor a danger to the\n\ncommunity.\n\nA district court determined that a class of aliens had a likelihood of establishing that\n\nthose procedures violated the Due Process Clause of the Fifth Amendment of the United\n\nStates Constitution. That court then issued a preliminary injunction ordering, on a class-\n\nwide basis, that to continue detaining an alien under § 1226(a), the government must prove\n\nby clear and convincing evidence that an alien is either a flight risk or a danger to the\n\ncommunity. The district court also required immigration judges, again on a class-wide\n\nbasis, to consider an alien’s ability to pay any bond imposed and consider alternatives to\n\ndetention.\n\nHowever, under 8 U.S.C. § 1252 (f)(1), the district court lacked jurisdiction to issue\n\nclass-wide injunctive relief that enjoined or restrained the process used to conduct\n\n§ 1226(a) bond hearings. As for the individual relief issued by the district court, the\n\ndetention procedures adopted for § 1226(a) bond hearings provide sufficient process to\n\n1\nWe realize that the use of the term “alien” has been the subject of some debate.\nSee e.g., Martinez Rivera v. U.S. Att’y Gen., No. 20-13201, 2021 WL 2836460 , at *7 (11th\nCir. July 8, 2021). We use the term because Congress used it in the text of the applicable\nstatutes, and the same term is used in the applicable regulations. Our use of the term “alien”\nis not intended to express any opinion, pejorative or otherwise, about the plaintiffs in this\naction or others challenging their detention under our immigration laws.\n3\n\fsatisfy constitutional requirements. For that reason, the aliens are unable to establish a\n\nlikelihood of success on their due process claims. Nor have they shown that they are likely\n\nto suffer irreparable harm in the absence of preliminary relief, that the balance of equities\n\ntips in their favor or that an injunction is in the public interest. Therefore, we vacate the\n\ndistrict court’s preliminary injunction order.\n\nI.\n\nA.\n\nThe Immigration and Nationality Act permits detention of aliens pending the\n\noutcome of removal proceedings. 8 U.S.C. § 1226 ; see also Jennings v. Rodriguez, 138 S.\n\nCt. 830, 837 (2018). Separate provisions of § 1226 provide the government with authority\n\nto detain aliens. “Section 1226(a) sets out the default rule: The Attorney General may issue\n\na warrant for the arrest and detention of an alien ‘pending a decision on whether the alien\n\nis to be removed from the United States.’” Jennings, 138 S. Ct. at 837 (citation omitted).\n\nThis section also gives the Attorney General discretion to release an alien from custody on\n\neither a monetary bond or conditional parole. Id. “Section 1226(c), however, carves out a\n\nstatutory category of aliens who may not be released under 1226(a).” Id. (emphasis in\n\noriginal). “Under § 1226(c), the ‘Attorney General shall take into custody any alien’ who\n\nfalls into one of several enumerated categories involving criminal offenses and terrorist\n\nactivities.” Id. (citation omitted). Here, the challenge on appeal involves detention\n\nprocedures under § 1226(a).\n\n4\n\f Even though the Attorney General may detain an alien during removal proceedings,\n\nthe Act and the regulations adopted to implement its authority afford aliens three\n\nopportunities to seek release from detention. The first opportunity is with an immigration\n\nofficer. Id. § 1225(a). An immigration officer is authorized to release the alien if the officer\n\nis satisfied that the alien is not a danger to the community or a flight risk. 8 C.F.R.\n\n§ 236.1 (c)(8). If the immigration officer decides to release an alien, the officer may set a\n\nbond or place conditions on the alien’s release. Id. If an immigration officer denies bond,\n\nsets bond at an amount the alien believes is too high or sets alternative conditions to bond\n\nthe alien contends are unreasonable, an alien may appeal the officer’s bond determination\n\nto an immigration judge, giving the alien a second opportunity at release. See 8 C.F.R.\n\n§§ 236.1 (d)(1), 1003.19(a), 1236.1(d)(1). A third opportunity comes if an alien is not\n\nsatisfied with the immigration judge’s decision. In that situation, an alien may appeal to\n\nthe Board of Immigration Appeals for another review. 8 C.F.R. §§ 236.1 (d)(3), 1003.19(f),\n\n1236.1(d)(3). At each step in this process, the government requires the alien to prove that\n\nhe or she is not a danger to the community or a flight risk. 8 C.F.R. § 236.1 (c)(8); 8 C.F.R.\n\n§ 1236.1 (c)(8); In re Guerra, 24 I&N Dec. 37, 38 (BIA 2006).\n\nB.\n\nMarvin Dubon Miranda, Aijbade Thompson Adegoke and Jose de la Cruz Espinoza\n\nchallenge the detention procedures under § 1226(a) outlined above. Miranda, a citizen of\n\nEl Salvador, entered the United States illegally in 2009 and has been here since then. He\n\nwas convicted of second-degree assault in 2012 and of driving under the influence in 2017.\n\nAfter a second driving under the influence conviction, the government detained Miranda\n\n5\n\fand commenced removal proceedings. Miranda requested a bond hearing where he was\n\nrepresented by counsel and presented letters in support of release from his family members,\n\nfriends, coworkers and partner. But the immigration judge denied his bond request,\n\nconcluding Miranda had not met his burden of showing that he was not a danger to his\n\ncommunity. In denying bond, the judge relied on Miranda’s prior convictions for driving\n\nunder the influence and for second-degree assault.\n\nAdegoke, a citizen of Nigeria, came to the United States in 2017 on a B2 Visa. After\n\noverstaying his visa, Adegoke was charged with theft at a grocery store. The state officials\n\nlater dropped the charge but detained Adegoke until immigration officials could take\n\ncustody of him. After the immigration officials refused Adegoke bond, he requested that\n\nan immigration judge review his bond denial. The immigration judge set bond at $15,000,\n\nbut Adegoke claimed he could not afford to pay that amount.\n\nEspinoza, a citizen of Mexico, came to the United States in 2008. Following an\n\nargument with his brother twelve years later, Espinoza was charged with two counts of\n\nsecond-degree assault and one count of malicious destruction of property valued at less\n\nthan $1,000. After his arrest, the government transferred Espinoza from the county jail to\n\nan immigration detention center. At his bond hearing, where he, like Miranda, was\n\ncounseled, an immigration judge set bond at $20,000 because of Espinoza’s pending\n\ncriminal charges.\n\nC.\n\nNeither Miranda, Adegoke nor Espinoza appealed the detention decisions of their\n\nrespective immigration judges to the Board of Immigration Appeals. Instead, they\n\n6\n\fpetitioned the United States District Court for the District of Maryland for writs of habeas\n\ncorpus claiming the government’s procedures for conducting § 1226(a) bond hearings\n\nviolated the Due Process Clause of the Fifth Amendment to the Constitution. They\n\nrequested the following relief:\n\ndeclaratory and injunctive relief that prohibits further detention without a\nconstitutionally adequate bond hearing—that is, a hearing in which the\ngovernment bears the burden to prove by clear and convincing evidence that\ndetention is necessary because the noncitizen is a danger to others or a flight\nrisk, and that there is no condition or combination of conditions that will\nreasonably assure the noncitizen’s future appearance and the safety of the\ncommunity.\n\nJ.A. 17. They also requested an order that, “in setting conditions of release, the immigration\n\ncourt must consider the noncitizen’s ability to pay in setting the amount of any bond and\n\nmust consider the noncitizen’s suitability for release on alternative conditions of\n\nsupervision.” J.A. 17. In addition to seeking relief as individuals, they sought class action\n\nrelief by asking the district court to certify a class “defined as people who, now or at any\n\nfuture time, are detained pursuant to 8 U.S.C. § 1226 (a), and either had or will have a bond\n\nhearing in the Baltimore Immigration Court in Baltimore, Maryland.” J.A. 37. Finally, in\n\naddition to their constitutional claims, Miranda, Espinoza and Adegoke brought statutory\n\nclaims alleging that § 1226(a) required the same procedural protections.\n\nMiranda, Adegoke and Espinoza then moved for a preliminary injunction as well as\n\nfor class certification. Before the district court ruled on these motions, Adegoke was\n\nreleased from detention after being granted asylum and Miranda was released after an\n\n7\n\fimmigration judge granted his motion for relief from withholding. 2 Their release presented\n\na potential issue of mootness. Miranda, Adegoke and Espinoza argued that, even though\n\nAdegoke’s and Miranda’s claims are moot, they can still serve as class representatives,\n\nbecause their standing relates back to the filing of the suit due to the inherently transitory\n\nnature of their claims.\n\nD.\n\nBefore determining whether Miranda, Adegoke and Espinoza were entitled to a\n\npreliminary injunction, the district court analyzed whether it had jurisdiction to hear their\n\nclaims. First, the district court rejected the government’s argument that it had no\n\njurisdiction because Miranda, Espinoza and Adegoke, by suing in federal court rather than\n\nappealing the immigration judge’s decision to the Board of Immigration Appeals, failed to\n\nexhaust their administrative remedies. The court determined that although federal\n\nregulations permitted Miranda, Adegoke and Espinoza to appeal the immigration judges’\n\nbond and custody determinations to the Board, administrative exhaustion was not required\n\nby statute. Then, the court examined the factors set forth in McCarthy v. Madigan, 503\n\nU.S. 140 (1992), in considering whether to exercise its discretion to excuse Miranda,\n\nEspinoza and Adegoke’s failure to exhaust their administrative remedies. Ultimately, the\n\ndistrict court found that appealing to the Board would be futile in light of the Board’s\n\n2\nAdegoke’s detention lasted approximately six months and Miranda’s\napproximately five months.\n8\n\fdecisions concerning detention under § 1226(a). 3 Therefore, it excused Miranda, Adegoke\n\nand Espinoza from exhausting their claims before the Board.\n\nNext, the district court analyzed whether 8 U.S.C. § 1226 (e) or § 1252(a)(2)(B)\n\nprecluded its review. Section 1226(e) provides:\n\nThe Attorney General’s discretionary judgment regarding the application of\nthis section shall not be subject to review. No court may set aside any action\nor decision by the Attorney General under this section regarding the\ndetention or release of any alien or the grant, revocation, or denial of bond or\nparole.\n\nSection 1252(a)(2)(B) provides:\n\nNotwithstanding any other provision of law (statutory or nonstatutory),\nincluding section 2241 of Title 28, or any other habeas corpus provision, and\nsections 1361 and 1651 of such title, and except as provided in subparagraph\n(D), and regardless of whether the judgment, decision, or action is made in\nremoval proceedings, no court shall have jurisdiction to review—\n\n(i) any judgment regarding the granting of relief under section\n1182(h), 1182(i), 1229b, 1229c, or 1255 of this title, or\n\n(ii) any other decision or action of the Attorney General or the\nSecretary of Homeland Security the authority for which is specified\nunder this subchapter to be in the discretion of the Attorney General\nor the Secretary of Homeland Security, other than the granting of\nrelief under section 1158(a) of this title.\n\n3\nThe district court cited In re Guerra, 24 I&N Dec. at 40 , and In re Adeniji, 22 I&N\nDec. 1102 (BIA 1999), as Board decisions holding that the alien bears the burden to show\nto the satisfaction of an immigration judge that they merit release on bond. The district\ncourt cited other unpublished Board decisions providing that an immigration judge “need\nnot consider a noncitizen’s ability to pay a set bond amount.” See J.A. 959 (citing In re\nCastillo-Cajura, 2009 WL 3063742 , at *1 (BIA Sept. 10, 2009), and In re Sandoval-\nGomez, 2008 WL 5477710 , at *1 (BIA Dec. 15, 2008)).\n9\n\fThe district court found that neither statute precluded it from reviewing the claims at issue\n\nbecause the claims were not challenges to the Attorney General’s discretionary judgment\n\nbut instead constitutional and statutory challenges to detention procedures under § 1226(a).\n\nAfter determining that it had jurisdiction to hear Miranda, Adegoke and Espinoza’s\n\nclaims, the district court considered their requested injunctive relief. It evaluated the\n\nlikelihood of success of their constitutional claim by applying the procedural due process\n\ntest found in Mathews v. Eldridge, 424 U.S. 319 (1976). In applying that test to the\n\ngovernment’s requirement that aliens bear the burden to prove they are not a risk of flight\n\nor danger under § 1226(a), the district court found that Miranda, Adegoke and Espinoza’s\n\nliberty interests outweighed the government’s interest in enforcing immigration laws. As\n\nto the standard of proof concerning detention, the court observed that the most common\n\nstandard is clear and convincing evidence, and, in concluding that standard applied in bond\n\nhearings, the court emphasized that a lower standard of proof would inappropriately place\n\nan individual’s liberty interest on the same footing as the government’s interest in\n\nfacilitating deportations. In considering an alien’s ability to pay and alternative conditions\n\nof release, the district court emphasized that “[d]ue process requires that detention ‘bear[s]\n\n[a] reasonable relation to the purpose for which the individual [was] committed.’” J.A. 968\n\n(citations omitted). It then reasoned that “[f]ederal regulations and [the Board’s] decisional\n\nlaw suggest that the purpose of § 1226(a) detention is to protect the public and to ensure\n\nthe noncitizen’s appearance at future proceedings.” J.A. 968. The district court held that\n\nconsideration of an alien’s financial resources and alternatives to detention was necessary\n\nto ensure that detention was reasonably related to the purposes of § 1226(a). The court then\n\n10\n\fdetermined that the failure to consider those factors rendered detention decisions\n\nunconstitutional because “the purpose of . . . detention—the lodestar of the due process\n\nanalysis—becomes less clear.” J.A. 970. In sum, the district court found that Miranda,\n\nAdegoke and Espinoza’s claims had a likelihood of success on the merits.\n\nContinuing its preliminary injunction analysis, the district court found the\n\nrequirement of irreparable harm was satisfied, because a “deprivation of a constitutional\n\nright, ‘for even minimal periods of time, unquestionably constitutes irreparable injury.’”\n\nJ.A. 972 (citations omitted). Then, in considering the third and fourth requirements for\n\nobtaining a preliminary injunction, the district court noted “the balancing of the harm and\n\nthe public interest merge when the government is the opposing party.” J.A. 974. It found\n\nthat the requested relief would have little impact on the government’s ability to enforce\n\nimmigration laws, that it is always in the public interest to prevent violations of\n\nconstitutional rights and that the costs imposed on the government are outweighed by\n\n“preventable human suffering.” J.A. 974.\n\nFinally, the district court turned to the scope of relief. “Based on the court’s finding\n\nthat significant constitutional rights are at stake, and the risk of irreparable harm,” the court\n\nissued “a class-wide preliminary injunction” granting the requested relief. J.A. 976–77.\n\nFurther, since Espinoza remained detained, it ordered that he “receive a new bond hearing\n\nwithin 21 days.” 4 J.A. 977. Since the district court granted Miranda, Espinoza and\n\n4\nEspinoza received a new bond hearing pursuant to the district court’s order. At\nthat bond hearing, the immigration judge found that the government had met its burden to\nshow that Espinoza was a flight risk but that such risk could be mitigated by ordering\nEspinoza to wear a GPS ankle monitor as a condition of release.\n11\n\fAdegoke’s motion for a preliminary injunction on their constitutional claim, it did not\n\naddress their statutory claim.\n\nThe government timely appealed the preliminary injunction order. The district court\n\nthen denied the motion for class certification without prejudice for possible renewal after\n\nthe conclusion of this appeal. We have jurisdiction to review under 28 U.S.C. § 1292 (a)(1).\n\nII.\n\nBefore we can reach the merits of this appeal, we must first determine whether the\n\ndistrict court had jurisdiction to hear Miranda, Adegoke and Espinoza’s claims and to issue\n\nclass-wide injunctive relief. See Arizonans for Official English v. Arizona, 520 U.S. 43, 73\n\n(1997) (“Every federal appellate court has a special obligation to satisfy itself not only of\n\nits own jurisdiction, but also that of the lower courts in a cause under review.” (cleaned\n\nup)). As this inquiry is multi-faceted, we discuss jurisdiction at length. The government\n\nadvances three arguments concerning jurisdiction: (1) Because Miranda, Adegoke and\n\nEspinoza failed to appeal their bond decisions to the Board, the district court lacked the\n\nauthority to review the immigration judge’s detention decision; (2) 8 U.S.C. § 1226 (e)\n\nstrips the courts of jurisdiction to review discretionary detention decisions like those at\n\nissue here; and (3) even if the courts have jurisdiction to consider the claims generally, 8\n\nU.S.C. § 1252 (f)(1) bars the courts from issuing class-wide injunctive relief concerning\n\ndetention and bond issues under § 1226. We now address these arguments.\n\n12\n\f A.\n\nWe first address the government’s argument that Miranda, Adegoke and Espinoza\n\nwere required to exhaust their administrative remedies by appealing the immigration\n\njudges’ denial of bond to the Board. The government’s entire argument is contained in a\n\nsingle footnote. Moreover, the government’s argument in its fo"", ""mandatory detention"": ""the United States in the future; (4) the alien’s employment history; (5) the\nalien’s record of appearance in court; (6) the alien’s criminal record,\nincluding the extensiveness of criminal activity, the recency of such activity,\nand the seriousness of the offenses; (7) the alien’"", ""habeas_relief_signal"": ""os v. Warden Pike Cty. Corr. Facility, 965 F.3d 203 ,\n\n214 (3d Cir. 2020) (holding that noncitizens detained for prolonged periods under the\n\nmandatory provisions of § 1226(c) are constitutionally entitled to a bond hearing at which\n\nthe government “bears the burden of persuasion by clear and convincing evidence. That\n\nevidence must be individualized and support a finding that continued detention is ""}, ""location_flags"": {""border_hits"": [], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": ""rhaps relevant, a statute’s heading is still far\n\nless instructive than its actual text. Yates v. United States, 574 U.S. 528 , 559 (“‘[T]he\n\nheading of a section cannot limit the plain meaning of the text.’”) (Kagan, J., dissenting)\n\n(quoting Brotherhood of R.R. Trainmen v. Baltimore & Ohio R. Co., 331 U.S. 519 , 528–\n\n29 (1947)); see also Antonin Scalia & Bryan A. Garn"", ""phrase_key"": ""ordinary_meaning_textualism"", ""matched_alias"": ""plain meaning""}, {""evidence"": ""res—nothing but silence. There are strong reasons to believe this silence places\n\nprocedural decisions in the Attorney General’s discretion.\n\nSilence on an issue so central to the statutory scheme suggests it is delegated to the\n\nimplementing agency’s discretion. See Chevron, U.S.A., Inc. v. Nat. Res. Def. Council,\n\nInc., 467 U.S. 837, 843 (1984). And the Executive is given"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""dez v. Sessions, 872 F.3d 976, 990 (9th Cir. 2017) (alterations in original) (quoting\n\nZadvydas, 533 U.S. at 690 ).\n\nHowever, the Government has not articulated an interest in the\nprolonged detention of noncitizens who are neither dangerous\nnor a risk of flight. On the contrary, shifting the burden of proof\nto the Government to justify continued detention promotes the\nGovernme"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""prolonged detention""}, {""evidence"": ""nces, this isn’t merely\n\na belt-and-suspenders approach. The Attorney General will sometimes act or make\n\n47\n\fdecisions that are not subject to his discretionary judgment, such as mandatory detention\n\nactions under § 1226(c). And as is the case here, the Attorney General can apply his\n\ndiscretionary judgment to issues that are not “action[s] or decision[s] . . . regarding the\n"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""n alien’s ability to pay and alternative conditions\n\nof release, the district court emphasized that “[d]ue process requires that detention ‘bear[s]\n\n[a] reasonable relation to the purpose for which the individual [was] committed.’” J.A. 968\n\n(citations omitted). It then reasoned that “[f]ederal regulations and [the Board’s] decisional\n\nlaw suggest that the purpose "", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""pro_se"", ""evidence"": ""Torture was granted. Ajibade Thompson Adegoke, of Nigeria, was taken into ICE custody\n\non November 18, 2019, after state theft charges against him were dropped. Thompson\n\nappeared pro se at a videoconferenced bond hearing but did not know what was expected\n\nof him. “The IJ did not ask him what his financial situation was, nor did she ask Mr.\n\n53\n\fThompson to tell ""}, ""reasoning_basis"": {""statutory_history"": [""iirira"", ""h.r. rep.""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""1226(c)"", ""jennings""]}}",pro_se,,,"PUBLISHED
+
+UNITED STATES COURT OF APPEALS
+FOR THE FOURTH CIRCUIT
+
+No. 20-1828
+
+MARVIN DUBON MIRANDA; AJIBADE THOMPSON ADEGOKE; JOSE DE
+LA CRUZ ESPINOZA,
+
+Plaintiffs – Appellees,
+
+v.
+
+MERRICK B. GARLAND, Attorney General; ALEJANDRO N. MAYORKAS,
+Secretary; MATTHEW T. ALBENCE, Deputy Director and Senior Official
+Performing the Duties of the Director; DAVID L. NEAL, Director; JANEAN
+OHIN, Acting Director; WILLIAM DELAUTER, Corrections Bureau Chief; JACK
+KAVANAGH, Director; DONNA BOUNDS, Warden,
+
+Defendants – Appellants.
+
+---------------------------------------------
+
+CONSTITUTIONAL ACCOUNTABILITY CENTER; LEGAL AID JUSTICE
+CENTER; THE ROUNDTABLE OF FORMER IMMIGRATION JUDGES;
+AMERICAN IMMIGRATION LAWYERS ASSOCIATION-DC; AYUDA, INC.;
+THIRTY SOCIAL SCIENCE SCHOLARS AND RESEARCHERS
+
+Amici Supporting Appellees.
+
+Appeal from the United States District Court for the District of Maryland, at
+Baltimore. Catherine C. Blake, Senior District Judge. (1:20-cv-01110-CCB)
+
+Argued: October 27, 2021 Decided: May 12, 2022
+Before RICHARDSON and QUATTLEBAUM, Circuit Judges, and Michael F.
+URBANSKI, Chief United States District Judge for the Western District of Virginia, sitting
+by designation.
+
+Vacated and remanded by published opinion. Judge Quattlebaum wrote the opinion, in
+which Judge Richardson concurred in part and dissented in part, and Judge Urbanski
+concurred in part and dissented in part.
+
+ARGUED: Courtney Elizabeth Moran, UNITED STATES DEPARTMENT OF
+JUSTICE, Washington, D.C., for Appellants. Carmen Gloria Iguina Gonzalez,
+AMERICAN CIVIL LIBERTIES UNION, Washington, D.C., for Appellees. ON BRIEF:
+Jeffrey Bossert Clark, Acting Assistant Attorney General, William C. Peachey, Director,
+Samuel P. Go, Assistant Director, Susan M. Imerman, Office of Immigration Litigation,
+UNITED STATES DEPARTMENT OF JUSTICE, Washington, D.C., for Appellants.
+Nicholas T. Steiner, Sonia Kumar, AMERICAN CIVIL LIBERTIES UNION
+FOUNDATION OF MARYLAND, Baltimore, Maryland; Michael K.T. Tan, ACLU
+FOUNDATION IMMIGRANTS’ RIGHTS PROJECT, New York, New York; Jenny Kim,
+Melody Vidmar, Adina Appelbaum, Claudia Cubas, CAPITAL AREA IMMIGRANTS’
+RIGHTS COALITION, Washington, D.C.; Deborah K. Marcuse, Clare J. Horan, Austin
+L. Webbert, Whittney L. Barth, Lucy Zhou, Baltimore, Maryland, Saba Bireda, SANFORD
+HEISLER SHARP, LLP, Washington, D.C., for Appellees. Elizabeth B. Wydra, Brianne
+J. Gorod, Brian R. Frazelle, Dayna J. Zolle, CONSTITUTIONAL ACCOUNTABILITY
+CENTER, Washington, D.C., for Amicus Constitutional Accountability Center. Andrew
+J. Ewalt, Amna Arshad, Justin C. Simeone, Andrew T. Bulovsky, Washington, D.C.,
+Hannah Khalifeh, FRESHFIELDS BRUCKHAUS DERINGER US LLP, New York, New
+York; Simon Sandoval-Moshenberg, Rebecca Wolozin, Kristin Donovan, LEGAL AID
+JUSTICE CENTER, Falls Church, Virginia, for Amicus Legal Aid Justice Center.
+Madeline J. Cohen, Theodore A. Howard, WILEY REIN LLP, Washington, D.C., for
+Amicus The Roundtable of Former Immigration Judges. Rene Kathawala, ORRICK,
+HERRINGTON & SUTCLIFFE LLP, New York, New York, for Amici Thirty Social
+Science Scholars and Researchers. Sam Bragg, ALSTON & BIRD LLP, Dallas, Texas,
+for Amici The Washington D.C. Chapter of the American Immigration Lawyers
+Association and Ayuda.
+
+2
+QUATTLEBAUM, Circuit Judge:
+
+8 U.S.C. § 1226 (a) permits the Attorney General to detain aliens 1 pending their
+
+removal hearings. And the Attorney General has adopted procedures for making that
+
+discretionary decision. Under those procedures, an alien is given notice and three
+
+opportunities to seek release by showing they are neither a flight risk nor a danger to the
+
+community.
+
+A district court determined that a class of aliens had a likelihood of establishing that
+
+those procedures violated the Due Process Clause of the Fifth Amendment of the United
+
+States Constitution. That court then issued a preliminary injunction ordering, on a class-
+
+wide basis, that to continue detaining an alien under § 1226(a), the government must prove
+
+by clear and convincing evidence that an alien is either a flight risk or a danger to the
+
+community. The district court also required immigration judges, again on a class-wide
+
+basis, to consider an alien’s ability to pay any bond imposed and consider alternatives to
+
+detention.
+
+However, under 8 U.S.C. § 1252 (f)(1), the district court lacked jurisdiction to issue
+
+class-wide injunctive relief that enjoined or restrained the process used to conduct
+
+§ 1226(a) bond hearings. As for the individual relief issued by the district court, the
+
+detention procedures adopted for § 1226(a) bond hearings provide sufficient process to
+
+1
+We realize that the use of the term “alien” has been the subject of some debate.
+See e.g., Martinez Rivera v. U.S. Att’y Gen., No. 20-13201, 2021 WL 2836460 , at *7 (11th
+Cir. July 8, 2021). We use the term because Congress used it in the text of the applicable
+statutes, and the same term is used in the applicable regulations. Our use of the term “alien”
+is not intended to express any opinion, pejorative or otherwise, about the plaintiffs in this
+action or others challenging their detention under our immigration laws.
+3
+satisfy constitutional requirements. For that reason, the aliens are unable to establish a
+
+likelihood of success on their due process claims. Nor have they shown that they are likely
+
+to suffer irreparable harm in the absence of preliminary relief, that the balance of equities
+
+tips in their favor or that an injunction is in the public interest. Therefore, we vacate the
+
+district court’s preliminary injunction order.
+
+I.
+
+A.
+
+The Immigration and Nationality Act permits detention of aliens pending the
+
+outcome of removal proceedings. 8 U.S.C. § 1226 ; see also Jennings v. Rodriguez, 138 S.
+
+Ct. 830, 837 (2018). Separate provisions of § 1226 provide the government with authority
+
+to detain aliens. “Section 1226(a) sets out the default rule: The Attorney General may issue
+
+a warrant for the arrest and detention of an alien ‘pending a decision on"
+9,Pereira Brito v. Garland,Court of Appeals for the First Circuit,,2021-12-28,0.38999999999999996,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": null, ""applicable_provision"": ""1226"", ""non_merits_disposition"": ""dismissed_as_moot"", ""applicable_subprovision"": ""1226(a)""}","{""textual_analysis"": {""hits"": [""superfluous""], ""score"": 1, ""present"": true}, ""statutory_history"": {""hits"": [""h.r. rep.""], ""score"": 1, ""present"": true}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""1226(c)"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""rice-repeated, and quite express,\n\ndeclaration. That leads us to the following inquiry: Does the\n\nclasswide injunction in this case \""enjoin or restrain the\n\noperation\"" of section 1226(a)? Before Jennings reached the\n\nSupreme Court, the Ninth Circuit held that section 1252(f)(1) d"", ""1226"": ""ts a\n\ndue process challenge to the bond procedures used to detain\n\nnoncitizens during the pendency of removal proceedings under 8\n\nU.S.C. § 1226 (a), the discretionary immigration detention\n\nprovision. In light of our recent decision in Hernandez-Lara v.\n\nLyons, 10 F.4th 19 (1st "", ""denied"": ""o prove that he or she is neither\n\na danger to the community nor a flight risk. See Matter of Guerra,\n\n24 I. & N. Dec. 37, 40 (B.I.A. 2006). And in each instance, the\n\nIJ denied release based on a failure to carry that burden.\n\nThe three petitioners subsequently filed a habeas co"", ""granted"": ""ed a bond hearing before an\n\nimmigration judge (pre-hearing class), while the second consists\n\nof those who have already been denied release following a hearing\n\n(post-hearing class). The district court then granted summary\n\njudgment in favor of both subclasses on the due process"", ""bond hearing"": ""t Cir. 2021), we affirm the district court's\n\ndeclaration that noncitizens \""detained pursuant to 8 U.S.C.\n\n§ 1226 (a) are entitled to receive a bond hearing at which the\n\nGovernment must prove the alien is either dangerous by clear and\n\nconvincing evidence or a risk of flight by "", ""non_merits_signal"": "",\nas the time period for en banc review has not expired. See Doe v.\nTompkins, 11 F.4th 1 , 2–3 (1st Cir. 2021) (Lynch, J., dissenting).\n\n- 9 -\n\f A class action \""ordinarily must be dismissed as moot if\n\nno decision on class certification has occurred by the time that\n\nthe individual claims of all named plaintiffs have been fully\n\nresolved.\"" Cruz v. Farquharson, 252 F.3d 530, "", ""bond_status_signal"": ""val proceedings under 8\n\nU.S.C. § 1226 (a), the discretionary immigration detention\n\nprovision. In light of our recent decision in Hernandez-Lara v.\n\nLyons, 10 F.4th 19 (1st Cir. 2021), we affirm the district court's\n\ndeclaration that noncitizens \""detained pursuant to 8 U.S.C.\n\n§ 1226 (a) are entitled to receive a bond hearing at which the\n\nGovernment must prove the alien is either dangerous by clear and\n\nconvincing evidence or a risk of flight by a preponderance of the\n\nevidence.\"" Brito v. Barr, 415 F. Supp. 3d 258 , 271 (D. Mass.\n\n2019). We conclude, however, that the district court lacked\n\njurisdiction to issue injunctive relief in favor of the class, and\n\nwe otherwise vacate the district court's declaration as advisory.\n\nOur reasoning follows.\n\nI.\n\nThe following facts are not in dispute. The three\n\npetitioners, who serve as named class representatives in this\n\naction -- Gilberto Pereira Brito, Florentin Avila Lucas, and Jacky\n\nCelicourt -- are noncitizens who were detained by Immigration and\n\nCustoms Enforcement (ICE) officers. None has committed a criminal\n\noffense that would subject them to mandatory detention pending the\n\nduration of their removal proceedings. See 8 U.S.C. § 1226 (c).\n\nThey were therefore detained under section 1226(a), which provides\n\n- 4 -\n\fthat the government \""may release\"" a detained noncitizen on \""bond\n\nof at least $1,500 . . . or conditional parole.\"" Id. § 1226(a)(2).\n\nEach promptly petitioned for release on bond pending the completion\n\nof removal proceedings. Each also received a hearing before an\n\nimmigration judge (IJ). At the hearings, the burden was placed on\n\nthe petitioners in accordance with then-operative agency\n\nregulations requiring a detainee to prove that he or she is neither\n\na danger to the community nor a flight risk. See Matter of Guerra,\n\n24 I. & N. Dec. 37, 40 (B.I.A. 2006). And in each instance, the\n\nIJ denied release based on a failure to carry that burden.\n\nThe three petitioners subsequently filed a habeas corpus\n\npetition and class action complaint for declaratory and injunctive\n\nrelief in the United States District Court for the District of\n\nMassachusetts. The petition contains two claims. In the first\n\nclaim, the petitioners assert that the Due Process Clause of the\n\nFifth Amendment requires the government to bear \""the burden to\n\njustify continued detention by proving by clear and convincing\n\nevidence that the detainee is a danger to others or a flight risk,\n\nand, even if he or she is, that no condition or combination of\n\nconditions will reasonably assure the detainee's future appearance\n\nand the safety of the community.\"" This claim also asserts that a\n\nconstitutionally adequate bond hearing must include \""consideration\n\nof the detainee's ability to pay in selecting the amount of any\n\nbond and [consideration of] suitability for release on alternative\n\n- 5 -\n\fconditions of supervision.\"" In their second claim, the petitioners\n\nallege that placing the burden of proof in a bond hearing on the\n\nnoncitizen -- rather than on the government -- violates the\n\nImmigration and Nationality Act and the Administrative Procedure\n\nAct (APA).\n\nAfter the petitioners moved for class certification, ICE\n\nissued new custody determinations for each of the three petitioners\n\nauthorizing their release on bond. All three declined to request\n\nreview of those custody determinations before an IJ. Rather, they\n\npromptly posted bond and were released. At the same time, they\n\nexpressed their willingness to continue to serve as class\n\nrepresentatives. The district court in turn ruled that the class\n\nclaims remained alive, citing Genesis Healthcare Corporation v.\n\nSymczyk, 569 U.S. 66, 76 (2013).\n\nThe district court certified two subclasses of\n\nnoncitizens who have been detained by ICE under section 1226(a) in\n\nMassachusetts or are otherwise within the jurisdiction of the\n\nBoston Immigration Court. The first subclass consists of those\n\ndetainees who have not yet received a bond hearing before an\n\nimmigration judge (pre-hearing class), while the second consists\n\nof those who have already been denied release following a hearing\n\n(post-hearing class). The district court then granted summary\n\njudgment in favor of both subclasses on the due process claim and\n\n- 6 -\n\fissued a declaratory order and a permanent injunction.1 The\n\ncourt's declaratory order first held that noncitizens \""detained\n\npursuant to 8 U.S.C. § 1226 (a) are entitled to receive a bond\n\nhearing at which the Government must prove the alien is either\n\ndangerous by clear and convincing evidence or a risk of flight by\n\na preponderance of the evidence and that no condition or\n\ncombination of conditions will reasonably assure the alien's\n\nfuture appearance and the safety of the community.\"" Brito, 415 F.\n\nSupp. 3d at 271. The district court then held that at any future\n\nbond hearing, \""the immigration judge must evaluate the alien's\n\nability to pay in setting bond above $1,500 and must consider\n\nalternative conditions of release, such as GPS monitoring, that\n\nreasonably assure the safety of the community and the alien's\n\nfuture appearances.\"" Id. In its permanent injunction, the\n\ndistrict court ordered immigration courts to follow the\n\nrequirements set forth in its declaratory order.2 Both sides\n\nappealed.\n\n1 Because the district court found that requiring a\nnoncitizen to bear the burden of proof in his bond hearing violated\nthe Due Process Clause, it concluded that such burden allocation\nalso violated the APA, which bars unconstitutional agency\npolicies. As a result, the court declined to reach the\npetitioners' alternative arbitrary-and-capricious APA theory.\nBecause our decision in Hernandez-Lara confirms that the\ngovernment must bear the burden of proof in a bond hearing, 10\nF.4th at 39 , we need not reach the petitioners' APA claim.\n2 The court also required the government to provide a copy\nof the declaratory judgment and permanent injunction to members of\n\n- 7 -\n\f The government raises two jurisdictional issues. First,\n\nit argues that a statute -- 8 U.S.C. § 1252 (f)(1) -- precluded the\n\ndistrict court from issuing \""classwide injunctive relief and\n\ncorresponding declaratory relief to enjoin or restrain the\n\noperation of the provisions of 8 U.S.C. §§ 1221–1254a on a\n\nclasswide basis.\""3 Second, in response to our request for\n\nsupplemental briefing, the government argues that the petitioners\n\nlack standing to press their claims that their IJs should have\n\nconsidered alternatives to detention and the noncitizens' ability\n\nto pay bond.\n\nAs to the merits, many of the issues the parties briefed\n\non appeal were resolved by our decision in Hernandez-Lara. In\n\nthat opinion, we held that the minimum requirements of due process\n\ndictate that, in order to detain a person under section 1226(a)\n\nwho is prepared to put up whatever bond is properly required, the\n\nboth subclasses, and required the government to provide class\ncounsel with certain information about each member of the post-\nhearing class. Except to the extent the government challenges the\nauthority of the district court to issue a classwide injunction,\nthese aspects of the district court's order are not challenged on\nappeal.\n3 In its statement of the issues, the government also asserts\nthat \""the class does not meet the requirements for certification.\""\nBut the government's brief makes no attempt to develop this\nstatement into argument, failing even to explain how the\nrequirements of Rule 23 are not met. Any challenge based on any\nclaimed failure to satisfy Rule 23 is therefore waived. See United\nStates v. Zannino, 895 F.2d 1, 17 (1st Cir. 1990).\n\n- 8 -\n\fgovernment must either prove by clear and convincing evidence that\n\nthe person is a danger to the community, or prove by a\n\npreponderance of the evidence that the person is a flight risk.\n\n10 F.4th at 39–41. We reaffirm that conclusion here.4\n\nHaving cleared away the issues already decided in\n\nHernandez-Lara, we consider several questions that remain: whether\n\n8 U.S.C. § 1252 (f)(1) barred the classwide injunction entered\n\nbelow; whether the petitioners have standing to argue that their\n\nIJs should have considered alternatives to detention and the\n\npetitioners' ability to pay bond; and, if so, whether these\n\nprocedural due process claims have merit.\n\nII.\n\nWe begin our discussion of the remaining issues on appeal\n\nwith a brief detour. Although neither party argues that this case\n\nbecame moot when the named plaintiffs were released from detention,\n\nthat question bears on our own jurisdiction, and we must therefore\n\nconsider it. See Ruskai v. Pistole, 775 F.3d 61, 67 (1st Cir.\n\n2014) (\""Although the parties do not address mootness, we are\n\nobliged to consider the issue sua sponte.\"").\n\n4 Judge Lynch would resolve the merits of these\nconstitutional issues in favor of the government for the reasons\nshe gave in her dissent in Hernandez-Lara. 10 F.4th at 46–59\n(Lynch, J., dissenting). Further, in her view the majority\ndecision in Hernandez-Lara is not binding because it is not final,\nas the time period for en banc review has not expired. See Doe v.\nTompkins, 11 F.4th 1 , 2–3 (1st Cir. 2021) (Lynch, J., dissenting).\n\n- 9 -\n\f A class action \""ordinarily must be dismissed as moot if\n\nno decision on class certification has occurred by the time that\n\nthe individual claims of all named plaintiffs have been fully\n\nresolved.\"" Cruz v. Farquharson, 252 F.3d 530, 533 (1st Cir. 2001).\n\nNonetheless, there is at least one exception to this ordinary\n\npractice: A court may certify a class in such a circumstance where\n\n\""it is 'certain that other persons similarly situated' will\n\ncontinue to be subject to the challenged conduct and the claims\n\nraised are 'so inherently transitory that the trial court will not\n\nhave even enough time to rule on a motion for class certification\n\nbefore the proposed representative's individual interest\n\nexpires.'\"" Genesis Healthcare Corp., 569 U.S. at 76 (quoting\n\nCounty of Riverside v. McLaughlin, 500 U.S. 44, 52 (1991)). The\n\nrecord in this litigation demonstrates that this exception\n\napplies, given the ongoing occurrence of bond hearings and the\n\nrelative pace of federal court litigation and immigration\n\nproceedings. The government makes no argument that the record\n\nshould be viewed otherwise. We therefore see no reason to treat\n\nthis litigation as moot given the request for class certification.\n\n- 10 -\n\f III.\n\nWe turn now to the government's contention that 8 U.S.C.\n\n§ 1252 (f)(1) precludes the issuance of the classwide injunctive\n\nrelief granted by the district court. Titled \""[l]imit on\n\ninjunctive relief,\"" section 1252(f)(1) provides:\n\nRegardless of the nature of the action or\nclaim or of the identity of the party or\nparties bringing the action, no court (other\nthan the Supreme Court) shall have\njurisdiction or authority to enjoin or\nrestrain the operation of [8 U.S.C. §§ 1221–\n32], . . . other than with respect to the\napplication of such provisions to an\nindividual alien against whom proceedings\nunder such part have been initiated.\n\nThis text plainly leaves untouched a court's jurisdiction to issue\n\ninjunctive relief in favor of any \""individual alien against whom\n\n[proceedings under, inter alia, section 1226(a)] have been\n\ninitiated.\"" It therefore follows that section 1252(f)(1) by\n\nitself posed no jurisdictional bar to granting injunctive relief\n\nin favor of any individual class m"", ""mandatory detention"": ""- are noncitizens who were detained by Immigration and\n\nCustoms Enforcement (ICE) officers. None has committed a criminal\n\noffense that would subject them to mandatory detention pending the\n\nduration of their removal proceedings. See 8 U.S.C. § 1226 (c).\n\nThey were therefore deta""}, ""location_flags"": {""border_hits"": [], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": ""vernment's passing\ninvocation of 8 U.S.C. § 1226 (e) -- pointing us to Jennings's\nexplanation that section 1226(e) does not bar a challenge to the\n\""constitutionality of the entire statutory scheme,\"" 138 S. Ct. at\n841 -- further confirms that the district court's injunction\nrestrains that \""statutory scheme.\""\n\n- 17 -\n\fthe operation of section 1226(a) by requiring something th"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""Counsel, and\nJ. Max Weintraub, Senior Litigation Counsel, were on brief, for\nAppellees/Cross-Appellants.\n\nDecember 28, 2021\n\f KAYATTA, Circuit Judge. This class action presents a\n\ndue process challenge to the bond procedures used to detain\n\nnoncitizens during the pendency of removal proceedings under 8\n\nU.S.C. § 1226 (a), the discretionary immigration detention\n\nprovis"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""due process""}, {""evidence"": ""and Jacky\n\nCelicourt -- are noncitizens who were detained by Immigration and\n\nCustoms Enforcement (ICE) officers. None has committed a criminal\n\noffense that would subject them to mandatory detention pending the\n\nduration of their removal proceedings. See 8 U.S.C. § 1226 (c).\n\nThey were therefore detained under section 1226(a), which provides\n\n- 4 -\n\fthat the government \""may r"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""'Congress includes particular language in one section of a statute\n\nbut omits it in another section of the same Act, it is generally\n\npresumed that Congress acts intentionally and purposely in the\n\ndisparate inclusion or exclusion.'\"" (quoting Russello v. United\n\nStates, 464 U.S. 16, 23 (1983))).\n\nTo be sure, the Supreme Court has on occasion determined\n\nthat declar"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""unknown"", ""evidence"": null}, ""reasoning_basis"": {""textual_analysis"": [""superfluous""], ""statutory_history"": [""h.r. rep.""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""1226(c)"", ""jennings""]}}",unknown,,,"United States Court of Appeals
+For the First Circuit
+
+Nos. 20-1037, 20-1119
+
+GILBERTO PEREIRA BRITO, individually and on behalf of all those
+similarly situated; FLORENTIN AVILA LUCAS, individually and on
+behalf of all those similarly situated; JACKY CELICOURT,
+individually and on behalf of all those similarly situated,
+
+Petitioners, Appellants/Cross-Appellees,
+
+v.
+
+MERRICK B. GARLAND,* Attorney General, U.S. Department of
+Justice; TIMOTHY S. ROBBINS, Acting Field Office Director,
+Enforcement and Removal Operations, U.S. Immigration and Customs
+Enforcement; TAE D. JOHNSON, Acting Director, U.S. Immigration
+and Customs Enforcement; ALEJANDRO MAYORKAS, Secretary, U.S.
+Department of Homeland Security; JEAN F. KING, Director,
+Executive Office of Immigration Review, U.S. Department of
+Justice; ANTONE MONIZ, Superintendent of the Plymouth County
+Correctional Facility; YOLANDA SMITH, Superintendent of the
+Suffolk County House of Corrections; STEVEN J. SOUZA,
+Superintendent of the Bristol County House of Corrections;
+CHRISTOPHER BRACKETT, Superintendent of the Strafford County
+Department of Corrections; LORI STREETER, Superintendent of the
+Franklin County House of Corrections,
+
+Respondents, Appellees/Cross-Appellants.
+
+APPEALS FROM THE UNITED STATES DISTRICT COURT
+FOR THE DISTRICT OF MASSACHUSETTS
+
+* Pursuant to Fed. R. App. P. 43(c)(2), Attorney General
+Merrick B. Garland has been substituted for former Attorney General
+William P. Barr as respondent, Acting Director Tae D. Johnson has
+been substituted for former Acting Director Matthew T. Albence as
+respondent, Secretary of Homeland Security Alejandro Mayorkas has
+been substituted for former Secretary Chad F. Wolf as respondent,
+and Director Jean C. King has been substituted for former Director
+James McHenry as respondent.
+ [Hon. Patti B. Saris, U.S. District Judge]
+
+Before
+
+Lynch, Lipez, and Kayatta,
+Circuit Judges.
+
+Daniel McFadden, with whom Matthew R. Segal, Adrian Lafaille,
+American Civil Liberties Union Foundation of Massachusetts, Inc.,
+Gilles R. Bissonnette, Henry R. Klementowicz, SangYeob Kim,
+American Civil Liberties Union Foundation of New Hampshire, New
+Hampshire Immigrants' Rights Project, Michael K. T. Tan, ACLU
+Foundation Immigrants' Rights Project, Susan M. Finegan, Susan J.
+Cohen, Andrew Nathanson, Mathilda S. McGee-Tubb, Ryan Dougherty,
+and Mintz, Levin, Cohn, Ferris, Glovsky and Popeo, P.C. were on
+brief, for Appellants/Cross-Appellees.
+Maura Healey, Attorney General of Massachusetts, Amanda
+Hainsworth, Assistant Attorney General, Civil Rights Division,
+Mark R. Herring, Attorney General of Virginia, William Tong,
+Attorney General of Connecticut, Claire Kindall, Solicitor General
+of Connecticut, Joshua Perry, Special Counsel for Civil Rights,
+Xavier Becerra, Attorney General of California, Kathleen Jennings,
+Attorney General of Delaware, Clare E. Connors, Attorney General
+of Hawai'i, Kwame Raoul, Attorney General of Illinois, Aaron M.
+Frey, Attorney General of Maine, Brian E. Frosh, Attorney General
+of Maryland, Dana Nessel, Attorney General of Michigan, Keith
+Ellison, Attorney General of Minnesota, Aaron D. Ford, Attorney
+General of Nevada, Gurbir S. Grewal, Attorney General of New
+Jersey, Hector Balderas, Attorney General of New Mexico, Letitia
+James, Attorney General of New York, Ellen F. Rosenblum, Attorney
+General of Oregon, Peter F. Neronha, Attorney General of Rhode
+Island, Thomas J. Donavan, Jr., Attorney General of Vermont, Robert
+W. Ferguson, Attorney General of Washington, and Karl A. Racine,
+Attorney General for the District of Columbia, on brief for the
+Commonwealths of Massachusetts and Virginia, the States of
+Connecticut, California, Delaware, Hawai'i, Illinois, Maine,
+Maryland, Michigan, Minnesota, Nevada, New Jersey, New Mexico, New
+York, Oregon, Rhode Island, Vermont, and Washington, and the
+District of Columbia, amici curiae.
+Benjamin Casper Sanchez, Mimi Alworth, Valkyrie Jensen,
+Mengying Yao, and James H. Binger Center for New Americans,
+University of Minnesota Law School on brief for American
+Immigration Lawyers Association, amicus curiae.
+Dayna J. Zolle, Elizabeth B. Wydra, Brianne J. Gorod, and
+Brian R. Frazelle on brief for Constitutional Accountability
+Center, amicus curiae.
+Huy M. Le, Trial Attorney, Office of Immigration Litigation,
+with whom Ethan P. Davis, Acting Assistant Attorney General, Civil
+Division, William C. Peachey, Director, District Court Section,
+Office of Immigration Litigation, Elianis N. Pérez, Assistant
+Director, C. Frederick Sheffield, Senior Litigation Counsel, and
+J. Max Weintraub, Senior Litigation Counsel, were on brief, for
+Appellees/Cross-Appellants.
+
+December 28, 2021
+ KAYATTA, Circuit Judge. This class action presents a
+
+due process challenge to the bond procedures used to detain
+
+noncitizens during the pendency of removal proceedings under 8
+
+U.S.C. § 1226 (a), the discretionary immigration detention
+
+provision. In light of our recent decision in Hernandez-Lara v.
+
+Lyons, 10 F.4th 19 (1st Cir. 2021), we affirm the district court's
+
+declaration that noncitizens ""detained pursuant to 8 U.S.C.
+
+§ 1226 (a) are entitled to receive a bond hearing at which the
+
+Government must prove the alien is either dangerous by clear and
+
+convincing evidence or a risk of flight by a preponderance of the
+
+evidence."" Brito v. Barr, 415 F. Supp. 3d 258 , 271 (D. Mass.
+
+2019). We conclude, however, that the district court lacked
+
+jurisdiction to issue injunctive relief in favor of the class, and
+
+we otherwise vacate the district court's declaration as advisory.
+
+Our reasoning follows.
+
+I.
+
+The following facts are not in dispute. The three
+
+petitioners, who serve as named class representatives in this
+
+action -- Gilberto Pereira Brito, Florentin Avila Lucas, and Jacky
+
+Celicourt -- are noncitizens who were detained by Immigration and
+
+Customs Enforcement (ICE) officers. None has committed a criminal
+
+offense that would subject them to mandatory detention pending the
+
+duration of their removal "
+10,C.G.B. v. Wolf,"District Court, District of Columbia",Judge Christopher R. Cooper,2020-06-02,0.38999999999999996,needs_review,"{""bond_status"": ""mandatory_detention_or_no_bond"", ""habeas_relief"": null, ""applicable_provision"": ""1226"", ""applicable_subprovision"": ""1226(a)""}","{""textual_analysis"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_history"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""1226(c)"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""on Center (“Nevada Southern”) in Nevada; the Aurora Detention Center (“Aurora”) in\n\nColorado; and the El Paso Processing Center (“El Paso”) in Texas. 9 Plaintiffs are held pursuant\n\nto various provisions of the Immigration and Nationality Act (“INA”): Some are mandatorily\n\ndetain"", ""1226"": ""(“Nevada Southern”) in Nevada; the Aurora Detention Center (“Aurora”) in\n\nColorado; and the El Paso Processing Center (“El Paso”) in Texas. 9 Plaintiffs are held pursuant\n\nto various provisions of the Immigration and Nationality Act (“INA”): Some are mandatorily\n\ndetained as requ"", ""denied"": ""ndles,\nrecreation equipment).”\n\n• Intake Procedures:\n\no “Perform pre-intake screening for all staff and new entrants for symptoms\nof COVID-19.”\n\no “If staff have symptoms of COVID-19 (fever, cough, shortness of breath):\nthey must be denied access to the facility.”\n\no “If any new "", ""granted"": ""class may not be entitled to bond\n\nhearings as a constitutional matter”); Jamie S. v. Milwaukee Pub. Sch., 668 F.3d 481, 499 (7th\n\nCir. 2012) (holding that Rule 23(b)(2) is not satisfied where “the relief sought would merely\n\ninitiate a process through which highly individualized"", ""bond hearing"": ""B.M.U.\n\nD.B.M.U. is a 19-year-old Honduran native detained at Aurora pursuant to mandatory\n\ndetention under 8 U.S.C. § 1225 (b), which provides for mandatory detention of noncitizens until\n\nremoval. Decl. of Greg Davies (“Davies Decl.”) ¶¶ 67–68, 70, TRO Opp., Exh. 6. She is in\n\n"", ""bond_status_signal"": ""emoval Operations (“ERO”) section, which\n\noversees the departure of removable immigrants from the United States, would exercise its\n\ndiscretion to focus enforcement on individuals subject to mandatory detention based on criminal\n\nconvictions. ICE, Updated ICE Statement on COVID-19 (Mar. 18, 2020). 6 For other categories\n\nof immigrants, ERO would exercise its “discretion to delay enforcem"", ""mandatory detention"": ""Operations (“ERO”) section, which\n\noversees the departure of removable immigrants from the United States, would exercise its\n\ndiscretion to focus enforcement on individuals subject to mandatory detention based on criminal\n\nconvictions. ICE, Updated ICE Statement on COVID-19 (Mar.""}, ""location_flags"": {""border_hits"": [""at the border""], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": "" certain crimes. See, e.g. 2d\n\nCantrell Decl. ¶¶ 53–55 (K.M. held under § 1226(c)). The Court’s jurisdiction to order release\n\nmay depend on each noncitizen’s posture “within this statutory scheme,” which determines\n\n“whether detention is mandatory or discretionary as well as the process available for contesting\n\n39\n\fhis or her detention.” Ramirez v. ICE, 338 F. Supp. 3d 1,"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""ity (“DHS”), and William Barr, Attorney General of United\n\nStates. Plaintiffs allege that ICE, the DHS component that oversees the civil detention of\n\nimmigrants, has violated the Due Process Clause of the Constitution by failing to sufficiently\n\nprotect transgender immigrant detainees from COVID-19 and the APA by failing to follow its\n\ninternal guidelines. Simultaneou"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""due process""}, {""evidence"": ""ning certain noncitizens. See, e.g., Landon v. Plasencia, 459 U.S. 21,\n\n34 (1982) (characterizing “[t]he government’s interest in efficient administration of the\n\nimmigration laws at the border” as “weighty”); Jorge V.S. v. Green, No. 20-3675, 2020 WL\n\n1921936 , at *2–4 (D.N.J. Apr. 21, 2020) (“[I]mmigration detention is clearly reasonably related\n\nto a legitimate govern"", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""at the border""}, {""evidence"": ""ations (“ERO”) section, which\n\noversees the departure of removable immigrants from the United States, would exercise its\n\ndiscretion to focus enforcement on individuals subject to mandatory detention based on criminal\n\nconvictions. ICE, Updated ICE Statement on COVID-19 (Mar. 18, 2020). 6 For other categories\n\nof immigrants, ERO would exercise its “discretion to delay enforcem"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""ll later explain—determine\n\nwhether “the challenged governmental action is not rationally related to a legitimate\n\ngovernmental objective or . . . is excessive in relation to that purpose.” Kingsley v. Hendrickson,\n\n135 S. Ct. 2466 , 2373–74 (2015) (relying on Bell v. Wolfish, 441 U.S. 520 (1979)). As the\n\nSupreme Court recently reiterated, due process is a “flexib"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""unknown"", ""evidence"": null}, ""reasoning_basis"": {""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""1226(c)"", ""jennings""]}}",unknown,t,f,"UNITED STATES DISTRICT COURT
+FOR THE DISTRICT OF COLUMBIA
+
+C.G.B. 1, et al.,
+
+Plaintiffs,
+
+v. Case No. 20-cv-1072 (CRC)
+
+CHAD WOLF, et al.,
+
+Defendants.
+
+MEMORANDUM OPINION
+
+Plaintiffs, ten transgender women in the custody of Immigration and Customs
+
+Enforcement (“ICE”), have sued the Secretary of Homeland Security and the Attorney General
+
+of the United States based on their roles in overseeing the nation’s civil immigration detention
+
+system. Asserting that their continued detention during the COVID-19 pandemic violates the
+
+Constitution and the Administrative Procedure Act (“APA”), Plaintiffs seek an order directing
+
+ICE to immediately release all transgender civil detainees across the country and not to detain
+
+any additional transgender immigrants until the pandemic ends. Before the Court are: (1) a
+
+motion to certify a class of all transgender detainees held in ICE custody, now and in the future;
+
+(2) a motion to join two new named Plaintiffs; and (3) an emergency motion for a temporary
+
+restraining order. For the reasons that follow, the Court denies all three motions.
+
+1
+In order to protect Plaintiffs’ privacy, the Court will refer to all named plaintiffs by their
+preferred acronyms.
+ I. Background
+
+A. COVID-19 Pandemic
+
+The details of the COVID-19 pandemic are by this point well-known. COVID-19 is a
+
+contagious disease caused by the novel coronavirus SARS-CoV-2. Decl. of R. Nick Gorton
+
+(“Gorton Decl.”) ¶ 3, Pl. Mot. for Temporary Restraining Order (“TRO Mot.”), Exh. 14.
+
+Although the virus only emerged in early 2020, by March the President of the United States had
+
+declared a national state of emergency and the World Health Organization had declared a global
+
+pandemic. As of June 1, 2020, there have been 1,761,503 diagnosed cases of COVID-19 and
+
+103,700 deaths in the United States alone. Centers for Disease Control and Prevention (“CDC”),
+
+Cases in the U.S. (June 1, 2020). 2
+
+Symptoms of COVID-19 vary considerably between individuals. Some who are infected
+
+do not display any noticeable symptoms. Gorton Decl. ¶ 6. Others experience fevers, coughs,
+
+difficulty breathing, and body aches, although the severity of those symptoms varies. Id. ¶ 4. In
+
+a minority of individuals, however, COVID-19 results in serious illness or death. Id. The CDC
+
+has identified certain factors that are associated with an increased risk of becoming severely ill:
+
+being 65 years old or older, having an underlying medical condition such as a chronic lung
+
+disease or serious heart condition, and having a compromised immune system. CDC, People
+
+Who Are at Higher Risk for Severe Illness (Apr. 15, 2020). 3 Relevant here, being transgender is
+
+2
+https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/cases-in-us.html.
+3
+https://www.cdc.gov/coronavirus/2019-ncov/need-extra-precautions/people-at-higher-
+risk.html.
+
+2
+not one of the CDC-recognized risk factors. See id.; Decl. of Captain Edith Lederman, M.D.
+
+(“Lederman Decl.”) ¶ 10, TRO Opp., Exh. 8.
+
+COVID-19 is highly contagious. It spreads primarily through person-to-person contact,
+
+when people are within six feet of one another. See CDC, How to Protect Yourself & Others
+
+(Apr. 15, 2020). 4 When infected people cough, sneeze, or talk, they produce airborne respiratory
+
+droplets that may be inhaled by others standing nearby. Id. People may also contract the virus
+
+through contact with contaminated surfaces. See CDC, Cleaning & Disinfection for Households
+
+(May 7, 2020). 5 Symptoms, such as fever, cough, and shortness of breath, typically appear two
+
+to fourteen days after exposure. Even those who are asymptomatic are capable of spreading the
+
+disease. Gorton Decl. ¶¶ 4, 6. The most effective ways to prevent contracting the virus are to
+
+employ social distancing (staying at least six feet away from other people), to wash one’s hands
+
+frequently, and to cover one’s mouth and nose with a mask when around others. See CDC, How
+
+to Protect Yourself & Others (Apr. 15, 2020). To date, there is no vaccine or cure for COVID-
+
+19.
+
+B. ICE’s Response to COVID-19 in Detention Centers
+
+Civil immigration detention centers, which typically house highly transient populations in
+
+close quarters, are difficult environments in which to prevent the spread of a dangerous
+
+contagion like COVID-19. Recognizing this, ICE and the CDC have taken several steps to
+
+contain the virus in detention facilities.
+
+4
+https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html.
+5
+https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/cleaning-
+disinfection.html.
+
+3
+ First, ICE has reduced the number of detainees in each of its facilities. On March 18,
+
+2020, ICE announced that its Enforcement and Removal Operations (“ERO”) section, which
+
+oversees the departure of removable immigrants from the United States, would exercise its
+
+discretion to focus enforcement on individuals subject to mandatory detention based on criminal
+
+convictions. ICE, Updated ICE Statement on COVID-19 (Mar. 18, 2020). 6 For other categories
+
+of immigrants, ERO would exercise its “discretion to delay enforcement actions until after the
+
+crisis or utilize alternatives to detention, as appropriate.” Id. About two weeks later, ICE
+
+released guidance instructing the directors of its various field offices to identify detainees held in
+
+their facilities who fell within the CDC-recognized high-risk categories and to make
+
+individualized determinations regarding their continued custody. ICE, Docket Review Guidance
+
+(Apr. 4, 2020).
+
+ICE, in conjunction with the CDC, has also taken measures to prevent the spread of
+
+COVID-19 at detention facilities. On March 27, 2020, the CDC published advisory guidance on
+
+best practices for correctional and detention facilities (“CDC Detention Facility Guidelines”).
+
+CDC, Interim Guidance on Management of Coronavirus Disease 2019 (COVID-19) in
+
+Correctional & Detention Facilities (Mar. 27, 2020). That guidance recommends that facilities
+
+reduce transfers of detainees; "
+12,Yolany Padilla v. Ice,Court of Appeals for the Ninth Circuit,,2020-03-27,0.7250000000000001,auto,"{""bond_status"": ""eligible"", ""habeas_relief"": ""granted"", ""applicable_provision"": ""1225"", ""applicable_subprovision"": ""1225(b)(1)(B)(ii)""}","{""textual_analysis"": {""hits"": [""seeking admission"", ""dictionary"", ""superfluous""], ""score"": 3, ""present"": true}, ""statutory_history"": {""hits"": [""h.r. rep.""], ""score"": 1, ""present"": true}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""arriving alien"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""art, and direct the district court to reconsider some of the\ntechnical aspects of its order.\n\nI\n\nPlaintiffs are a class of noncitizens detained pursuant to\n8 U.S.C. § 1225 (b). Section 1225(b) provides for “expedited\nremoval” of “arriving” noncitizens at ports-of-entry and\ninadmi"", ""1226"": ""n, who had conceded that he was\ndeportable, pursuant to a statute that imposed detention\nwithout bond on a subset of noncitizens deportable for having\ncommitted enumerated crimes. See 538 U.S. at 526–28, 531;\nsee also 8 U.S.C. § 1226 (c). The Court held that this\n“narrow” detenti"", ""denied"": ""s written decisions. Part B concluded that the class is\nconstitutionally entitled to bond hearings. A motions panel\nof this court previously denied the government’s request to\nstay Part B, but granted the stay as to Part A.\n\nThe panel concluded that the district court did not abu"", ""granted"": "" is\nconstitutionally entitled to bond hearings. A motions panel\nof this court previously denied the government’s request to\nstay Part B, but granted the stay as to Part A.\n\nThe panel concluded that the district court did not abuse\nits discretion in concluding that plaintiffs were"", ""bond hearing"": ""Affirming in part, and vacating and remanding in part, the\ndistrict court’s preliminary injunction ordering the United\nStates to provide bond hearings to a class of noncitizens who\nwere detained and found to have a credible fear of\npersecution, the panel affirmed the injunction i"", ""bond_status_signal"": ""y General, Seattle,\nWashington; Xavier Becerra, Attorney General, Sacramento,\nCalifornia; Phil Weiser, Attorney General, Denver, Colorado;\nWilliam Tong, Attorney General, Hartford, Connecticut;\nKathleen Jennings, Attorney General, Wilmington, Delaware;\nKarl A. Racine, Attorney General, Washington, D.C.; Clare\nE. Connors, Attorney General, Honolulu, Hawaii; Kwame\nRaoul, Attorney "", ""mandatory detention"": ""\n\f12 PADILLA V. ICE\n\nare entitled to bond hearings, as “wrongly decided.” Matter\nof M-S-, 27 I. & N. Dec. 509, 510 (A.G. 2019). The AG\ninterpreted 8 U.S.C. § 1225 (b)(1)(B)(ii) to require mandatory\ndetention without bond hearings for asylum seekers who were\ninitially subject to e"", ""habeas_relief_signal"": ""\nagainst releasing on bond persons found to\nhave a credible fear and awaiting a\ndetermination of their asylum application\nviolates the U.S. Constitution; the Bond\nHearing Class is constitutionally entitled to a\nbond hearing before a neutral decisionmaker\n(under the conditions enumerated [in Part A])\npending resolution of their asylum\napplications.\n\nId.\n\nThe government timely appealed both orders, mov""}, ""location_flags"": {""border_hits"": [""at the border"", ""arriving alien"", ""arriving in the united states""], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": ""d States”). To be given effect,\n“individual” can only be read as an adjective providing a\nseparate, numerical limitation on the clause’s noun, “alien.”\nSee Individual, Black’s Law Dictionary (11th ed. 2019)\n(defining “individual” when used as an adjective as\n“[e]xisting as an indivisible entity” or “[o]f, relating to, or\ninvolving a single person or thing, as opposed "", ""phrase_key"": ""ordinary_meaning_textualism"", ""matched_alias"": ""dictionary""}, {""evidence"": ""her than with respect to the\napplication of such provisions to an individual alien against\nwhom proceedings under such part have been initiated.”\nExamining the relevant precedent, statutory scheme, and\nlegislative history, the panel concluded that here, where the\nclass is composed of individual noncitizens, each of whom is\nin removal proceedings and facing an immediate viol"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": ""nally protected interest in avoiding physical\nrestraint” (quoting Singh, 638 F.3d at 1203 )); Casas-\nCastrillon v. DHS, 535 F.3d 942, 950 (9th Cir. 2008)\n(individuals subjected to prolonged detention pending judicial\nreview of their removal orders are entitled to a bond hearing\nand an “individualized determination as to the necessity of\n[their] detention”); see also Jennings v"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""prolonged detention""}, {""evidence"": ""tely prior to the date of the determination of inadmissibility.”\n8 U.S.C. § 1225 (b)(1)(A)(ii)–(iii). Members of the Bond Hearing Class\nare in the latter group, and do not include arriving aliens.\n6\nThe law has long recognized a distinction between the process due\nto aliens arriving at our borders and to those who have already entered the\ncountry. See, e.g., Zadvydas v. D"", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""arriving alien""}, {""evidence"": ""nformed\nthe Supreme Court that, with respect to duration of detention, “the\n\f20 PADILLA V. ICE\n\nstatistics did not include the “many” cases where a noncitizen\nwas never subject to mandatory detention under the statute\nbecause his or her removal proceedings were completed while\nhe or she served time for the underlying conviction. Id. at\n529.\n\nHere, in contrast, the government p"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""tecting the public and in ensuring that non-citizens in\nremoval proceedings appear for hearings, any detention\nincidental to removal must ‘bear[ ] [a] reasonable relation to\n[its] purpose.’” Hernandez, 872 F.3d at 990 (quoting\nZadvydas, 533 U.S. at 690 ).\n\n“[G]iven the substantial liberty interests at stake,” Singh,\n638 F.3d at 1200 , courts have repeatedly affirme"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""pro_se"", ""evidence"": ""s from successfully\nfiling and litigating habeas petitions. The district court had\nbefore it declarations testifying to the fact that noncitizens\nsuch as plaintiffs are frequently pro se, have limited English\nskills, and lack familiarity with the legal system, and that\nimmigration detention centers have inadequate law libraries.\n\nThus, on this record, we cannot sa""}, ""reasoning_basis"": {""textual_analysis"": [""seeking admission"", ""dictionary"", ""superfluous""], ""statutory_history"": [""h.r. rep.""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""arriving alien"", ""jennings""]}}",pro_se,t,f,"FOR PUBLICATION
+
+UNITED STATES COURT OF APPEALS
+FOR THE NINTH CIRCUIT
+
+YOLANY PADILLA; IBIS GUZMAN; No. 19-35565
+BLANCA ORANTES; BALTAZAR
+VASQUEZ, D.C. No.
+Plaintiffs-Appellees, 2:18-cv-00928-
+MJP
+v.
+
+IMMIGRATION AND CUSTOMS OPINION
+ENFORCEMENT; U.S. DEPARTMENT
+OF HOMELAND SECURITY; U.S.
+CUSTOMS AND BORDER
+PROTECTION; UNITED STATES
+CITIZENSHIP AND IMMIGRATION
+SERVICES; MATTHEW ALBENCE,
+Acting Director of ICE; CHAD
+WOLF, Acting Secretary of DHS;
+MARK MORGAN, Acting
+Commissioner of CBP; KEN
+CUCCINELLI, Senior Official
+Performing the Duties of the
+Director of USCIS; MARC J. MOORE,
+Seattle Field Office Director, ICE;
+EXECUTIVE OFFICE FOR
+IMMIGRATION REVIEW; WILLIAM P.
+BARR, Attorney General, United
+States Attorney General; LOWELL
+CLARK, Warden of the Northwest
+Detention Center in Tacoma,
+Washington; CHARLES INGRAM,
+2 PADILLA V. ICE
+
+Warden of the Federal Detention
+Center in SeaTac, Washington;
+DAVID SHINN, Warden; JAMES
+JANECKA, Warden of the Adelanto
+Detention Facility,
+Defendants-Appellants,
+
+and
+
+U.S. DEPARTMENT OF HEALTH &
+HUMAN SERVICES, FKA Department
+of Social Services; OFFICE OF
+REFUGEE RESETTLEMENT; ALEX M.
+AZAR II, Secretary of HHS; SCOTT
+LLOYD, Director of ORR; MATTHEW
+ALBENCE, Acting Deputy Director of
+ICE; JOHN P. SANDERS, Acting
+Commissioner of CBP; ELIZABETH
+GODFREY, Acting Director of Seattle
+Field Office, ICE,
+Defendants.
+
+Appeal from the United States District Court
+for the Western District of Washington
+Marsha J. Pechman, District Judge, Presiding
+
+Argued and Submitted October 22, 2019
+San Francisco, California
+
+Filed March 27, 2020
+ PADILLA V. ICE 3
+
+Before: Sidney R. Thomas, Chief Judge, and Michael Daly
+Hawkins and Bridget S. Bade, Circuit Judges.
+
+Opinion by Chief Judge Thomas;
+Dissent by Judge Bade
+
+SUMMARY*
+
+Immigration
+
+Affirming in part, and vacating and remanding in part, the
+district court’s preliminary injunction ordering the United
+States to provide bond hearings to a class of noncitizens who
+were detained and found to have a credible fear of
+persecution, the panel affirmed the injunction insofar as it
+concluded that plaintiffs have a due process right to bond
+hearings, but remanded for further findings and
+reconsideration with respect to the particular process due to
+plaintiffs.
+
+The district court certified a nationwide class of all
+detained asylum seekers who were subject to expedited
+removal proceedings, were found to have a credible fear of
+persecution, but were not provided a bond hearing with a
+record of hearing within seven days of requesting a hearing.
+Part A of the district court’s modified preliminary injunction
+provided: 1) bond hearings must take place within seven days
+of a class member’s request, or the member must be released;
+2) the burden of proof is on the government to show why the
+
+*
+This summary constitutes no part of the opinion of the court. It has
+been prepared by court staff for the convenience of the reader.
+4 PADILLA V. ICE
+
+member should not be released; and 3) the government must
+produce recordings or verbatim transcripts of the hearings, as
+well as written decisions. Part B concluded that the class is
+constitutionally entitled to bond hearings. A motions panel
+of this court previously denied the government’s request to
+stay Part B, but granted the stay as to Part A.
+
+The panel concluded that the district court did not abuse
+its discretion in concluding that plaintiffs were likely to
+prevail on their due process claim, explaining that
+immigration detention violates the Due Process Clause unless
+a special justification outweighs the constitutionally protected
+interest in avoiding physical restraint. The panel also
+concluded that the district court did not abuse its discretion in
+finding that other processes—seeking parole from detention
+or filing habeas petitions—were insufficient to satisfy due
+process. The panel further rejected the government’s
+suggestion that noncitizens lack any rights under the Due
+Process Clause, observing the general rule that once a person
+is standing on U.S. soil—regardless of the legality of
+entry—he or she is entitled to due process.
+
+The panel next concluded that the district court did not
+abuse its discretion in its irreparable harm analysis, noting
+substandard physical conditions and medical care in
+detention, lack of access to attorneys and evidence, separation
+from family, and re-traumatization. The panel also concluded
+that the district court did not abuse its discretion in finding
+that the balance of the equities and public interest favors
+plaintiffs, explaining that the district court weighed:
+1) plaintiffs’ deprivation of a fundamental constitutional right
+and its attendant harms; 2) the fact that it is always in the
+public interest to prevent constitutional violations; and 3) the
+ PADILLA V. ICE 5
+
+government’s interest in the efficient administration of
+immigration law.
+
+As to Part A of the injunction, the panel concluded that
+the record was insufficient to support the requirement of
+hearings within seven days, and that the district court made
+insufficient findings as to the burdens that Part A may impose
+on immigration courts. The panel also noted that the number
+of individuals in expedited removal proceedings may have
+dramatically increased since the entry of the injunction.
+Thus, the panel remanded to the district court for further
+factual development of the preliminary injunction factors as
+to Part A.
+
+The panel also rejected the government’s argument that
+the district court lacked authority to grant injunction relief
+under 8 U.S.C. § 1252 (f)(1), which provides: “no court (other
+than the Supreme Court) shall have jurisdiction or authority
+to enjoin or restrain the operation of the provisions of
+[8 U.S.C. §§ 1221–1232], other than with respect to the
+application of such provisions to an individual alien against
+whom proceedings under such part have been initiated.”
+Examining the relevant precedent, statutory scheme, and
+legislative history, the panel concluded that here, where the
+clas"
+15,Padilla v. U.S. Immigration & Customs Enforcement,"District Court, W.D. Washington",Pechman,2019-07-02,0.5900000000000001,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": ""granted"", ""applicable_provision"": ""1225"", ""applicable_subprovision"": ""1225(b)(1)(B)(ii)""}","{""textual_analysis"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_history"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""statutory scheme"", ""arriving alien"", ""jennings""], ""score"": 3, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""le for bond upon transfer and that Matter of X-K , in which the BIA had ruled that such aliens were entitled to bond hearings under § 1225(b) of the Immigration and Nationality Act (\""INA\""), \""was wrongly decided.\"" 27 I. & N. Dec. at 510 . The AG found that aliens classified as \""en"", ""1226"": ""two reasons: First, the INA gives Defendants the right to revoke a bond order at any time on the basis of \""changed circumstances.\"" 8 U.S.C. § 1226 (b). The Government submits a declaration from the Deputy Assistant Director of ICE's Office of Enforcement and Removal Operations (E"", ""granted"": ""deral courts will not read a statute to restrict their power to grant habeas relief unless Congress specifically and explicitly revokes the authority granted under the federal habeas statute ( 28 U.S.C. § 2241 ) by name. This approach is endorsed by the Ninth Circuit: in Rodrigue"", ""bond hearing"": ""FFIRMS its previously-entered injunctive relief requiring Defendant Executive Office for Immigration Review to:\n\n1. Conduct bond hearings within seven days of a bond hearing request by a class member, and release any class member whose detention time exceeds that limit;\n*1223 2. "", ""bond_status_signal"": ""32 , 1437 (9th Cir. 1983) ).\n\nDefendants also caution the Court against creating a \"" Jennings subset\"" - what they characterize as an \""exception\"" to the Jennings holding that detention is statutorily required under § 1225. But Jennings made no finding regarding the constitutionality of § 1225 and the case does not stand for the proposition that indefinite mandatory detention while awai"", ""mandatory detention"": ""ongly decided.\"" 27 I. & N. Dec. at 510 . The AG found that aliens classified as \""entering without inspection\"" (\""EWI\"") were subject to mandatory detention without bond following a successful credible fear determination and could be released only upon being paroled for \""urgent huma"", ""habeas_relief_signal"": ""t (Dkt. No. 140);\nall attached declarations and exhibits; and relevant portions of the record, and having heard oral argument on the motions, rules as follows:\n\nIT IS ORDERED that the injunction entered by this Court on April 5, 2019 is MODIFIED as follows:\n\nPART A : The Court AFFIRMS its previously-entered injunctive relief requiring Defendant Executive Office for Immigration Review to:\n\n1. Conduct bond hearings within s""}, ""location_flags"": {""border_hits"": [""at the border"", ""arriving in the united states""], ""interior_hits"": [""non-arriving alien"", ""non-arriving aliens"", ""within the territorial boundaries""]}, ""phrase_signals"": [{""evidence"": ""d 940 (1999).\n\nPlaintiffs respond by citing to Califano v. Yamasaki , 442 U.S. 682 , 99 S.Ct. 2545 , 61 L.Ed.2d 176 (1979), where the Supreme Court found (in regard to a different statutory scheme) that language authorizing a suit by \""[any] individual\"" did not foreclose the availability of classwide relief. The Califano Court ruled that \""[w]here the district court has juris"", ""phrase_key"": ""statutory_scheme_structure"", ""matched_alias"": ""statutory scheme""}, {""evidence"": "" prohibition against indefinite civil detention with no opportunity to test its necessity. The Ninth Circuit has expressed \""grave doubts that any statute that allows for arbitrary prolonged detention without any process is constitutional.\"" Rodriguez v. Marin , 909 F.3d 252 , 256 (9th Cir. 2018).\n\nThe Government points to cases like Zadvydas and Demore v. Hyung Joon Kim , 538 U"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""prolonged detention""}, {""evidence"": "" purposes are being served.\n\nc. The Government's interest\n\nTo demonstrate their interest, Defendants cite their commitment to \""the efficient administration of the immigration laws at the border.\"" (Dkt. No. 139, Defendants' Response at 24.) The Court has already indicated its disinclination to \""exalt expense over fundamental rights to liberty\""\n\n*1231 (PI Order at 15), quo"", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""at the border""}, {""evidence"": ""migration and Nationality Act (\""INA\""), \""was wrongly decided.\"" 27 I. & N. Dec. at 510 . The AG found that aliens classified as \""entering without inspection\"" (\""EWI\"") were subject to mandatory detention without bond following a successful credible fear determination and could be released only upon being paroled for \""urgent humanitarian reasons or significant public benefit\"" under"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""urt is guided by the reasoning of the Supreme Court in Jennings , which noted (in finding jurisdiction to consider challenges to the detention process under § 1225 ):\n\nFor present purposes, it is enough to note that respondents are not asking for review of an order of removal; they are not challenging the decision to detain them in the first place or to seek remova"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""unknown"", ""evidence"": null}, ""reasoning_basis"": {""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""statutory scheme"", ""arriving alien"", ""jennings""]}}",unknown,f,t,"Marsha J. Pechman, United States Senior District Judge
+The above-entitled Court, having received and reviewed:
+
+1. Defendants' Motion to Vacate the Court's Preliminary Injunction Order (Dkt. No. 114), Plaintiffs' Response in Opposition (Dkt. No. 126), and Defendants' Reply in Support (Dkt. No. 128);
+2. Plaintiffs' Motion for Modification of the Existing Preliminary Injunction (Dkt. No. 131), Defendants' Response in Opposition (Dkt. No. 139), and Plaintiffs' Reply in Support (Dkt. No. 140);
+all attached declarations and exhibits; and relevant portions of the record, and having heard oral argument on the motions, rules as follows:
+
+IT IS ORDERED that the injunction entered by this Court on April 5, 2019 is MODIFIED as follows:
+
+PART A : The Court AFFIRMS its previously-entered injunctive relief requiring Defendant Executive Office for Immigration Review to:
+
+1. Conduct bond hearings within seven days of a bond hearing request by a class member, and release any class member whose detention time exceeds that limit;
+*1223 2. Place the burden of proof on Defendant Department of Homeland Security in those bond hearings to demonstrate why the class member should not be released on bond, parole, or other conditions;
+3. Record the bond hearing and produce the recording or verbatim transcript of the hearing upon appeal; and
+4. Produce a written decision with particularized determinations of individualized findings at the conclusion of the bond hearing.
+PART B : The Court MODIFIES the injunction to find that the statutory prohibition at Immigration and Nationality Act § 235(b)(1)(B)(ii) against releasing on bond persons found to have a credible fear of persecution if returned to their country and awaiting a determination of their asylum application violates the U.S. Constitution; the Bond Hearing Class is constitutionally entitled to a bond hearing (under the conditions enumerated above) pending resolution of their asylum applications.
+
+IT IS FURTHER ORDERED that the injunction as modified will go into effect 14 days from the date of this order.
+
+Summary
+
+On March 16, 2019, this Court certified a Bond Hearing Class consisting of immigrants who have entered the United States without inspection, requested asylum, and who the Government has determined have a credible fear of persecution if they return home. The Court ruled, if the members of this class are given a bond hearing, it must comply with the Due Process Clause. An injunction ordering the Defendants to do so has already issued.
+
+The first decision was based, not only on the Court's analysis of the constitutional due process owed to these class members, but also on 50 years of statutory and case law supporting the right of persons detained for non-criminal reasons to be released upon posting bond. Shortly after that injunction was issued, the Attorney General published a decision announcing that immigrants in removal proceedings awaiting the determination of their application for asylum must be detained for the duration of that process, subject to release only under a highly-limited ""parole"" system adjudicated solely by immigration officials. In the wake of that decision, the Government moved to vacate the previously-entered injunction.
+
+It is the finding of this Court that it is unconstitutional to deny these class members a bond hearing while they await a final determination of their asylum request.
+
+Procedural Background
+
+On April 5, 2019, this Court entered an Order Granting Preliminary Injunction (Dkt. No. 110) requiring Defendant Executive Office for Immigration Review to:
+
+1. Conduct bond hearings within seven days of a bond hearing request by a class member, and release any class member whose detention time exceeds that limit;
+2. Place the burden of proof on Defendant Department of Homeland Security in those bond hearings to demonstrate why the class member should not be released on bond, parole, or other conditions;
+3. Record the bond hearing and produce the recording or verbatim transcript of the hearing upon appeal; and
+4. Produce a written decision with particularized determinations of individualized findings at the conclusion of the bond hearing.
+Compliance with the injunction was to be effected no later than May 5, 2019. Id. at 2.
+
+*1224 On April 16, 2019, the Attorney General (""AG"") issued a decision in Matter of M-S , 27 I. & N. Dec. 509 (A.G. 2019) overruling a 2005 Board of Immigration Appeals (""BIA"") determination in Matter of X-K , 23 I. & N. Dec. 731 (BIA 2005) which had been cited in the preliminary injunction order. On the basis of the AG's ruling, the parties (1) agreed to stay the enforcement of the preliminary injunction until May 31, 2019 (Dkt. No. 113) and (2) filed the cross-motions which are the subject of this order. Additionally, Plaintiffs filed a Third Amended Complaint (""TAC"") incorporating challenges to the AG's decision in Matter of M-S (Dkt. No. 130), and Defendants moved to dismiss it. (Dkt. No. 136.)
+
+In Matter of M-S , the AG determined that aliens who are originally placed in expedited removal proceedings and then transferred to full removal proceedings after establishing a credible fear do not become eligible for bond upon transfer and that Matter of X-K , in which the BIA had ruled that such aliens were entitled to bond hearings under § 1225(b) of the Immigration and Nationality Act (""INA""), ""was wrongly decided."" 27 I. & N. Dec. at 510 . The AG found that aliens classified as ""entering without inspection"" (""EWI"") were subject to mandatory detention without bond following a successful credible fear determination and could be released only upon being paroled for ""urgent humanitarian reasons or significant public benefit"" under 8 U.S.C. § 1182 (d)(5)(A). Id. at 516 .
+
+Discussion
+
+District courts possess the discretionary authority to ""modify or revoke an injunction as changed circumstances may indicate."" Lapin v. Shulton, Inc. , 333 F.2d 169 , 170 (9th Cir. 1964). ""[S]ound judicial discretion may call f"
+21,Tuser E. v. Rodriguez,"District Court, D. New Jersey",Vazquez,2019-02-25,0.5900000000000001,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": ""denied"", ""applicable_provision"": ""1225"", ""applicable_subprovision"": ""1225(b)(2)(A)""}","{""textual_analysis"": {""hits"": [""seeking admission"", ""applicants for admission""], ""score"": 2, ""present"": true}, ""statutory_history"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""arriving alien"", ""jennings""], ""score"": 2, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": ""e Government argues that Petitioner's § 2241 Petition should be denied because DHS \""has lawfully detained Petitioner under 8 U.S.C. § 1225 (b)(2), which dictates that if an arriving alien seeking admission is determined not to be clearly and beyond a doubt entitled to be admitted"", ""1226"": ""ing.\""). The Court will accordingly \""order a bond hearing, governed by the procedures provided to aliens in discretionary detention under 8 U.S.C. § 1226 (a).\"" Mancia-Salazar , 2017 WL 2985392 , at *4 ; see also Diop , 656 F.3d at 235 (\""Should the length of [the petitioner's] dete"", ""denied"": ""op v. ICE/Homeland Security , 656 F.3d 221 , 232 (3d Cir. 2011) ).) The Government argues that Petitioner's § 2241 Petition should be denied because DHS \""has lawfully detained Petitioner under 8 U.S.C. § 1225 (b)(2), which dictates that if an arriving alien seeking admission is d"", ""bond hearing"": "" (ECF No. 1.) For the reasons stated herein, the Court will grant his petition and order the immigration court to hold a bond hearing.\n\nII. BACKGROUND\n\nPetitioner is a native and citizen of Bangladesh. ( See ECF No. 7-1 at PageID: 59.) Petitioner was previously admitted to the Un"", ""bond_status_signal"": ""'s appeal to the BIA remains pending. ( See id. )\n\nOn the same day Petitioner filed his BIA appeal, i.e. , August 6, 2018, DHS notified Petitioner that he was being considered for release on parole. (ECF No. 7-2 at PageID: 124.) On or about August 31, 2018, DHS informed Petitioner that he would not be paroled. ( Id. at PageID: 128.)\n\nPetitioner filed his habeas corpus petition on or about March 28, 2018 (hereinafter, the \"" § 2241 Petition\""). (ECF No. 1.) Respondent (hereinafter the \""Government\"") filed its answer to the § 2241 Petition on August 23, 2018. (ECF No. 6.) Petitioner filed a reply on or about September 19, 2018. (ECF No. 7.)\n\n*440 III. LEGAL STANDARD\n\nHabeas relief may be extended to an immigration detainee who \""is in custody in violation of the Constitution or laws or treaties of the United States.\"" 28 U.S.C. § 2241 (c)(3) ; see also Maleng v. Cook , 490 U.S. 488 , 490, 109 S.Ct. 1923 , 104 L.Ed.2d 540 (1989). The Court has jurisdiction in this habeas matter because: (i) Petitioner is currently detained within this Court's jurisdiction by a custodian within its jurisdiction; and (ii) Petitioner, by way of his § 2241 Petition, claims that his continued detention violates due process. See Spencer v. Kemna , 523 U.S. 1 , 7, 118 S.Ct. 978 , 140 L.Ed.2d 43 (1998) ; Braden v. 30th Judicial Circuit Court , 410 U.S. 484 , 494-95, 500, 93 S.Ct. 1123 , 35 L.Ed.2d 443 (1973) ; see also Zadvydas v. Davis , 533 U.S. 678 , 699, 121 S.Ct. 2491 , 150 L.Ed.2d 653 (2001).\n\nIV. ANALYSIS\n\nA. The Parties' Habeas Arguments\n\nPetitioner contends that his ongoing detention violates his right to due process. ( See , generally , ECF No. 7.) Petitioner requests that the Court order a bond hearing in which DHS bears the burden of demonstrating that Petitioner's continued detention is appropriate. ( Id. at PageID: 44 (citing Diop v. ICE/Homeland Security , 656 F.3d 221 , 232 (3d Cir. 2011) ).) The Government argues that Petitioner's § 2241 Petition should be denied because DHS \""has lawfully detained Petitioner under 8 U.S.C. § 1225 (b)(2), which dictates that if an arriving alien seeking admission is determined not to be clearly and beyond a doubt entitled to be admitted, the alien [must] be detained throughout the period in which he pursues his claim for relief from removal.\"" (ECF No. 6 at PageID: 14 (citing Jennings v. Rodriguez , --- U.S. ----, 138 S.Ct. 830 , 838, 200 L.Ed.2d 122 (2018) ).) The Court agrees that Petitioner is being detained pursuant to 8 U.S.C. § 1225 (b). This determination frames the Court's analysis.\n\nB. The Statutory Framework Governing Arriving Aliens, Including Petitioner\n\nAn arriving alien, like Petitioner, who attempts to enter the United States at a designated point of entry (such as an airport) is inspected by an immigration officer upon arrival. See Clark v. Martinez , 543 U.S. 371 , 373, 125 S.Ct. 716 , 160 L.Ed.2d 734 (2005) (citing 8 U.S.C. § 1225 (a)(3) ). Unless that arriving alien is \""clearly and beyond a doubt entitled to be admitted,\"" he will undergo removal proceedings to determine admissibility. See id. (quoting 8 U.S.C. § 1225 (b)(2)(A) ); see also Castro v. United States Dep't of Homeland Sec. , 835 F.3d 422 , 425-26 (3d Cir. 2016) (aliens \""arriving in the United States\"" are subject to expedited removal if an immigration officer determines they are inadmissible due to a lack of immigration papers) (citing 8 U.S.C. § 1225 (b)(1)(A)(i) & (iii) ).\n\nIf an alien who arrives without immigration papers indicates to his inspecting immigration officer that he fears prosecution or torture if returned to his country, that officer \""shall refer the alien for an interview by an asylum officer\"" to determine if the alien \""has a credible fear of persecution [or torture].\"" 8 U.S.C. § 1225 (b)(1)(A)(ii) & (B)(ii) ; 8 C.F.R. § 208.30 (d). \""[I]f the interviewing asylum officer [subsequently] ... concludes that the alien possesses a credible fear of persecution or torture, the alien is referred for non-expedited removal proceedings under 8 U.S.C. § 1229a, 'during which time the alien may file an application for asylum and withholding of removal.' \"" Castro , 835 F.3d at 426 n.4 (quoting 8 C.F.R. § 1208.30 (g)(2)(iv)(B) ).\n\n*441 The foregoing procedures were utilized when Petitioner applied for admission to the United States on July 25, 2017. Petitioner's flight disembarked at JFK on July 25th, at which time Petitioner was denied admission because he lacked appropriate immigration papers. ( See ECF No. 6 at PageID: 22.) In addition, the record shows that (i) an asylum officer found that Petitioner demonstrated a credible fear of persecution or torture in his home country; (ii) Petitioner subsequently underwent formal removal proceedings before an IJ during which he raised formal asylum-related claims; (iii) the IJ denied those asylum-related claims and ordered Petitioner's removal to Bangladesh; and (iv) that Petitioner's appeal of the IJ's decision is now pending before the BIA. ( See id. at PageID: 15, 22; ECF No. 7 at PageID: 59.) These facts demonstrate that Petitioner is now detained pursuant to 8 U.S.C. § 1225 (b)(2). See id. at § 1225(b)(2)(A) (\""if the examining immigration officer determines that [an arriving alien] is not clearly and beyond a doubt entitled to be admitted, the alien shall be detained for [removal] proceeding[s].\"").\n\nC. There Is No Statutory Basis To Order Petitioner's Release Or A Bond Hearing\n\nThe statute governing Petitioner's present detention states that arriving aliens \"" shall be detained for [removal] proceeding[s.]\"" See 8 U.S.C. § 1225 (b)(2)(A) (emphasis added). On February 27, 2018, the United States Supreme Court issued its decision in Jennings v. Rodriguez , --- U.S. ----, 138 S.Ct. 830 , 200 L.Ed.2d 122 . Jennings , holds, inter alia , that the language within § 1225(b)\""mandate[s] detention of applicants for admission until [removal proceedings] have concluded.\"" Id. at 842 . \""Once these proceedings end, detention under § 1225(b) must end as well. Until that point [however], nothing in the statutory text imposes any limit on the length of detention.\"" Id. ; see also Mancia-Salazar v. Green , No. 17-147, 2017 WL 2985392 , at *2 (D.N.J. July 13, 2017) (the statutory language of \"" § 1225(b)(2)(A) essentially requires mandatory detention for aliens.\""). Jennings precludes this Court from reading an implicit time limitation on the permissible length of detention under 8 U.S.C. § 1225 (b) ; instead, § 1225(b)'s plain language authorizes Petitioner's mandatory detention \""until [his removal proceedings] have concluded.\"" See Jennings , 138 S.Ct. at 842 -44 .\n\nAliens detained pursuant to § 1225(b) likewise have no statutory right to a bond hearing. Mancia-Salazar , 2017 WL 2985392 , at *2 (citations omitted); see also 8 C.F.R. § 1003.19 (h)(2)(i)(B) ; accord Jennings , 138 S.Ct. at 842 (\""neither § 1225(b)(1) nor § 1225(b)(2) says anything whatsoever about bond hearings.\""). Indeed, the only statutory parole relief available to § 1225(b) detainees is set forth in 8 U.S.C. § 1182 (d)(5)(A) ; that provision authorizes the Attorney General, through DHS, to parole such detainees into the United States if \""urgent humanitarian reasons or significant public benefit\"" so warrant. See 8 U.S.C. § 1182 (d)(5)(A) ; accord Mancia-Salazar , 2017 WL 2985392 , at *2 ; see also Jennings , 138 S.Ct. at 844 (this \""express exception to detention implies that there are no other circumstances under which aliens detained under § 1225(b) may be released.\""). There is accordingly no statutory language within or related to § 1225(b) that authorizes this Court to order Petitioner's outright release or a bond hearing.\n\nD. Petitioner May Nonetheless Be Entitled to Habeas Relief\n\nJennings precludes the Court from granting habeas relief to Petitioner *442 based on the statutory language within 8 U.S.C. § 1225 (b) ; Jennings does not, however, prevent the Court from awarding habeas relief where Petitioner's detention has become so unduly prolonged that it renders § 1225(b) unconstitutional as applied to him. Indeed, post- Jennings it remains true (1) that \""detention which is so unreasonable as to amount to an arbitrary deprivation of liberty cannot comport with the requirements of the Due Process Clause\""; (2) the \""constitutionality of detention ... without a bond hearing is a function of the length of the detention and the constitutional case for continued detention without inquiry into its necessity becomes more and more suspect as detention continues\""; and (3) \""at a certain point ... the burden to an alien's liberty outweighs the Government's interest in detention without bond[.]\"" Dryden v. Green , 321 F.Supp.3d 496 , 502 (D.N.J. 2018) (citing, inter alia, Chavez-Alvarez v. Warden York County Prison , 783 F.3d 469 , 474-75 (3d Cir. 2015) ; Diop , 656 F.3d at 232-234 ) (internal citations omitted). Accordingly, Petitioner will be entitled to habeas relief if \""his ongoing detention is so "", ""mandatory detention"": ""zar v. Green , No. 17-147, 2017 WL 2985392 , at *2 (D.N.J. July 13, 2017) (the statutory language of \"" § 1225(b)(2)(A) essentially requires mandatory detention for aliens.\""). Jennings precludes this Court from reading an implicit time limitation on the permissible length of deten"", ""habeas_relief_signal"": ""ontinued detention is appropriate. ( Id. at PageID: 44 (citing Diop v. ICE/Homeland Security , 656 F.3d 221 , 232 (3d Cir. 2011) ).) The Government argues that Petitioner's § 2241 Petition should be denied because DHS \""has lawfully detained Petitioner under 8 U.S.C. § 1225 (b)(2), which dictates that if an arriving alien seeking admission is determined not to be clearly and beyond a""}, ""location_flags"": {""border_hits"": [""at the border"", ""arriving alien"", ""port of entry"", ""arriving in the united states"", ""applicants for admission""], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": "" detained within this Court's jurisdiction by a custodian within its jurisdiction; and (ii) Petitioner, by way of his § 2241 Petition, claims that his continued detention violates due process. See Spencer v. Kemna , 523 U.S. 1 , 7, 118 S.Ct. 978 , 140 L.Ed.2d 43 (1998) ; Braden v. 30th Judicial Circuit Court , 410 U.S. 484 , 494-95, 500, 93 S.Ct. 1123 , 35 L.Ed.2d 443 "", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""due process""}, {""evidence"": "" ).) The Government argues that Petitioner's § 2241 Petition should be denied because DHS \""has lawfully detained Petitioner under 8 U.S.C. § 1225 (b)(2), which dictates that if an arriving alien seeking admission is determined not to be clearly and beyond a doubt entitled to be admitted, the alien [must] be detained throughout the period in which he pursues his claim for "", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""arriving alien""}, {""evidence"": ""f detention.\"" Id. ; see also Mancia-Salazar v. Green , No. 17-147, 2017 WL 2985392 , at *2 (D.N.J. July 13, 2017) (the statutory language of \"" § 1225(b)(2)(A) essentially requires mandatory detention for aliens.\""). Jennings precludes this Court from reading an implicit time limitation on the permissible length of detention under 8 U.S.C. § 1225 (b) ; instead, § 1225(b)'s plain"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""zed work from May 2014 through June 2017. ( see ECF No. 7-1 at PageID: 59), neither party has expressly confirmed that fact. That said, these additional details are immaterial for purposes of resolving Petitioner's current habeas claims."", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""unknown"", ""evidence"": null}, ""reasoning_basis"": {""textual_analysis"": [""seeking admission"", ""applicants for admission""], ""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""arriving alien"", ""jennings""]}}",unknown,t,f,"VAZQUEZ, District Judge:
+I. INTRODUCTION
+
+Petitioner Tuser E. 1 has submitted a petition for a writ of habeas corpus pursuant to 28 U.S.C. § 2241 challenging his prolonged immigration detention. (ECF No. 1.) For the reasons stated herein, the Court will grant his petition and order the immigration court to hold a bond hearing.
+
+II. BACKGROUND
+
+Petitioner is a native and citizen of Bangladesh. ( See ECF No. 7-1 at PageID: 59.) Petitioner was previously admitted to the United States as a non-immigrant student on September 6, 2013. 2 Petitioner appears to have continuously remained in the United States from that time until July 9, 2017, when he left this country. ( See id. ) It is clear that Petitioner's legal authorization to remain in the United States was revoked, lapsed, or otherwise expired on or before July 9, 2017. 3 ( Id. ) It is also clear that Petitioner's authorization was never thereafter reinstated, i.e. , at no point after *439 July 9, 2017 was Petitioner authorized to enter or remain in the United States.
+
+On July 25, 2017, approximately two weeks after Petitioner departed from this country on July 9, 2017, Petitioner returned to the United States on a flight which disembarked at John F. Kennedy International Airport (""JFK""). ( See ECF No. 6 at PageID: 22.) Upon his arrival at JFK, Petitioner applied for re-admission to the United States. ( Id. ) Instead of being admitted, Petitioner was taken into custody by the United States Department of Homeland Security (""DHS""). Petitioner has been detained at the Elizabeth Detention Center in Elizabeth, New Jersey ever since.
+
+On July 31, 2017, DHS served Petitioner with a Notice to Appear informing him, among other things, that he was facing removal from the United States pursuant to 8 U.S.C. § 1182 (a)(7)(A)(i)(I) as an immigrant who was not in possession of a valid entry document at the time he applied for admission on July 25, 2017. ( Id. ) Between August 2017 and May 2018, Petitioner attended numerous hearings in immigration court concerning his removability. ( See, generally , Burgus Decl., ECF No. 6 at PageID: 29-31.) At an October 12, 2017 hearing, Petitioner filed an application seeking relief from removal. ( Id. at ¶ 8 .) The immigration court originally scheduled a hearing on that application for November 9, 2017. ( Id. at ¶¶ 8-18 .) That hearing was adjourned and carried numerous times at that request of DHS, who consistently advised the immigration court that it needed additional time to obtain Petitioner's records and complete its investigation. ( Id. ) The immigration court also adjourned and continued the hearing several times sua sponte . ( Id. ) All told, the immigration court and DHS were responsible for five months of hearing adjournments between November 9, 2017 and May 22, 2018, when the immigration court completed all necessary proceedings related to Petitioner's application for relief from removal. ( Id. )
+
+Thereafter, on or about July 9, 2018, the immigration court ordered Petitioner removed to Bangladesh. ( See Aug. 23, 2018 Medina Decl. ¶ 7, ECF No. 6 at PageID: 27.) Petitioner has appended a portion of the Immigration Judge's (""IJ's"") written decision to his reply. (ECF No. 7-1 at PageID: 58-59.) The appended partial copy of the IJ's decision indicates that during an October 3, 2017 hearing, Petitioner acknowledged that he did not have a valid entry document when he applied for admission to the United States on July 25, 2017. ( Id. at PageID: 59.) In other words, Petitioner conceded his removability to the immigration court. ( Id. ) In addition, the IJ found that Petitioner was not entitled to asylum or withholding of removal under the Immigration and Nationality Act, nor was he entitled to protection under the Convention Against Torture. ( Id. )
+
+Petitioner appealed the IJ's rulings to the Board of Immigration Appeals (""BIA"") on August 6, 2018. ( See Medina Decl. ¶ 8, ECF No. 6 at PageID: 27.) Petitioner's appeal to the BIA remains pending. ( See id. )
+
+On the same day Petitioner filed his BIA appeal, i.e. , August 6, 2018, DHS notified Petitioner that he was being considered for release on parole. (ECF No. 7-2 at PageID: 124.) On or about August 31, 2018, DHS informed Petitioner that he would not be paroled. ( Id. at PageID: 128.)
+
+Petitioner filed his habeas corpus petition on or about March 28, 2018 (hereinafter, the "" § 2241 Petition""). (ECF No. 1.) Respondent (hereinafter the ""Government"") filed its answer to the § 2241 Petition on August 23, 2018. (ECF No. 6.) Petitioner filed a reply on or about September 19, 2018. (ECF No. 7.)
+
+*440 III. LEGAL STANDARD
+
+Habeas relief may be extended to an immigration detainee who ""is in custody in violation of the Constitution or laws or treaties of the United States."" 28 U.S.C. § 2241 (c)(3) ; see also Maleng v. Cook , 490 U.S. 488 , 490, 109 S.Ct. 1923 , 104 L.Ed.2d 540 (1989). The Court has jurisdiction in this habeas matter because: (i) Petitioner is currently detained within this Court's jurisdiction by a custodian within its jurisdiction; and (ii) Petitioner, by way of his § 2241 Petition, claims that his continued detention violates due process. See Spencer v. Kemna , 523 U.S. 1 , 7, 118 S.Ct. 978 , 140 L.Ed.2d 43 (1998) ; Braden v. 30th Judicial Circuit Court , 410 U.S. 484 , 494-95, 500, 93 S.Ct. 1123 , 35 L.Ed.2d 443 (1973) ; see also Zadvydas v. Davis , 533 U.S. 678 , 699, 121 S.Ct. 2491 , 150 L.Ed.2d 653 (2001).
+
+IV. ANALYSIS
+
+A. The Parties' Habeas Arguments
+
+Petitioner contends that his ongoing detention violates his right to due process. ( See , generally , ECF No. 7.) Petitioner requests that the Court order a bond hearing in which DHS bears the burden of demonstrating that Petitioner's continued detention is appropriate. ( Id. at PageID: 44 (citing Diop v. ICE/Homeland Security , 656 F.3d 221 , 232 (3d Cir. 2011) ).) The Government argues that Petitioner's § 2241 Petition should be denied because DHS ""has lawfully detained Petitioner under 8 U.S.C. §"
+22,Kouadio v. Decker,"District Court, S.D. Illinois",Hellerstein,2018-12-27,0.4,needs_review,"{""bond_status"": ""eligible"", ""habeas_relief"": null, ""applicable_provision"": ""1225"", ""applicable_subprovision"": null}","{""textual_analysis"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_history"": {""hits"": [], ""score"": 0, ""present"": false}, ""statutory_purpose"": {""hits"": [""purpose"", ""deter""], ""score"": 2, ""present"": true}, ""structure_context"": {""hits"": [""arriving alien"", ""jennings""], ""score"": 2, ""present"": true}, ""historical_practice"": {""hits"": [], ""score"": 0, ""present"": false}}","{""holdings"": {""1225"": "" ECF No. 13, ¶ 12. He expressed an intent to seek asylum, which entitled him to a credible-fear interview under 8 U.S.C. § 1225 (b)(1)(B). Pet. ¶¶ 12-13. At the conclusion of that interview, on March 14, 2016, a U.S. Citizenship and Immigration Services asylum officer found that "", ""1226"": ""moval provisions of the INA that apply to the detention of aliens seeking to enter or remain in the United States, 8 U.S.C. §§ 1225 (b), 1226(a), (c), do not require periodic bond hearings. The Court remanded the case to the Ninth Circuit for it to consider whether the Due Proces"", ""denied"": ""82 (a)(7)(A)(i)(I), and commencing removal proceedings against him. Pet. ¶ 14. ICE interviewed Petitioner and, on April 11, denied his parole request and ordered him detained, stating that he had failed to establish that he was not a flight risk and that he was not a danger to th"", ""granted"": ""ed to change venue to New York in order to have better access to an interpreter and to his family. Pet. ¶ 19. The motion was granted on October 25. Opp. at 4. By that *237 time, Petitioner had been detained for eight months.\n\nAt Petitioner's first hearing at the Varick Street Imm"", ""bond hearing"": ""ing from his lack of a prior criminal history. Yet, Petitioner has suffered 34 months of detention without an opportunity for a bond hearing while waiting for a final decision on his petition for asylum.\n\nb. Treaty Obligations and Implementing Legislation\n\nThe United States' proc"", ""bond_status_signal"": ""eriodic bond hearings. The Court remanded the case to the Ninth Circuit for it to consider whether the Due Process Clause constitutionally requires bond hearings for several categories of aliens, including non-resident aliens arriving at the U.S. border and detained pending resolution of their asylum claims pursuant to 8 U.S.C. § 1225 (b). 1 138 S.Ct. at 851 . Jennings also vacated a"", ""mandatory detention"": ""ve Branch. See I.N.S. v. Cardoza-Fonseca , 480 U.S. 421 , 441, 107 S.Ct. 1207 , 94 L.Ed.2d 434 (1987).\n\nc. Statutory Framework for Mandatory Detention\n\nAccording to statute, arriving aliens seeking asylum are subject to mandatory detention during the pendency of their application""}, ""location_flags"": {""border_hits"": [""at the border"", ""arriving alien""], ""interior_hits"": []}, ""phrase_signals"": [{""evidence"": ""present writing, while his petition for asylum remains pending. He petitions for habeas corpus, claiming that his indefinite detention without an opportunity for bail violates the Due Process Clause of the Fifth Amendment. I grant the petition, holding that Petitioner's continued detention without a bond bearing violates his due process rights as an arriving non-reside"", ""phrase_key"": ""due_process_bond_hearing"", ""matched_alias"": ""due process""}, {""evidence"": "" based on his political opinions. Pet. ¶ 13.\n\nOn March 17, 2016, Immigration and Customs Enforcement (\""ICE\"") served Petitioner with a Notice to Appear charging him as a removable \""arriving alien\"" under the Immigration and Nationality Act (\""INA\""), 8 U.S.C. § 1182 (a)(7)(A)(i)(I), and commencing removal proceedings against him. Pet. ¶ 14. ICE interviewed Petitioner and, on "", ""phrase_key"": ""arriving_alien_border"", ""matched_alias"": ""arriving alien""}, {""evidence"": ""onary grants of asylum to refugees by the Executive Branch. See I.N.S. v. Cardoza-Fonseca , 480 U.S. 421 , 441, 107 S.Ct. 1207 , 94 L.Ed.2d 434 (1987).\n\nc. Statutory Framework for Mandatory Detention\n\nAccording to statute, arriving aliens seeking asylum are subject to mandatory detention during the pendency of their applications for asylum. 8 U.S.C. § 1225 (b)(1)(B)(ii) (\""If t"", ""phrase_key"": ""mandatory_detention_no_bond"", ""matched_alias"": ""mandatory detention""}, {""evidence"": ""etention without a bond bearing violates his due process rights as an arriving non-resident alien, limited as those rights are.\n\nI. Background\n\na. Immigration Proceedings\n\nFor the purposes of this opinion, I accept as true the facts alleged in the First Amended Petition. On February 21, 2016, Petitioner was detained at the El Paso, Texas border crossing. First Amen"", ""phrase_key"": ""deterrence_statutory_purpose"", ""matched_alias"": ""purpose""}], ""representation"": {""status"": ""unknown"", ""evidence"": null}, ""reasoning_basis"": {""statutory_purpose"": [""purpose"", ""deter""], ""structure_context"": [""arriving alien"", ""jennings""]}}",unknown,t,f,"ALVIN K. HELLERSTEIN, U.S.D.J.:
+Petitioner Adou Kouadio (""Petitioner""), a citizen of Ivory Coast seeking asylum in the United States, was taken into custody at the U.S. border on February 21, 2016. He has been detained ever since-approximately 34 months at present writing, while his petition for asylum remains pending. He petitions for habeas corpus, claiming that his indefinite detention without an opportunity for bail violates the Due Process Clause of the Fifth Amendment. I grant the petition, holding that Petitioner's continued detention without a bond bearing violates his due process rights as an arriving non-resident alien, limited as those rights are.
+
+I. Background
+
+a. Immigration Proceedings
+
+For the purposes of this opinion, I accept as true the facts alleged in the First Amended Petition. On February 21, 2016, Petitioner was detained at the El Paso, Texas border crossing. First Amended Petition (""Pet.""), ECF No. 13, ¶ 12. He expressed an intent to seek asylum, which entitled him to a credible-fear interview under 8 U.S.C. § 1225 (b)(1)(B). Pet. ¶¶ 12-13. At the conclusion of that interview, on March 14, 2016, a U.S. Citizenship and Immigration Services asylum officer found that Petitioner had demonstrated a credible fear of persecution in Ivory Coast based on his political opinions. Pet. ¶ 13.
+
+On March 17, 2016, Immigration and Customs Enforcement (""ICE"") served Petitioner with a Notice to Appear charging him as a removable ""arriving alien"" under the Immigration and Nationality Act (""INA""), 8 U.S.C. § 1182 (a)(7)(A)(i)(I), and commencing removal proceedings against him. Pet. ¶ 14. ICE interviewed Petitioner and, on April 11, denied his parole request and ordered him detained, stating that he had failed to establish that he was not a flight risk and that he was not a danger to the community or the United States' security. Government's Opposition Memorandum (""Opp.""), ECF No. 17, at 6; see also 8 U.S.C. § 1182 (d)(5)(A).
+
+Petitioner's removal proceedings in Texas were subject to repeated delays. Petitioner appeared before an immigration judge (""IJ"") on May 3, 2016, Pet. ¶ 15, and, again, on May 20 with counsel. Pet. ¶ 16. The government failed to engage a Twi language interpreter, so his case was adjourned to July 6, 2016. Pet. ¶ 16. On July 6, Petitioner submitted his application for asylum and a merits hearing was scheduled for August 24. Pet. ¶ 17. The absence of an interpreter caused Petitioner's merits hearing to be delayed twice more, first on August 24 and again on September 28. Pet. ¶¶ 18-19. Petitioner then moved to change venue to New York in order to have better access to an interpreter and to his family. Pet. ¶ 19. The motion was granted on October 25. Opp. at 4. By that *237 time, Petitioner had been detained for eight months.
+
+At Petitioner's first hearing at the Varick Street Immigration Court in New York City, on November 29, 2016, Petitioner's case was adjourned to December 5 to allow Petitioner to secure new counsel in New York. Pet. ¶ 20. Petitioner's December 5 hearing was adjourned after ICE failed to produce Petitioner. Pet. ¶ 21. Petitioner appeared with counsel on January 12, 2017, at which time the IJ scheduled Petitioner's merits hearing for April 11, 2017. Pet. ¶ 22. Petitioner's counsel requested and obtained adjournment of the April 11 hearing date to April 26. Opp. at 4. Petitioner's merits hearing began on April 26 and was continued to May 12 to allow more time for the presentation of additional evidence. Pet. ¶ 23. On May 19, 2017, an IJ denied Petitioner's application and ordered his removal to Ivory Coast. Pet. ¶ 25. He then had been detained for 15 months.
+
+Petitioner timely appealed the decision to the Board of Immigration Appeals, which dismissed his appeal on October 13, 2017. Pet. ¶ 26. On November 13, 2017, Petitioner filed a petition for review with the Second Circuit. Pet. ¶ 27. The Second Circuit ordered his removal stayed on September 21, 2018, Pet. ¶ 28, and his appeal remains pending. On October 13, 2018, Petitioner filed an amended petition for habeas corpus pursuant to 28 U.S.C. § 2241 , asking this court to grant immediate release or, in the alternative, a hearing at which the government must demonstrate why his continued detention is justified (ECF No. 13).
+
+Petitioner has a clean record, never having been arrested or convicted. Petitioner's First Reply Memorandum of Law, ECF No. 20, at 19. There is little risk of flight, since he seeks asylum within the United States, and little risk of danger to the community, judging from his lack of a prior criminal history. Yet, Petitioner has suffered 34 months of detention without an opportunity for a bond hearing while waiting for a final decision on his petition for asylum.
+
+b. Treaty Obligations and Implementing Legislation
+
+The United States' processes for handling asylum applications are rooted in its treaty obligations and implementing statutes. In 1968, the United States acceded to the 1967 United Nations Protocol Relating to the Status of Refugees, which ""incorporates by reference Articles 2 through 34 of the United Nations Convention Relating to the Status of Refugees."" I.N.S. v. Aguirre-Aguirre , 526 U.S. 415 , 427, 119 S.Ct. 1439 , 143 L.Ed.2d 590 (1999). Article 34 of the Convention provides that ""[t]he Contracting States shall as far as possible facilitate the assimilation and naturalization of refugees"" and ""make every effort to expedite naturalization proceedings and to reduce as far as possible the charges and costs of such proceedings."" 189 U.N.T.S. 150 (July 28, 1951). Congress implemented the principles of Article 34 in amendments to the Immigration and Nationality Act (""INA""), particularly the 1980 Refugee Act, by providing a framework for discretionary grants of asylum to refugees by the Executive Branch. See I.N.S. v. Cardoza-Fonseca , 480 U.S. 421 , 441, 107 S.Ct. 1207 , 94 L.Ed.2d 434 (1987).
+
+c. Statutory Framework for Mandatory Detention
+
+According to statute, arr"

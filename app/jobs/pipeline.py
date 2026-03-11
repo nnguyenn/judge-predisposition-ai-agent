@@ -69,46 +69,47 @@ def _apply_extraction_to_case(db: Session, case: CaseRecord) -> tuple[CaseExtrac
 
         return ext, ("created" if is_new else "updated")
     except Exception:
-        return None, "error"
+        raise
 
 
-def batch_extract_unprocessed_cases(db: Session, limit: int | None = None) -> dict[str, Any]:
-    """
-    Auto-extracts cases that do not yet have an extraction.
-    """
-    if limit is None:
-        limit = settings.extraction_batch_limit
-
-    stmt = (
-        select(CaseRecord)
+def batch_extract_unprocessed_cases(db: Session, limit: int = 50) -> dict:
+    rows = (
+        db.query(CaseRecord)
         .outerjoin(CaseExtraction, CaseExtraction.case_id == CaseRecord.id)
-        .where(CaseExtraction.id.is_(None))
-        .where(
-            or_(
-                CaseRecord.opinion_text.is_not(None),
-                CaseRecord.text_excerpt.is_not(None),
-            )
-        )
-        .order_by(CaseRecord.decision_date.desc().nullslast(), CaseRecord.id.desc())
+        .filter(CaseExtraction.case_id.is_(None))
+        .order_by(CaseRecord.id.asc())
         .limit(limit)
+        .all()
     )
-    cases = db.execute(stmt).scalars().all()
 
     stats = {
-        "selected": len(cases),
+        "selected": len(rows),
         "created": 0,
         "updated": 0,
         "skipped_no_text": 0,
         "skipped_no_full_text": 0,
         "error": 0,
         "case_ids": [],
+        "errors": [],
     }
 
-    for case in cases:
-        _, status = _apply_extraction_to_case(db, case)
-        stats[status] = stats.get(status, 0) + 1
-        if status in {"created", "updated"}:
-            stats["case_ids"].append(case.id)
+    for case in rows:
+        try:
+            ext, status = _apply_extraction_to_case(db, case)
+            stats[status] = stats.get(status, 0) + 1
+            if ext is not None:
+                stats["case_ids"].append(case.id)
+        except Exception as e:
+            db.rollback()
+            stats["error"] += 1
+            stats["errors"].append(
+                {
+                    "case_id": case.id,
+                    "case_caption": case.case_caption,
+                    "error_type": type(e).__name__,
+                    "error": str(e),
+                }
+            )
 
     db.commit()
     return stats
