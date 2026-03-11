@@ -319,15 +319,86 @@ def _first_regex_match(text: str, patterns: list[str]):
             return m
     return None
 
+def _opening_and_closing_text(text: str) -> str:
+    if not isinstance(text, str):
+        return ""
+    return (text[:4000] or "") + "\n\n" + (text[-2500:] or "")
 
-def _extract_representation_status(text: str) -> tuple[str | None, str | None]:
-    pro_se_match = _first_regex_match(text, PRO_SE_PATTERNS)
-    if pro_se_match:
-        return "pro_se", _window(text, pro_se_match.start(), pro_se_match.end())
+
+def _first_prefer_priority_match(priority_text: str, full_text: str, patterns: list[str]):
+    m = _first_match(priority_text, patterns)
+    if m:
+        return m
+    return _first_match(full_text, patterns)
+
+def _span_text(text: str, match, radius: int = 220) -> str:
+    if not match:
+        return ""
+    return _window(text, match.start(), match.end(), radius=radius)
+
+
+def _looks_like_prior_or_appellate_context(span: str) -> bool:
+    s = (span or "").lower()
+    appellate_markers = [
+        "district court had granted",
+        "district court had denied",
+        "previously granted",
+        "previously denied",
+        "the lower court",
+        "on appeal",
+        "we reverse",
+        "we vacate",
+        "we remand",
+        "reversed the district court",
+        "vacated the district court",
+        "remanded to the district court",
+        "judgment granting the habeas petition",
+        "judgment denying the habeas petition",
+    ]
+    return any(marker in s for marker in appellate_markers)
+
+
+def _looks_like_current_grant_context(span: str) -> bool:
+    s = (span or "").lower()
+    current_markers = [
+        "i grant the petition",
+        "the court will grant",
+        "the court grants",
+        "petition is granted",
+        "grant the writ",
+        "grant his petition",
+        "grant her petition",
+        "grant their petition",
+        "grant the petition and order",
+        "order the immigration court to hold a bond hearing",
+        "order respondent to provide a bond hearing",
+        "constitutionally entitled to a bond hearing",
+        "entitled to a bond hearing",
+        "injunctive relief",
+        "it is ordered",
+        "the court orders",
+    ]
+    return any(marker in s for marker in current_markers)
+
+
+def _looks_like_current_deny_context(span: str) -> bool:
+    s = (span or "").lower()
+    current_markers = [
+        "the court denies",
+        "petition is denied",
+        "habeas petition is denied",
+        "petition for writ of habeas corpus is denied",
+        "deny the petition",
+    ]
+    return any(marker in s for marker in current_markers)
+
+
+def _looks_like_represented_case(text: str) -> tuple[bool, str | None]:
+    scope = _opening_and_closing_text(text)
 
     represented_patterns = REPRESENTED_PATTERNS + [
         r"\bcounsel for petitioners?\b",
-        r"\bcounsel for plaintiff\b",
+        r"\bcounsel for plaintiff[s]?\b",
         r"\bpetitioner[s]?, through counsel\b",
         r"\bthrough his counsel\b",
         r"\bthrough her counsel\b",
@@ -335,16 +406,30 @@ def _extract_representation_status(text: str) -> tuple[str | None, str | None]:
         r"\battorneys? for petitioners?\b",
         r"\bappeared through counsel\b",
         r"\bby and through counsel\b",
+        r"\bplaintiffs?-appellees?\b",
+        r"\bdefendants?-appellants?\b",
+        r"\bamic[iu]s?\b",
+        r"\battorney[s]?\s+for\s+petitioner[s]?\b",
+        r"\battorney[s]?\s+for\s+plaintiff[s]?\b",
     ]
-    represented_match = _first_regex_match(text, represented_patterns)
-    if represented_match:
-        return "represented", _window(text, represented_match.start(), represented_match.end())
 
-    # Attorney caption / signature block heuristic
-    signature_block = text[:3000] + "\n" + text[-2500:]
-    if re.search(r"\bAttorney[s]?\s+for\s+Petitioner[s]?\b", signature_block, re.IGNORECASE):
-        m = re.search(r"\bAttorney[s]?\s+for\s+Petitioner[s]?\b", signature_block, re.IGNORECASE)
-        return "represented", _window(signature_block, m.start(), m.end())
+    m = _first_regex_match(scope, represented_patterns)
+    if m:
+        return True, _window(scope, m.start(), m.end())
+
+    return False, None
+
+def _extract_representation_status(text: str) -> tuple[str | None, str | None]:
+    represented, represented_evidence = _looks_like_represented_case(text)
+    if represented:
+        return "represented", represented_evidence
+
+    # Only trust pro se when it appears in the opening/closing portions,
+    # not anywhere in the middle of a long opinion where it may be quoted background.
+    scope = _opening_and_closing_text(text)
+    pro_se_match = _first_regex_match(scope, PRO_SE_PATTERNS)
+    if pro_se_match:
+        return "pro_se", _window(scope, pro_se_match.start(), pro_se_match.end())
 
     return "unknown", None
 
@@ -432,7 +517,6 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
                 r"credible fear",
             ],
         )
-
         score_1226 += 3 * _operative_language_score(
             text,
             [
@@ -444,7 +528,6 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
             ],
         )
 
-        # Strong tie-breakers
         if re.search(r"\bnon-arriving alien\b|\bwithin the territorial boundaries\b|\bonce inside the united states\b", text, re.IGNORECASE):
             score_1226 += 1
         if re.search(r"\bcredible fear\b|\bapplicants? for admission\b|\b235\(b\)\b", text, re.IGNORECASE):
@@ -459,16 +542,16 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
         elif "§ 1226" in text or " 1226 " in t:
             provision = "1226"
 
-        # Only infer subprovision if it appears more than once or in priority text
         if provision == "1225":
             if _count_matches(ptext, [r"§?\s*1225\(b\)\(1\)\(b\)\(ii\)", r"§?\s*235\(b\)\(1\)\(b\)\(ii\)"]) or _count_matches(text, [r"§?\s*1225\(b\)\(1\)\(b\)\(ii\)", r"§?\s*235\(b\)\(1\)\(b\)\(ii\)"]) >= 2:
                 subprovision = "1225(b)(1)(B)(ii)"
             elif _count_matches(ptext, [r"§?\s*1225\(b\)\(2\)\(a\)"]) or _count_matches(text, [r"§?\s*1225\(b\)\(2\)\(a\)"]) >= 2:
                 subprovision = "1225(b)(2)(A)"
         elif provision == "1226":
-            if _count_matches(ptext, [r"§?\s*1226\(a\)"]) >= 1 or _count_matches(text, [r"§?\s*1226\(a\)"]) >= 2:
+            # tighter than before: only assign subsection when it is explicit enough
+            if _count_matches(ptext, [r"§?\s*1226\(a\)"]) >= 1 or _count_matches(text, explicit_1226a) >= 1 or _count_matches(text, [r"§?\s*1226\(a\)"]) >= 2:
                 subprovision = "1226(a)"
-            elif _count_matches(ptext, [r"§?\s*1226\(c\)"]) >= 1 or _count_matches(text, [r"§?\s*1226\(c\)"]) >= 2:
+            elif _count_matches(ptext, [r"§?\s*1226\(c\)"]) >= 1 or _count_matches(text, explicit_1226c) >= 1 or _count_matches(text, [r"§?\s*1226\(c\)"]) >= 2:
                 subprovision = "1226(c)"
 
     # ---------------------------
@@ -483,7 +566,8 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
         r"bond\s+hearing\s+is\s+required",
         r"conduct\s+bond\s+hearings",
         r"constitutionally\s+entitled\s+to\s+a\s+bond\s+hearing",
-        r"release.*bond\s+hearing",
+        r"order(?:ed)?\s+.*bond hearing",
+        r"grant(?:s|ed)?\s+.*bond hearing",
     ]
     bond_negative_patterns = [
         r"(not\s+eligible|ineligible)\s+for\s+a\s+bond\s+hearing",
@@ -496,8 +580,8 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     pos_score = _weighted_pattern_score(ptext, text, bond_positive_patterns)
     neg_score = _weighted_pattern_score(ptext, text, bond_negative_patterns)
 
-    m_bond_pos = _first_match(ptext, bond_positive_patterns) or _first_match(text, bond_positive_patterns)
-    m_bond_neg = _first_match(ptext, bond_negative_patterns) or _first_match(text, bond_negative_patterns)
+    m_bond_pos = _first_prefer_priority_match(ptext, text, bond_positive_patterns)
+    m_bond_neg = _first_prefer_priority_match(ptext, text, bond_negative_patterns)
 
     if pos_score > neg_score and m_bond_pos:
         bond = "eligible"
@@ -513,48 +597,56 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
     non_merits_disposition = None
 
     partial_patterns = [
-        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
-        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,140}\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
+        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,160}\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
+        r"(habeas\s+petition|petition\s+for\s+writ\s+of\s+habeas\s+corpus|petition|writ)[^.]{0,160}\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
         r"\bgranted\s+in\s+part\s+and\s+denied\s+in\s+part\b",
         r"\bdenied\s+in\s+part\s+and\s+granted\s+in\s+part\b",
     ]
 
     grant_patterns = [
-        r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?granted\b",
-        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?granted\b",
-        r"\bhabeas\s+relief\b[^.]{0,140}\b(is\s+)?granted\b",
-        r"\bthe\s+court\s+grants\s+the\s+(habeas\s+)?petition\b",
-        r"\bpetition\b[^.]{0,140}\bgranted\b",
-        r"\bthe\s+injunction\b[^.]{0,140}\b(is\s+)?modified\b",
-        r"\bthe\s+court\s+affirms\s+its\s+previously-entered\s+injunctive\s+relief\b",
+        r"\bi grant (?:the|his|her|their)?\s*petition\b",
+        r"\bthe court will grant (?:the|his|her|their)?\s*petition\b",
+        r"\bthe court grants? (?:the|his|her|their)?\s*(?:habeas\s+)?petition\b",
+        r"\bgrant(?:s|ed)?\s+the\s+petition\s+and\s+order(?:s|ed)?\b",
+        r"\bgrant(?:s|ed)?\s+the\s+writ\b",
+        r"\bhabeas\s+petition\b[^.]{0,180}\b(is\s+)?granted\b",
+        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,180}\b(is\s+)?granted\b",
+        r"\bhabeas\s+relief\b[^.]{0,160}\b(is\s+)?granted\b",
         r"\bconstitutionally\s+entitled\s+to\s+a\s+bond\s+hearing\b",
+        r"\bthe\s+court\s+affirms\s+its\s+previously-entered\s+injunctive\s+relief\b",
+        r"\bthe\s+injunction\b[^.]{0,160}\b(is\s+)?modified\b",
+        r"\border(?:s|ed)?\s+.*bond hearing\b",
     ]
     deny_patterns = [
-        r"\bhabeas\s+petition\b[^.]{0,160}\b(is\s+)?denied\b",
-        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,160}\b(is\s+)?denied\b",
-        r"\bhabeas\s+relief\b[^.]{0,120}\b(is\s+)?denied\b",
-        r"\bthe\s+court\s+denies\s+the\s+(habeas\s+)?petition\b",
-        r"\bpetition\b[^.]{0,140}\bdenied\b",
+        r"\bthe court denies? (?:the|his|her|their)?\s*(?:habeas\s+)?petition\b",
+        r"\bhabeas\s+petition\b[^.]{0,180}\b(is\s+)?denied\b",
+        r"\bpetition\s+for\s+writ\s+of\s+habeas\s+corpus\b[^.]{0,180}\b(is\s+)?denied\b",
+        r"\bhabeas\s+relief\b[^.]{0,140}\b(is\s+)?denied\b",
+        r"\bpetition\b[^.]{0,160}\bdenied\b",
+        r"\breverse(?:d|s)?\s+the\s+district\s+court(?:'s)?\s+judgment\b[^.]{0,180}\bgrant(?:ed|ing)\s+the\s+habeas\s+petition\b",
+        r"\bvacate(?:d|s)?\s+the\s+judgment\b[^.]{0,180}\bgrant(?:ed|ing)\s+the\s+habeas\s+petition\b",
     ]
     moot_patterns = [
-        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\s+as\s+moot\b",
+        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,180}\bdismissed\s+as\s+moot\b",
         r"\bdismissed\s+as\s+moot\b",
+        r"\bclaims?\s+are\s+moot\b",
     ]
     dismissed_patterns = [
-        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,160}\bdismissed\b",
+        r"\b(habeas\s+petition|petition|writ)\b[^.]{0,180}\bdismissed\b",
     ]
     false_positive_motion_patterns = [
-        r"\bmotion\s+to\s+dismiss\b[^.]{0,120}\bgranted\b",
-        r"\brespondent'?s\s+motion\b[^.]{0,120}\bgranted\b",
-        r"\bmotion\s+for\s+summary\s+judgment\b[^.]{0,120}\bgranted\b",
+        r"\bmotion\s+to\s+dismiss\b[^.]{0,140}\bgranted\b",
+        r"\brespondent'?s\s+motion\b[^.]{0,140}\bgranted\b",
+        r"\bmotion\s+for\s+summary\s+judgment\b[^.]{0,140}\bgranted\b",
+        r"\bmotion\s+to\s+vacate\b[^.]{0,140}\bgranted\b",
     ]
 
-    m_partial = _first_match(ptext, partial_patterns) or _first_match(text, partial_patterns)
-    m_grant = _first_match(ptext, grant_patterns) or _first_match(text, grant_patterns)
-    m_deny = _first_match(ptext, deny_patterns) or _first_match(text, deny_patterns)
-    m_moot = _first_match(ptext, moot_patterns) or _first_match(text, moot_patterns)
-    m_dismissed = _first_match(ptext, dismissed_patterns) or _first_match(text, dismissed_patterns)
-    m_false_motion = _first_match(ptext, false_positive_motion_patterns) or _first_match(text, false_positive_motion_patterns)
+    m_partial = _first_prefer_priority_match(ptext, text, partial_patterns)
+    m_grant = _first_prefer_priority_match(ptext, text, grant_patterns)
+    m_deny = _first_prefer_priority_match(ptext, text, deny_patterns)
+    m_moot = _first_prefer_priority_match(ptext, text, moot_patterns)
+    m_dismissed = _first_prefer_priority_match(ptext, text, dismissed_patterns)
+    m_false_motion = _first_prefer_priority_match(ptext, text, false_positive_motion_patterns)
 
     if m_partial:
         raw_span = m_partial.group(0).lower()
@@ -562,15 +654,39 @@ def _extract_holdings(text: str) -> tuple[dict, dict]:
             habeas_relief = "granted_in_part_and_denied_in_part"
         evidence["habeas_relief_signal"] = _window(text, m_partial.start(), m_partial.end())
     else:
+        grant_span = _span_text(text, m_grant)
+        deny_span = _span_text(text, m_deny)
+
+        grant_is_current = _looks_like_current_grant_context(grant_span)
+        grant_is_prior_or_appellate = _looks_like_prior_or_appellate_context(grant_span)
+
+        deny_is_current = _looks_like_current_deny_context(deny_span)
+        deny_is_prior_or_appellate = _looks_like_prior_or_appellate_context(deny_span)
+
         if m_grant:
-            span = _window(text, m_grant.start(), m_grant.end())
-            if not (m_false_motion and abs(m_false_motion.start() - m_grant.start()) < 120):
-                habeas_relief = "granted"
-                evidence["habeas_relief_signal"] = span
+            if not (m_false_motion and abs(m_false_motion.start() - m_grant.start()) < 140):
+                # Explicit current-case grant language should win even if the opinion also references prior proceedings.
+                if grant_is_current:
+                    habeas_relief = "granted"
+                    evidence["habeas_relief_signal"] = grant_span
+                # Only suppress generic grant language when it is clearly prior/appellate.
+                elif not grant_is_prior_or_appellate and not m_deny:
+                    habeas_relief = "granted"
+                    evidence["habeas_relief_signal"] = grant_span
 
         if habeas_relief is None and m_deny:
-            habeas_relief = "denied"
-            evidence["habeas_relief_signal"] = _window(text, m_deny.start(), m_deny.end())
+            # Explicit current-case deny language wins.
+            if deny_is_current:
+                habeas_relief = "denied"
+                evidence["habeas_relief_signal"] = deny_span
+            # Appellate reversal/vacatur of granted relief should count as denied.
+            elif re.search(r"\breverse(?:d|s)?\b|\bvacate(?:d|s)?\b", deny_span, re.IGNORECASE):
+                habeas_relief = "denied"
+                evidence["habeas_relief_signal"] = deny_span
+            # Generic deny language only if it is not clearly prior/appellate.
+            elif not deny_is_prior_or_appellate:
+                habeas_relief = "denied"
+                evidence["habeas_relief_signal"] = deny_span
 
     if habeas_relief is None:
         if m_moot:
